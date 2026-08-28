@@ -41,9 +41,16 @@ import hotstone.framework.*;
  */
 
 public class StandardHotStoneGame implements Game {
+
+  private boolean changedTurn = false;
+
   @Override
   public Player getPlayerInTurn() {
-    return Player.FINDUS;
+    if (!changedTurn) {
+      return Player.FINDUS;
+    } else {
+      return Player.PEDDERSEN;
+    }
   } // Fake-it
 
   @Override
@@ -106,7 +113,9 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
-  public void endTurn() { }
+  public void endTurn() {
+    changedTurn = true;
+  }
 
   @Override
   public Status playCard(Player who, hotstone.framework.Card card, int atIndex) {

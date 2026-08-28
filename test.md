@@ -1,5 +1,5 @@
 [OK] Given an initialized game, Then Findus is player in turn
-[] When Findus ends its turn, Then it is Peddersen in turn
+[OK] When Findus ends its turn, Then it is Peddersen in turn
 [OK] When game starts Then Findus should have three cards in hand.
 [OK] When game starts Then Findus should have Tres at index 0, Dos at index 1, and Uno at index 2.
 [] Given Card Dos Then it has attributes (2,2,2)
