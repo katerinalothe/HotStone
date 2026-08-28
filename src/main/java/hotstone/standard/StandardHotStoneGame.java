@@ -67,12 +67,21 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
-  public Card getCardInHand(Player who, int indexInHand) {
+  public StandardCard getCardInHand(Player who, int indexInHand) {
+    switch (indexInHand) {
+      case 0:
+        return new StandardCard(GameConstants.UNO_CARD);
+      case 1:
+        return new StandardCard(GameConstants.DOS_CARD);
+      case 2:
+        return new StandardCard(GameConstants.TRES_CARD);
+    }
     return null;
   }
 
+
   @Override
-  public Iterable<? extends Card> getHand(Player who) {
+  public Iterable<? extends StandardCard> getHand(Player who) {
     return null;
   }
 
@@ -82,12 +91,12 @@ public class StandardHotStoneGame implements Game {
   } // FAKE-IT
 
   @Override
-  public Card getCardInField(Player who, int indexInField) {
+  public StandardCard getCardInField(Player who, int indexInField) {
     return null;
   }
 
   @Override
-  public Iterable<? extends Card> getField(Player who) {
+  public Iterable<? extends StandardCard> getField(Player who) {
     return null;
   }
 
@@ -100,17 +109,17 @@ public class StandardHotStoneGame implements Game {
   public void endTurn() { }
 
   @Override
-  public Status playCard(Player who, Card card, int atIndex) {
+  public Status playCard(Player who, hotstone.framework.Card card, int atIndex) {
     return null;
   }
 
   @Override
-  public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
+  public Status attackCard(Player playerAttacking, hotstone.framework.Card attackingCard, hotstone.framework.Card defendingCard) {
     return null;
   }
 
   @Override
-  public Status attackHero(Player playerAttacking, Card attackingCard) {
+  public Status attackHero(Player playerAttacking, hotstone.framework.Card attackingCard) {
     return null;
   }
 

@@ -88,17 +88,23 @@ public class TestAlphaStone {
   // and pushing the rest of the cards 1 position
   // 'down'
   @Test
-  public void shouldHaveUnoDosTresCardsInitially() {
+  public void shouldHaveThreeCardsInitially() {
     // Given a game, Findus has 3 cards in hand
     int count = game.getHandSize(Player.FINDUS);
     assertThat(count, is(3));
+  }
+  @Test
+  public void shouldHaveUnoDosTresCardsInitially() {
+    // Given a game, Findus has 3 cards in hand
     // And these are ordered Tres, Dos, Uno in slot 0,1,2
-
     // When I pick card 0
-    Card card = game.getCardInHand(Player.FINDUS, 0);
-    // Then is it Tres
-    // ENABLE TO START TDD'ing
-    // assertThat(card.getName(), is(GameConstants.TRES_CARD));
+    Card cardUno = game.getCardInHand(Player.FINDUS, 0);
+    Card cardDos = game.getCardInHand(Player.FINDUS, 1);
+    Card cardTres = game.getCardInHand(Player.FINDUS, 2);
+    // Then is it Uno, Dos, Tres
+    assertThat(cardUno.getName(), is(GameConstants.UNO_CARD));
+    assertThat(cardDos.getName(), is(GameConstants.DOS_CARD));
+    assertThat(cardTres.getName(), is(GameConstants.TRES_CARD));
   }
 
   /** REMOVE ME. Not a test of HotStone, just an example of the
