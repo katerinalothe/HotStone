@@ -43,6 +43,7 @@ import hotstone.framework.*;
 public class StandardHotStoneGame implements Game {
 
   private boolean isPeddersenTurn = false;
+  private int turnNumber = 1;
 
   @Override
   public Player getPlayerInTurn() {
@@ -65,7 +66,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getTurnNumber() {
-    return 0;
+    return turnNumber;
   }
 
   @Override
@@ -115,6 +116,7 @@ public class StandardHotStoneGame implements Game {
   @Override
   public void endTurn() {
     isPeddersenTurn = !isPeddersenTurn;
+    turnNumber++;
   }
 
   @Override

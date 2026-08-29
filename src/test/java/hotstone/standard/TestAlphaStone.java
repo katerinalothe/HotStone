@@ -55,14 +55,29 @@ public class TestAlphaStone {
     game = new StandardHotStoneGame();
   }
 
-  // Example of an early, simple test case:
-  // Turn handling
+  @Test
+  public void shouldStartAtTurnOne() {
+      // Given a new game,
+      // Then the turn-counter should start at 1.
+      assertThat(game.getTurnNumber(), is(1));
+  }
+
+  @Test
+  public void shouldIncreaseTurnCounterWhenTurnEnds() {
+      // Given a current turn number X,
+      int turnNumber = game.getTurnNumber();
+      // When the turn ends,
+      game.endTurn();
+      // X should increase by 1.
+      assertThat(game.getTurnNumber(), is(turnNumber + 1));
+  }
+
   @Test
   public void shouldHaveFindusAsFirstPlayer() {
-    // Given a game
-    // When I ask for the player in turn
+    // Given a new game,
+    // When I ask for which player's turn it is,
     Player player = game.getPlayerInTurn();
-    // Then it should be Findus
+    // Then it should be Findus.
     assertThat(player, is(Player.FINDUS));
 
     // Later on, the 'printGameState' can be very handy during development
@@ -73,16 +88,15 @@ public class TestAlphaStone {
     // TestHelper.printGameState(game);
   }
 
-
   // Example of a later, more complex, test case:
-  // Card handling
+  // Card handling.
 
   // The HotStone specs are quite insisting on how
-  // the cards, drawn from the deck, are organized
+  // the cards are drawn from the deck and organized
   // in the hand. So when drawing the top three cards
   // from the deck (uno, dos, tres) they have to
   // be organized in the hand as
-  // index 0 = tres; index 1 = dos; index 2 = uno
+  // index 0 = tres; index 1 = dos; index 2 = uno.
   // That is, a newly drawn card is 'at the top'
   // of the hand - always entered at position 0
   // and pushing the rest of the cards 1 position
@@ -93,19 +107,20 @@ public class TestAlphaStone {
     int count = game.getHandSize(Player.FINDUS);
     assertThat(count, is(3));
   }
+
   @Test
   public void shouldHaveUnoDosTresCardsInitially() {
-    // Given a game, Findus has 3 cards in hand
-    // And these are ordered Tres, Dos, Uno in slot 0,1,2
-    // When I pick card 0
+    // Given a game, Findus has 3 cards in hand.
+    // When I check the cards in hand,
     Card cardUno = game.getCardInHand(Player.FINDUS, 0);
     Card cardDos = game.getCardInHand(Player.FINDUS, 1);
     Card cardTres = game.getCardInHand(Player.FINDUS, 2);
-    // Then is it Uno, Dos, Tres
+    // Then it should be Uno, Dos, Tres
     assertThat(cardUno.getName(), is(GameConstants.UNO_CARD));
     assertThat(cardDos.getName(), is(GameConstants.DOS_CARD));
     assertThat(cardTres.getName(), is(GameConstants.TRES_CARD));
   }
+
   @Test
   public void shouldBePeddersenTurnAfterFindusTurn() {
     // Given it's Findus' turn
@@ -141,5 +156,7 @@ public class TestAlphaStone {
     assertThat(cardDos.getHealth(), is(2));
     assertThat(cardDos.getAttack(), is(2));
   }
+
+
 
 }

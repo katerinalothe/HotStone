@@ -7,9 +7,9 @@
 [OK] Given Card Dos Then it has attributes (2,2,2)
 
 Tests for game functionality:
-[] Turn counter initializes to 1.
-[] Every time the turn changes, the turn counter increments by 1.
-[] Findus has the first turn.
+[OK] Turn counter initializes to 1.
+[OK] Every time the turn changes, the turn counter increments by 1.
+[OK] Findus has the first turn.
 [] Each player starts with a deck.
 [] The deck has 7 cards in the following order, from top to bottom: Uno, Dos, Tres, Cuatro, Cinco, Seis, Siete.
 [] When a player draws a card, it is taken from the top of their deck and removed from the deck.
