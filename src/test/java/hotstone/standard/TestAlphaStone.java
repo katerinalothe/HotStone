@@ -73,6 +73,26 @@ public class TestAlphaStone {
   }
 
   @Test
+  public void shouldStartFindusWithBabyHero() {
+      // Given a new game,
+      // When we check Findus' hero type,
+      hotstone.framework.Hero hero = game.getHero(Player.FINDUS);
+      // Then we should get "Baby".
+      assertThat(hero, notNullValue());
+      assertThat(hero.getType(), is("Baby"));
+  }
+
+  @Test
+  public void shouldStartPeddersenWithBabyHero() {
+      // Given a new game,
+      // When we check Peddersen's hero type,
+      hotstone.framework.Hero hero = game.getHero(Player.PEDDERSEN);
+      // Then we should get "Baby".
+      assertThat(hero, notNullValue());
+      assertThat(hero.getType(), is("Baby"));
+  }
+
+  @Test
   public void shouldHaveFindusAsFirstPlayer() {
     // Given a new game,
     // When I ask for which player's turn it is,

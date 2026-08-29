@@ -20,8 +20,8 @@ Tests for game functionality:
 [] When a player plays a card, it is removed from their hand.
 [] Game starts with players Findus, Peddersen.
 [] When two players join game, one is selected as Findus and the other as Peddersen.
-[] There is one hero type: Baby.
-[] Each player has a hero.
+[OK] There is one hero type: Baby.
+[OK] Each player has a hero.
 [] Hero health decreases every time its attacked by an opponent player.
 [] When hero health <= 0, the hero is defeated.
 [] When Findus' hero is defeated, Peddersen wins.

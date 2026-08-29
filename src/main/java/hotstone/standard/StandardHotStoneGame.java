@@ -56,7 +56,7 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Hero getHero(Player who) {
-    return null;
+    return new BabyHero();
   }
 
   @Override
