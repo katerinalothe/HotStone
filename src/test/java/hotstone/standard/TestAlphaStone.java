@@ -127,4 +127,5 @@ public class TestAlphaStone {
     assertThat(cardDos.getHealth(), is(2));
     assertThat(cardDos.getAttack(), is(2));
   }
+
 }

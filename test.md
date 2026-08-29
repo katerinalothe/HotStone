@@ -1,3 +1,4 @@
+
 [OK] Given an initialized game, Then Findus is player in turn
 [OK] When Findus ends its turn, Then it is Peddersen in turn
 [] When player starts, he has 10(?) health and 10(?) mana.
@@ -13,3 +14,9 @@
 [] When a hero plays, (?) he has one less card in hand.
 [] When Findus plays a card, Then Peddersen still has 3 cards in his hand.
 etc.
+
+Tests for game functionality:
+[] Turn counter initializes to 1.
+[] Every time the turn changes, the turn counter increments by 1.
+[] When a player draws a card, it is taken from the deck.
+[] When a player plays a card, it is removed from their hand.
