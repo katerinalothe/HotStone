@@ -107,7 +107,7 @@ public class TestAlphaStone {
     assertThat(cardTres.getName(), is(GameConstants.TRES_CARD));
   }
   @Test
-  public void shouldGoToPeddersenTurnAfterFindusTurn() {
+  public void shouldBePeddersenTurnAfterFindusTurn() {
     // Given it's Findus' turn
     Player player = game.getPlayerInTurn();
     assertThat(player, is(Player.FINDUS));
@@ -116,6 +116,20 @@ public class TestAlphaStone {
     // Then it should be Peddersen's turn
     player = game.getPlayerInTurn();
     assertThat(player, is(Player.PEDDERSEN));
+  }
+
+  @Test
+  public void shouldBeFindusTurnAfterPeddersenTurn() {
+      // Given it's Peddersen's turn
+      Player player = game.getPlayerInTurn();
+      if (player == Player.FINDUS) {
+          game.endTurn();
+      }
+      // When Peddersen's turn ends
+      game.endTurn();
+      // Then it should be Findus' turn
+      player = game.getPlayerInTurn();
+      assertThat(player, is(Player.FINDUS));
   }
 
   @Test

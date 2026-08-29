@@ -2,7 +2,7 @@
 [OK] Given an initialized game, Then Findus is player in turn
 [OK] When Findus ends its turn, Then it is Peddersen in turn
 [] When player starts, he has 10(?) health and 10(?) mana.
-[] When Peddersen ends turn, its Findus turn
+[OK] When Peddersen ends turn, its Findus turn
 [OK] When game starts Then Findus should have three cards in hand.
 [] When game starts Then Peddersen should have three(?) cards in hand(? check if this is true spec).
 [OK] When game starts Then Findus should have Tres at index 0, Dos at index 1, and Uno at index 2.
