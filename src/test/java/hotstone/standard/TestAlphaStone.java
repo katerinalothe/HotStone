@@ -118,6 +118,13 @@ public class TestAlphaStone {
     assertThat(player, is(Player.PEDDERSEN));
   }
 
-
-
+  @Test
+  public void cardDosHasAttributes222() {
+    // Given Card Dos
+    Card cardDos = new StandardCard(GameConstants.DOS_CARD);
+    // Then it has attributes (2,2,2)
+    assertThat(cardDos.getManaCost(), is(2));
+    assertThat(cardDos.getHealth(), is(2));
+    assertThat(cardDos.getAttack(), is(2));
+  }
 }
