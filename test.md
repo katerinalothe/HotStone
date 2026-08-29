@@ -1,22 +1,83 @@
 
 [OK] Given an initialized game, Then Findus is player in turn
 [OK] When Findus ends its turn, Then it is Peddersen in turn
-[] When player starts, he has 10(?) health and 10(?) mana.
 [OK] When Peddersen ends turn, its Findus turn
 [OK] When game starts Then Findus should have three cards in hand.
-[] When game starts Then Peddersen should have three(?) cards in hand(? check if this is true spec).
 [OK] When game starts Then Findus should have Tres at index 0, Dos at index 1, and Uno at index 2.
-[] When game starts Then Pedderson should have (?? dont know) Tres at index 0, Dos at index 1, and Uno at index 2.
 [OK] Given Card Dos Then it has attributes (2,2,2)
-[] Check rest of cards, make test for each card.
-[] Given a game When Findus plays Uno at index 0, Then it is allowed (Status.OK), and Then minion Uno appears at index 0 on the player's own field.
-[] When Peddersen plays Dos, Then the mana available is two less.
-[] When a hero plays, (?) he has one less card in hand.
-[] When Findus plays a card, Then Peddersen still has 3 cards in his hand.
-etc.
 
 Tests for game functionality:
 [] Turn counter initializes to 1.
 [] Every time the turn changes, the turn counter increments by 1.
-[] When a player draws a card, it is taken from the deck.
+[] Findus has the first turn.
+[] Each player starts with a deck.
+[] The deck has 7 cards in the following order, from top to bottom: Uno, Dos, Tres, Cuatro, Cinco, Seis, Siete.
+[] When a player draws a card, it is taken from the top of their deck and removed from the deck.
+[] When a player draws a card, it is added to the top of the hand stack.
+[] A player cannot draw if their deck is empty.
+[] If a player cannot draw, their hero takes 2 damage.
+[] A player draws 3 cards on their first turn, and 1 card on the following turns.
 [] When a player plays a card, it is removed from their hand.
+[] Game starts with players Findus, Peddersen.
+[] When two players join game, one is selected as Findus and the other as Peddersen.
+[] There is one hero type: Baby.
+[] Each player has a hero.
+[] Hero health decreases every time its attacked by an opponent player.
+[] When hero health <= 0, the hero is defeated.
+[] When Findus' hero is defeated, Peddersen wins.
+[] When Peddersen's hero is defeated, Findus' wins.
+[] Findus wins at the start of turn 8.
+[OK] Peddersen and Findus take turns.
+[] A player can only perform allowed actions on their turn.
+[] A player can end their turn at any time.
+[] The game starts with 3 mana crystals for each player.
+[] The Baby hero type's power is "Cute".
+[] The Baby hero type's power "Cute" costs 2 mana.
+[] The Baby hero type's power "Cute" does nothing.
+[] Hero power can only be used once per turn.
+[] At the beginning of the turn, the turn's player is given 1 mana.
+[] A player can only play a card if they have enough mana for the card's mana cost.
+[] When a player plays a card, the mana cost of the card is deducted from their mana.
+[] When a player plays a card, it enters the field.
+[] When a card enters the field, it occupies some position in the array of field positions.
+[] If a card tries to occupy an occupied position when entering the field, the existing cards are moved up.
+[] When a card enters the field, it invokes its Effect.
+[] A card can only attack when it is active.
+[] A card is inactive while it's in its owner's hand.
+[] A card becomes active at the beginning of its owner's turn, except for the turn it is played.
+[] When a card attacks, it becomes inactive.
+[] When a card attacks, it deals X damage to its target, where X is the card's attack power.
+[] A card can only attack the opponent hero.
+[] A card can only attack opponent cards on the field.
+[] When a card is dealt X damage points, it loses X health points.
+[] When a card attacks another card, it takes X damage, where X is the attack value of the target card.
+[] When a card's health <= 0, the card is defeated and removed from the game.
+
+Tests for hero type Baby:
+[] Health starts at 21.
+[] Power is called "Cute".
+[] Power costs 2 mana.
+[] Power does nothing.
+
+attribute format: (mana cost, attack, health)
+Tests for each card:
+-- Uno --
+[] Has attributes: (1,1,1)
+
+-- Dos --
+[] Has attributes: (2,2,2)
+
+-- Tres --
+[] Has attributes: (3,3,3)
+
+-- Cuatro --
+[] Has attributes: (2,3,1)
+
+-- Cinco --
+[] Has attributes: (3,5,1)
+
+-- Seis --
+[] Has attributes: (2,1,3)
+
+-- Siete --
+[] Has attributes: (3,2,4)
