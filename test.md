@@ -31,9 +31,6 @@ Tests for game functionality:
 [] A player can only perform allowed actions on their turn.
 [] A player can end their turn at any time.
 [] The game starts with 3 mana crystals for each player.
-[] The Baby hero type's power is "Cute".
-[] The Baby hero type's power "Cute" costs 2 mana.
-[] The Baby hero type's power "Cute" does nothing.
 [] Hero power can only be used once per turn.
 [] At the beginning of the turn, the turn's player is given 1 mana.
 [] A player can only play a card if they have enough mana for the card's mana cost.
@@ -54,7 +51,7 @@ Tests for game functionality:
 [] When a card's health <= 0, the card is defeated and removed from the game.
 
 Tests for hero type Baby:
-[] Health starts at 21.
+[OK] Health starts at 21.
 [] Power is called "Cute".
 [] Power costs 2 mana.
 [] Power does nothing.
@@ -62,10 +59,10 @@ Tests for hero type Baby:
 attribute format: (mana cost, attack, health)
 Tests for each card:
 -- Uno --
-[] Has attributes: (1,1,1)
+[OK] Has attributes: (1,1,1)
 
 -- Dos --
-[] Has attributes: (2,2,2)
+[OK] Has attributes: (2,2,2)
 
 -- Tres --
 [] Has attributes: (3,3,3)

@@ -5,9 +5,24 @@ import hotstone.framework.Player;
 public class StandardCard implements hotstone.framework.Card {
 
     private String name;
+    private int mana;
+    private int attack;
+    private int health;
 
     public StandardCard(String name) {
         this.name = name;
+        switch (name) {
+            case GameConstants.UNO_CARD:
+               mana = 1;
+               attack = 1;
+               health = 1;
+               break;
+            case GameConstants.DOS_CARD:
+                mana = 2;
+                attack = 2;
+                health = 2;
+                break;
+        }
     }
 
     @Override
@@ -17,17 +32,17 @@ public class StandardCard implements hotstone.framework.Card {
 
     @Override
     public int getManaCost() {
-        return 2;
+        return mana;
     }
 
     @Override
     public int getAttack() {
-        return 2;
+        return attack;
     }
 
     @Override
     public int getHealth() {
-        return 2;
+        return health;
     }
 
     @Override

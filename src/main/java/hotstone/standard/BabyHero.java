@@ -10,7 +10,7 @@ public class BabyHero implements hotstone.framework.Hero {
 
     @Override
     public int getHealth() {
-        return 0;
+        return 21;
     }
 
     @Override
