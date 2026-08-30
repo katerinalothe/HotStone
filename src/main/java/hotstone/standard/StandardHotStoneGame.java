@@ -18,6 +18,8 @@ package hotstone.standard;
 
 import hotstone.framework.*;
 
+import java.util.*;
+
 /** This is the 'temporary test stub' in TDD
  * terms: the initial empty but compilable implementation
  * of the game interface.
@@ -43,7 +45,25 @@ import hotstone.framework.*;
 public class StandardHotStoneGame implements Game {
 
   private boolean isPeddersenTurn = false;
-  private int turnNumber = 1;
+  private int turnNumber = 0;
+
+  private final SpanishDeck deckFindus = new SpanishDeck();
+  private final SpanishDeck deckPeddersen = new SpanishDeck();
+
+  private final List < Card > handFindus = new ArrayList <> ();
+  private final List < Card > handPeddersen = new ArrayList <> ();
+
+  public StandardHotStoneGame() {
+    for (int i = 0; i < 3; i++) {
+      handFindus.add(getCardInDeck(Player.FINDUS, 0));
+      deckFindus.removeCard();
+    }
+    for (int i = 0; i < 3; i++) {
+      handPeddersen.add(getCardInDeck(Player.FINDUS, 0));
+      deckPeddersen.removeCard();
+    }
+  }
+
 
   @Override
   public Player getPlayerInTurn() {
@@ -71,20 +91,27 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getDeckSize(Player who) {
-    return 0;
+    return switch (who) {
+      case Player.FINDUS -> deckFindus.getSize();
+      case Player.PEDDERSEN -> deckPeddersen.getSize();
+    };
   }
 
   @Override
-  public StandardCard getCardInHand(Player who, int indexInHand) {
-    switch (indexInHand) {
-      case 0:
-        return new StandardCard(GameConstants.UNO_CARD);
-      case 1:
-        return new StandardCard(GameConstants.DOS_CARD);
-      case 2:
-        return new StandardCard(GameConstants.TRES_CARD);
-    }
-    return null;
+  public Card getCardInDeck(Player who, int indexInDeck){
+    return switch (who) {
+      case Player.FINDUS -> deckFindus.getCard(indexInDeck);
+      case Player.PEDDERSEN -> deckPeddersen.getCard(indexInDeck);
+    };
+  }
+
+
+  @Override
+  public Card getCardInHand(Player who, int indexInHand) {
+    return switch (who) {
+      case Player.FINDUS -> handFindus.get(indexInHand);
+      case Player.PEDDERSEN -> handPeddersen.get(indexInHand);
+    };
   }
 
 
@@ -95,8 +122,11 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public int getHandSize(Player who) {
-    return 3;
-  } // FAKE-IT
+    return switch (who) {
+      case Player.FINDUS -> handFindus.size();
+      case Player.PEDDERSEN -> handPeddersen.size();
+    };
+  }
 
   @Override
   public StandardCard getCardInField(Player who, int indexInField) {
@@ -120,6 +150,21 @@ public class StandardHotStoneGame implements Game {
   }
 
   @Override
+  public void drawCard() {
+    Player who = getPlayerInTurn();
+    if (turnNumber > 1){
+      switch (who) {
+        case Player.FINDUS:
+          handFindus.addFirst(getCardInDeck(Player.FINDUS, 0));
+          deckFindus.removeCard();
+        case Player.PEDDERSEN:
+          handPeddersen.addFirst(getCardInDeck(Player.PEDDERSEN, 0));
+          deckPeddersen.removeCard();
+      }
+    }
+  }
+
+  @Override
   public Status playCard(Player who, hotstone.framework.Card card, int atIndex) {
     return null;
   }
@@ -137,5 +182,9 @@ public class StandardHotStoneGame implements Game {
   @Override
   public Status usePower(Player who) {
     return null;
+  }
+
+  public void setTurnNumber(int turnNumber) {
+    this.turnNumber = turnNumber;
   }
 }
