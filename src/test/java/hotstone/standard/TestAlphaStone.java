@@ -124,7 +124,6 @@ public class TestAlphaStone {
   @Test
   public void shouldHaveThreeCardsInitially() {
     // Given a game, Findus has 3 cards in hand
-    game.drawCard();
     int count = game.getHandSize(Player.FINDUS);
     assertThat(count, is(3));
   }
@@ -133,7 +132,6 @@ public class TestAlphaStone {
   public void shouldHaveUnoDosTresCardsInitially() {
     // Given a game, Findus has 3 cards in hand.
     // When I check the cards in hand,
-    game.drawCard();
     Card cardUno = game.getCardInHand(Player.FINDUS, 0);
     Card cardDos = game.getCardInHand(Player.FINDUS, 1);
     Card cardTres = game.getCardInHand(Player.FINDUS, 2);
@@ -173,15 +171,17 @@ public class TestAlphaStone {
   public void shouldHaveDeckSizeAs7() {
       // Given Spanish Deck
       SpanishDeck deck = new SpanishDeck();
-      // Then it has 7 cards
+      // When we check how many cards are in the deck
+      // Then there should be 7 cards
       assertThat(deck.getSize(), is(7));
   }
 
   @Test
   public void shouldBeOrderedUnoDosTresCuatroCincoSeisSiete() {
-      // Given Spanish Deck
+      // Given the Spanish Deck
       SpanishDeck deck = new SpanishDeck();
-      // Then it is ordered, from top to bottom:
+      // When we check the order of the cards
+      // Then the order, from top to bottom, should be:
       // Uno, Dos, Tres...
       assertThat(deck.getCard(0).getName(), is(GameConstants.UNO_CARD));
       assertThat(deck.getCard(1).getName(), is(GameConstants.DOS_CARD));
@@ -195,18 +195,19 @@ public class TestAlphaStone {
   @Test
   public void shouldStartWithADeckForEachPlayer() {
       // Given start of game
-      // Then the size of Peddersen and Findus' deck is not 0
+      // When we check the size of each player's deck
+      // Then the size of Peddersen and Findus' should not be 0
       assertThat(game.getDeckSize(Player.PEDDERSEN), not(0));
       assertThat(game.getDeckSize(Player.FINDUS), not(0));
   }
 
   @Test
   public void shouldAddToTopOfHandWhenDrawingFromDeck() {
-      // Given a player's hand
+      // Given a player's turn
       game.endTurn();
       game.endTurn();
       Player who = game.getPlayerInTurn();
-      // When a card is drawn
+      // When a card is drawn (happens in turn 3)
       Card cardInDeck = game.getCardInDeck(who, 0);
       game.drawCard();
       Card cardInHand = game.getCardInHand(who, 0);
@@ -216,7 +217,7 @@ public class TestAlphaStone {
 
   @Test
   public void shouldRemoveCardFromTopOfDeckWhenDrawn() {
-      // Given a player's deck
+      // Given a player's turn
       game.endTurn();
       game.endTurn();
       Player who = game.getPlayerInTurn();
