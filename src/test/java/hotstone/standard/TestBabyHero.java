@@ -64,11 +64,32 @@ public class TestBabyHero {
     }
 
     @Test
-    void shouldDeductHerosManaToUsePower() {
+    public void shouldBeAbleToUsePowerIfHerosManaIsMoreOrEqualToPowerCost() {
+        // Given a BabyHero2 with mana equal to the cost, and a BabyHero1 with mana more than the cost (initial 3),
+        // When we use the power with cost 2,
+        // Then both should use the power and return true.
+        BabyHero baby2 = new BabyHero();
+        baby2.setMana(2);
+        assertThat(baby.usePower(), is(true));
+        assertThat(baby2.usePower(), is(true));
+    }
+
+    @Test
+    public void shouldDeductHerosManaToUsePower() {
         // Given a Baby hero, with initial mana 3,
         // When we use the power with cost 2,
         // Then Baby Hero should have 1 mana.
-        baby.usePower();
+        boolean result = baby.usePower();
         assertThat(baby.getMana(), is(1));
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void shouldNotUsePowerIfHeroDoesNotHaveEnoughMana() {
+        // Given a Baby hero, with mana 1,
+        // When we use the power with cost 2,
+        // Then Power should not work.
+        baby.setMana(1);
+        assertThat(baby.usePower(), is(false));
     }
 }

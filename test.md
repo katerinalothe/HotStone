@@ -56,6 +56,8 @@ Tests for hero type Baby:
 [OK] Power is called "Cute". -kate
 [OK] Power costs 2 mana
 [OK] Power deducts 2 mana from Hero when used. -kate
+[OK] Power can be used if mana is more or equal to power cost -kate
+[OK] Power cant be used if there isn't enough mana -kate
 [OK] Power description is "Does nothing". -kate
 [] Power can only be used once per turn. 
 
