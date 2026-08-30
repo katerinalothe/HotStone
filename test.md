@@ -30,7 +30,7 @@ Tests for game functionality:
 [OK] Peddersen and Findus take turns.
 [] A player can only perform allowed actions on their turn.
 [] A player can end their turn at any time.
-[] The game starts with 3 mana crystals for each player.
+[] At the start of each turn, players have 3 mana.
 [] Hero power can only be used once per turn.
 [] At the beginning of the turn, the turn's player is given 1 mana.
 [] A player can only play a card if they have enough mana for the card's mana cost.
@@ -51,10 +51,13 @@ Tests for game functionality:
 [] When a card's health <= 0, the card is defeated and removed from the game.
 
 Tests for hero type Baby:
-[OK] Health starts at 21.
-[] Power is called "Cute".
-[] Power costs 2 mana.
-[] Power does nothing.
+[OK] Hero health starts at 21.
+[OK] Hero starts with 3 mana. -kate
+[OK] Power is called "Cute". -kate
+[OK] Power costs 2 mana
+[OK] Power deducts 2 mana from Hero when used. -kate
+[OK] Power description is "Does nothing". -kate
+[] Power can only be used once per turn. 
 
 attribute format: (mana cost, attack, health)
 Tests for each card:

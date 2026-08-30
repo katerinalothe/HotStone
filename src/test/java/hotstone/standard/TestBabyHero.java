@@ -1,10 +1,10 @@
-
 package hotstone.standard;
 
 import hotstone.framework.Hero;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestBabyHero {
@@ -24,11 +24,51 @@ public class TestBabyHero {
     }
 
     @Test
-    public void shouldHavePowerNamedCute() {
+    public void shouldHaveHealth21() {
         // Given a Baby hero,
         // When we check its initial health,
         // Then it should be 21.
         assertThat(baby.getHealth(), is(21));
     }
 
+    @Test
+    public void shouldStartWith3Mana() {
+        // Given a Baby hero,
+        // When we check its initial mana,
+        // Then it should be 3.
+        assertThat(baby.getMana(), is(3));
+    }
+
+    @Test
+    public void shouldHavePowerThatCosts2Mana() {
+        // Given a Baby hero
+        // When we check how much mana the power costs
+        // Then the power should cost 2.
+        assertThat(baby.getPowerManaCost(), is(2));
+    }
+
+    @Test
+    public void shouldHavePowerThatIsCalledCute() {
+        // Given a Baby hero,
+        // When we check its power's name,
+        // Then it should be "Cute".
+        assertThat(baby.getPowerName(), is("Cute"));
+    }
+
+    @Test
+    public void shouldHavePowerEffectDescribedAsDoingNothing() {
+        // Given a Baby hero,
+        // When we check its power's effect description,
+        // Then it should be "Does nothing".
+        assertThat(baby.getEffectDescription(), is("Does nothing"));
+    }
+
+    @Test
+    void shouldDeductHerosManaToUsePower() {
+        // Given a Baby hero, with initial mana 3,
+        // When we use the power with cost 2,
+        // Then Baby Hero should have 1 mana.
+        baby.usePower();
+        assertThat(baby.getMana(), is(1));
+    }
 }

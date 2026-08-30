@@ -16,48 +16,75 @@
 
 package hotstone.framework;
 
-/** The role of a Hero in HotStone. The present interface presents a
+/**
+ * The role of a Hero in HotStone. The present interface presents a
  * read-only view of the hero to respect that a client may only alter
  * the internal state of a hero through the Game's mutator methods.
  */
 public interface Hero {
-  /** Get the amount of mana this hero has available
-   * for playing cards to the field.
-   *
-   * @return amount of mana available
-   */
-  int getMana();
+    /**
+     * Get the amount of mana this hero has available
+     * for playing cards to the field.
+     *
+     * @return amount of mana available
+     */
+    int getMana();
 
-  /** Get the value of health of this hero.
-   *
-   * @return the value of health
-   */
-  int getHealth();
+    /**
+     * Sets a certain amount of mana to Hero's mana.
+     *
+     * @return void.
+     */
+    void setMana(int mana);
 
-  /** Get the state of the Hero's ability to use
-   * his/her hero power. If true, the hero has not
-   * yet used the hero power in this turn.
-   * @return true if the hero is able to use the hero power,
-   * false otherwise
-   */
-  boolean canUsePower();
+    /**
+     * Gets the name of hero's power.
+     *
+     * @return power's name.
+     */
+    String getPowerName();
 
-  /** Get the type of the hero. Type is a
-   * string value to be open for new hero types.
-   * Default hero types are defined in GameConstants.
-   *
-   * @return the type of hero
-   */
-  String getType();
+    /**
+     * Get the mana cost to use power
+     *
+     * @return the value of mana cost of power.
+     */
+    int getPowerManaCost();
 
-  /** Get the owner of this hero.
-   *
-   * @return the player having this hero
-   */
-  Player getOwner();
+    /**
+     * Get the value of health of this hero.
+     *
+     * @return the value of health
+     */
+    int getHealth();
 
-  /** Get the text describing the hero's power
-   * @return short description of hero power/effect
-   */
-  String getEffectDescription();
+    /**
+     * Get the type of the hero. Type is a
+     * string value to be open for new hero types.
+     * Default hero types are defined in GameConstants.
+     *
+     * @return the type of hero
+     */
+    String getType();
+
+    /**
+     * Get the owner of this hero.
+     *
+     * @return the player having this hero
+     */
+    Player getOwner();
+
+    /**
+     * Get the text describing the hero's power
+     *
+     * @return short description of hero power/effect
+     */
+    String getEffectDescription();
+
+    /**
+     * If Hero has enough mana to use the power, it gets used.
+     *
+     * @return true if it was used, false if there wasn't enough mana to use the power.
+     */
+    boolean usePower();
 }

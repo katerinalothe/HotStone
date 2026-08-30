@@ -3,19 +3,33 @@ package hotstone.standard;
 import hotstone.framework.Player;
 
 public class BabyHero implements hotstone.framework.Hero {
+
+    private final int powerManaCost = 2;
+    private int mana = 3; // initial mana
+
     @Override
     public int getMana() {
-        return 0;
+        return mana;
+    }
+
+    @Override
+    public void setMana(int mana) {
+        this.mana = mana;
+    }
+
+    @Override
+    public String getPowerName() {
+        return "Cute";
+    }
+
+    @Override
+    public int getPowerManaCost() {
+        return powerManaCost;
     }
 
     @Override
     public int getHealth() {
         return 21;
-    }
-
-    @Override
-    public boolean canUsePower() {
-        return false;
     }
 
     @Override
@@ -30,6 +44,15 @@ public class BabyHero implements hotstone.framework.Hero {
 
     @Override
     public String getEffectDescription() {
-        return "";
+        return "Does nothing";
+    }
+
+    @Override
+    public boolean usePower() {
+        if (mana >= powerManaCost) {
+            mana -= powerManaCost;
+            return true;
+        }
+        return false;
     }
 }
