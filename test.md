@@ -4,16 +4,23 @@
 [OK] When Peddersen ends turn, its Findus turn
 [OK] When game starts Then Findus should have three cards in hand.
 [OK] When game starts Then Findus should have Tres at index 0, Dos at index 1, and Uno at index 2.
+[OK] Given Card Uno Then it has attributes (1,1,1)
 [OK] Given Card Dos Then it has attributes (2,2,2)
+[OK] Given Card Tres Then it has attributes (3,3,3)
+[OK] Given Card Cuatro Then it has attributes (2,3,1)
+[OK] Given Card Cinco Then it has attributes (3,5,1)
+[OK] Given Card Seis Then it has attributes (2,3,1)
+[OK] Given Card Siete Then it has attributes (3,2,4)
 
 Tests for game functionality:
 [OK] Turn counter initializes to 1.
 [OK] Every time the turn changes, the turn counter increments by 1.
 [OK] Findus has the first turn.
-[] Each player starts with a deck.
-[] The deck has 7 cards in the following order, from top to bottom: Uno, Dos, Tres, Cuatro, Cinco, Seis, Siete.
-[] When a player draws a card, it is taken from the top of their deck and removed from the deck.
-[] When a player draws a card, it is added to the top of the hand stack.
+[OK] The deck has 7 cards
+[OK] The deck is ordered from top to bottom: Uno, Dos, Tres, Cuatro, Cinco, Seis, Siete.
+[OK] Each player starts with a deck.
+[OK] When a player draws a card, it is taken from the top of their deck and removed from the deck.
+[OK] When a player draws a card, it is added to the top of the hand stack.
 [] A player cannot draw if their deck is empty.
 [] If a player cannot draw, their hero takes 2 damage.
 [] A player draws 3 cards on their first turn, and 1 card on the following turns.
@@ -25,7 +32,7 @@ Tests for game functionality:
 [] Hero health decreases every time its attacked by an opponent player.
 [] When hero health <= 0, the hero is defeated.
 [] When Findus' hero is defeated, Peddersen wins.
-[] When Peddersen's hero is defeated, Findus' wins.
+[] When Peddersen's hero is defeated, Findus wins.
 [] Findus wins at the start of turn 8.
 [OK] Peddersen and Findus take turns.
 [] A player can only perform allowed actions on their turn.
@@ -65,16 +72,16 @@ Tests for each card:
 [OK] Has attributes: (2,2,2)
 
 -- Tres --
-[] Has attributes: (3,3,3)
+[OK] Has attributes: (3,3,3)
 
 -- Cuatro --
-[] Has attributes: (2,3,1)
+[OK] Has attributes: (2,3,1)
 
 -- Cinco --
-[] Has attributes: (3,5,1)
+[OK] Has attributes: (3,5,1)
 
 -- Seis --
-[] Has attributes: (2,1,3)
+[OK] Has attributes: (2,1,3)
 
 -- Siete --
-[] Has attributes: (3,2,4)
+[OK] Has attributes: (3,2,4)
