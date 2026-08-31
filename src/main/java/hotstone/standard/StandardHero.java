@@ -7,6 +7,7 @@ public class StandardHero implements hotstone.framework.Hero {
 
     private final int powerManaCost = 2;
     private int mana = 3; // initial mana
+    private int health = 21;
 
     @Override
     public int getMana() {
@@ -29,7 +30,7 @@ public class StandardHero implements hotstone.framework.Hero {
 
     @Override
     public int getHealth() {
-        return 21;
+        return health;
     }
 
     @Override
@@ -54,5 +55,8 @@ public class StandardHero implements hotstone.framework.Hero {
             return Status.OK;
         }
         return Status.NOT_ENOUGH_MANA;
+    }
+    public void hurt(int amount) {
+        health -= amount;
     }
 }

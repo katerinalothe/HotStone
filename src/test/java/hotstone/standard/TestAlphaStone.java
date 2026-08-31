@@ -239,4 +239,19 @@ public class TestAlphaStone {
       assertThat(isOK, is(false));
   }
 
+  @Test
+  public void shouldTakeTwoHeroDamageIfCannotDraw() {
+      // Given a player cannot draw
+      Player player = game.getPlayerInTurn();
+      while (game.getDeckSize(player) > 0) {
+          game.drawCard(player);
+      }
+      // When a player tries to draw a card
+      int healthBefore = game.getHero(player).getHealth();
+      game.drawCard(player);
+      int healthAfter = game.getHero(player).getHealth();
+      // Then hero loses two health
+      assertThat(healthAfter, is(healthBefore-2));
+  }
+
 }

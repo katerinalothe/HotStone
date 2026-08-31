@@ -1,4 +1,3 @@
-
 [OK] Given an initialized game, Then Findus is player in turn
 [OK] When Findus ends its turn, Then it is Peddersen in turn
 [OK] When Peddersen ends turn, its Findus turn
@@ -15,7 +14,7 @@ Tests for game functionality:
 [OK] When a player draws a card, it is taken from the top of their deck and removed from the deck.
 [OK] When a player draws a card, it is added to the top of the hand stack.
 [OK] A player cannot draw if their deck is empty.
-[] If a player cannot draw, their hero takes 2 damage.
+[OK] If a player cannot draw, their hero takes 2 damage.
 [] A player draws 3 cards on their first turn, and 1 card on the following turns.
 [] When a player plays a card, it is removed from their hand.
 [] Game starts with players Findus, Peddersen.

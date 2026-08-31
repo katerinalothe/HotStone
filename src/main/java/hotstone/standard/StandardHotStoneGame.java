@@ -52,8 +52,8 @@ public class StandardHotStoneGame implements Game {
     private final List<Card> handPeddersen = new ArrayList<>();
     private boolean isPeddersenTurn = false;
     private int turnNumber = 0;
-    private final Hero findus;
-    private final Hero peddersen;
+    private final StandardHero findus;
+    private final StandardHero peddersen;
 
     public StandardHotStoneGame() {
 
@@ -81,7 +81,7 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
-    public Hero getHero(Player who) {
+    public StandardHero getHero(Player who) {
         if (who == Player.PEDDERSEN) return peddersen;
         else return findus;
     }
@@ -160,7 +160,10 @@ public class StandardHotStoneGame implements Game {
 
     @Override
     public boolean drawCard(Player who) {
-        if (this.getDeckSize(who) <= 0) {return false;}
+        if (this.getDeckSize(who) <= 0) {
+            getHero(who).hurt(2);
+            return false;
+        }
         switch (who) {
             case Player.FINDUS:
                 handFindus.addFirst(getCardInDeck(Player.FINDUS, 0));
