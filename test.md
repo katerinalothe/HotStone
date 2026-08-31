@@ -20,7 +20,7 @@ Tests for game functionality:
 [] When a player plays a card, it is removed from their hand.
 [] Game starts with players Findus, Peddersen.
 [] When two players join game, one is selected as Findus and the other as Peddersen.
-[OK] There is one hero type: Baby.
+[OK] There is one hero type: Baby. Both players have type Baby -kate
 [OK] Each player has a hero.
 [] Hero health decreases every time its attacked by an opponent player.
 [] When hero health <= 0, the hero is defeated.
@@ -31,7 +31,6 @@ Tests for game functionality:
 [] A player can only perform allowed actions on their turn.
 [] A player can end their turn at any time.
 [] At the start of each turn, players have 3 mana.
-[] Hero power can only be used once per turn.
 [] At the beginning of the turn, the turn's player is given 1 mana.
 [] A player can only play a card if they have enough mana for the card's mana cost.
 [] When a player plays a card, the mana cost of the card is deducted from their mana.
@@ -54,12 +53,12 @@ Tests for hero type Baby:
 [OK] Hero health starts at 21.
 [OK] Hero starts with 3 mana. -kate
 [OK] Power is called "Cute". -kate
-[OK] Power costs 2 mana
+[OK] Power costs 2 mana -kate
 [OK] Power deducts 2 mana from Hero when used. -kate
 [OK] Power can be used if mana is more or equal to power cost -kate
 [OK] Power cant be used if there isn't enough mana -kate
 [OK] Power description is "Does nothing". -kate
-[] Power can only be used once per turn. 
+[] Power can only be used once per turn. - kate
 
 attribute format: (mana cost, attack, health)
 Tests for each card:

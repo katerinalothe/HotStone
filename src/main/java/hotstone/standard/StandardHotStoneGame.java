@@ -44,6 +44,13 @@ public class StandardHotStoneGame implements Game {
 
   private boolean isPeddersenTurn = false;
   private int turnNumber = 1;
+  private Hero findus;
+  private Hero peddersen;
+
+  StandardHotStoneGame() {
+     findus = new StandardHero();
+     peddersen = new StandardHero();
+  }
 
   @Override
   public Player getPlayerInTurn() {
@@ -56,7 +63,10 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Hero getHero(Player who) {
-    return new BabyHero();
+    if(who == Player.PEDDERSEN)
+      return peddersen;
+    else
+      return findus;
   }
 
   @Override
@@ -136,6 +146,8 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status usePower(Player who) {
-    return null;
+    if(who == Player.PEDDERSEN)
+      return peddersen.usePower();
+    return findus.usePower();
   }
 }

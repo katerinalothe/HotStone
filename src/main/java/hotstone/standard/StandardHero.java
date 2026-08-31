@@ -1,8 +1,9 @@
 package hotstone.standard;
 
 import hotstone.framework.Player;
+import hotstone.framework.Status;
 
-public class BabyHero implements hotstone.framework.Hero {
+public class StandardHero implements hotstone.framework.Hero {
 
     private final int powerManaCost = 2;
     private int mana = 3; // initial mana
@@ -12,7 +13,6 @@ public class BabyHero implements hotstone.framework.Hero {
         return mana;
     }
 
-    @Override
     public void setMana(int mana) {
         this.mana = mana;
     }
@@ -48,11 +48,11 @@ public class BabyHero implements hotstone.framework.Hero {
     }
 
     @Override
-    public boolean usePower() {
+    public Status usePower() {
         if (mana >= powerManaCost) {
             mana -= powerManaCost;
-            return true;
+            return Status.OK;
         }
-        return false;
+        return Status.NOT_ENOUGH_MANA;
     }
 }

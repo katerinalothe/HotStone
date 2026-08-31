@@ -31,13 +31,6 @@ public interface Hero {
     int getMana();
 
     /**
-     * Sets a certain amount of mana to Hero's mana.
-     *
-     * @return void.
-     */
-    void setMana(int mana);
-
-    /**
      * Gets the name of hero's power.
      *
      * @return power's name.
@@ -84,7 +77,7 @@ public interface Hero {
     /**
      * If Hero has enough mana to use the power, it gets used.
      *
-     * @return true if it was used, false if there wasn't enough mana to use the power.
+     * @return OK if it was used, NOT_ENOUGH_MANA if there wasn't enough mana to use the power.
      */
-    boolean usePower();
+    Status usePower();
 }
