@@ -61,6 +61,8 @@ public interface Game {
    */
   int getDeckSize(Player who);
 
+  Card getCardInDeck(Player who, int indexInDeck);
+
   // === Accessors for Hand
 
   /** Get the card at a given index in the hand.  Index goes from 0 up
@@ -148,6 +150,8 @@ public interface Game {
    * endTurn() is never called by the player which is NOT in turn.
    */
   void endTurn();
+
+  void drawCard();
 
   /** Play a card from the hand to the field.
    *

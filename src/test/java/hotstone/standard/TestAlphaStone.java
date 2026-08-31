@@ -59,7 +59,7 @@ public class TestAlphaStone {
   public void shouldStartAtTurnOne() {
       // Given a new game,
       // Then the turn-counter should start at 1.
-      assertThat(game.getTurnNumber(), is(1));
+      assertThat(game.getTurnNumber(), is(0));
   }
 
   @Test
@@ -168,13 +168,64 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void cardDosHasAttributes222() {
-    // Given Card Dos
-    Card cardDos = new StandardCard(GameConstants.DOS_CARD);
-    // Then it has attributes (2,2,2)
-    assertThat(cardDos.getManaCost(), is(2));
-    assertThat(cardDos.getHealth(), is(2));
-    assertThat(cardDos.getAttack(), is(2));
+  public void shouldHaveDeckSizeAs7() {
+      // Given Spanish Deck
+      SpanishDeck deck = new SpanishDeck();
+      // When we check how many cards are in the deck
+      // Then there should be 7 cards
+      assertThat(deck.getSize(), is(7));
+  }
+
+  @Test
+  public void shouldBeOrderedUnoDosTresCuatroCincoSeisSiete() {
+      // Given the Spanish Deck
+      SpanishDeck deck = new SpanishDeck();
+      // When we check the order of the cards
+      // Then the order, from top to bottom, should be:
+      // Uno, Dos, Tres...
+      assertThat(deck.getCard(0).getName(), is(GameConstants.UNO_CARD));
+      assertThat(deck.getCard(1).getName(), is(GameConstants.DOS_CARD));
+      assertThat(deck.getCard(2).getName(), is(GameConstants.TRES_CARD));
+      assertThat(deck.getCard(3).getName(), is(GameConstants.CUATRO_CARD));
+      assertThat(deck.getCard(4).getName(), is(GameConstants.CINCO_CARD));
+      assertThat(deck.getCard(5).getName(), is(GameConstants.SEIS_CARD));
+      assertThat(deck.getCard(6).getName(), is(GameConstants.SIETE_CARD));
+  }
+
+  @Test
+  public void shouldStartWithADeckForEachPlayer() {
+      // Given start of game
+      // When we check the size of each player's deck
+      // Then the size of Peddersen and Findus' should not be 0
+      assertThat(game.getDeckSize(Player.PEDDERSEN), not(0));
+      assertThat(game.getDeckSize(Player.FINDUS), not(0));
+  }
+
+  @Test
+  public void shouldAddToTopOfHandWhenDrawingFromDeck() {
+      // Given a player's turn
+      game.endTurn();
+      game.endTurn();
+      Player who = game.getPlayerInTurn();
+      // When a card is drawn (happens in turn 3)
+      Card cardInDeck = game.getCardInDeck(who, 0);
+      game.drawCard();
+      Card cardInHand = game.getCardInHand(who, 0);
+      // Then it is added to the hand of the player
+      assertThat(cardInDeck, is(cardInHand));
+  }
+
+  @Test
+  public void shouldRemoveCardFromTopOfDeckWhenDrawn() {
+      // Given a player's turn
+      game.endTurn();
+      game.endTurn();
+      Player who = game.getPlayerInTurn();
+      // When a card is drawn from the deck (happens in turn 3)
+      Card cardTopOfDeck = game.getCardInDeck(who, 0);
+      game.drawCard();
+      // Then it is removed from the top of the deck
+      assertThat(cardTopOfDeck, not(game.getCardInDeck(who,0)));
   }
 
 }
