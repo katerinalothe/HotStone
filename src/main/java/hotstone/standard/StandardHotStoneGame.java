@@ -18,22 +18,24 @@ package hotstone.standard;
 
 import hotstone.framework.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/** This is the 'temporary test stub' in TDD
+/**
+ * This is the 'temporary test stub' in TDD
  * terms: the initial empty but compilable implementation
  * of the game interface.
- *
+ * <p>
  * It already includes a bit of FAKE-IT code for the first
  * test case about hand management and player in turn.
- *
+ * <p>
  * Start solving the AlphaStone exercise by
  * following the TDD rhythm: pick a one-step-test
  * from your test list, quickly add a test,
  * run it to see it fail, and then modify this
  * implementing class (and supporting classes)
  * to make your test case run. Refactor and repeat.
- *
+ * <p>
  * While this is the implementation of Game for
  * the AlphaStone game, you will constantly
  * refactor it over the course of the exercises
@@ -44,144 +46,149 @@ import java.util.*;
 
 public class StandardHotStoneGame implements Game {
 
-  private boolean isPeddersenTurn = false;
-  private int turnNumber = 0;
+    private final SpanishDeck deckFindus = new SpanishDeck();
+    private final SpanishDeck deckPeddersen = new SpanishDeck();
+    private final List<Card> handFindus = new ArrayList<>();
+    private final List<Card> handPeddersen = new ArrayList<>();
+    private boolean isPeddersenTurn = false;
+    private int turnNumber = 0;
+    private final Hero findus;
+    private final Hero peddersen;
 
-  private final SpanishDeck deckFindus = new SpanishDeck();
-  private final SpanishDeck deckPeddersen = new SpanishDeck();
+    public StandardHotStoneGame() {
 
-  private final List < Card > handFindus = new ArrayList <> ();
-  private final List < Card > handPeddersen = new ArrayList <> ();
+        findus = new StandardHero();
+        peddersen = new StandardHero();
 
-  public StandardHotStoneGame() {
-    for (int i = 0; i < 3; i++) {
-      handFindus.add(getCardInDeck(Player.FINDUS, 0));
-      deckFindus.removeCard();
+        for (int i = 0; i < 3; i++) {
+            handFindus.add(getCardInDeck(Player.FINDUS, 0));
+            deckFindus.removeCard();
+        }
+        for (int i = 0; i < 3; i++) {
+            handPeddersen.add(getCardInDeck(Player.FINDUS, 0));
+            deckPeddersen.removeCard();
+        }
     }
-    for (int i = 0; i < 3; i++) {
-      handPeddersen.add(getCardInDeck(Player.FINDUS, 0));
-      deckPeddersen.removeCard();
+
+
+    @Override
+    public Player getPlayerInTurn() {
+        if (!isPeddersenTurn) {
+            return Player.FINDUS;
+        } else {
+            return Player.PEDDERSEN;
+        }
     }
-  }
 
-
-  @Override
-  public Player getPlayerInTurn() {
-    if (!isPeddersenTurn) {
-      return Player.FINDUS;
-    } else {
-      return Player.PEDDERSEN;
+    @Override
+    public Hero getHero(Player who) {
+        if (who == Player.PEDDERSEN) return peddersen;
+        else return findus;
     }
-  }
 
-  @Override
-  public Hero getHero(Player who) {
-    return new StandardHero();
-  }
-
-  @Override
-  public Player getWinner() {
-    return null;
-  }
-
-  @Override
-  public int getTurnNumber() {
-    return turnNumber;
-  }
-
-  @Override
-  public int getDeckSize(Player who) {
-    return switch (who) {
-      case Player.FINDUS -> deckFindus.getSize();
-      case Player.PEDDERSEN -> deckPeddersen.getSize();
-    };
-  }
-
-  @Override
-  public Card getCardInDeck(Player who, int indexInDeck){
-    return switch (who) {
-      case Player.FINDUS -> deckFindus.getCard(indexInDeck);
-      case Player.PEDDERSEN -> deckPeddersen.getCard(indexInDeck);
-    };
-  }
-
-
-  @Override
-  public Card getCardInHand(Player who, int indexInHand) {
-    return switch (who) {
-      case Player.FINDUS -> handFindus.get(indexInHand);
-      case Player.PEDDERSEN -> handPeddersen.get(indexInHand);
-    };
-  }
-
-
-  @Override
-  public Iterable<? extends StandardCard> getHand(Player who) {
-    return null;
-  }
-
-  @Override
-  public int getHandSize(Player who) {
-    return switch (who) {
-      case Player.FINDUS -> handFindus.size();
-      case Player.PEDDERSEN -> handPeddersen.size();
-    };
-  }
-
-  @Override
-  public StandardCard getCardInField(Player who, int indexInField) {
-    return null;
-  }
-
-  @Override
-  public Iterable<? extends StandardCard> getField(Player who) {
-    return null;
-  }
-
-  @Override
-  public int getFieldSize(Player who) {
-    return 0;
-  }
-
-  @Override
-  public void endTurn() {
-    isPeddersenTurn = !isPeddersenTurn;
-    turnNumber++;
-  }
-
-  @Override
-  public void drawCard(Player who) {
-    switch (who) {
-      case Player.FINDUS:
-        handFindus.addFirst(getCardInDeck(Player.FINDUS, 0));
-        deckFindus.removeCard();
-      case Player.PEDDERSEN:
-        handPeddersen.addFirst(getCardInDeck(Player.PEDDERSEN, 0));
-        deckPeddersen.removeCard();
+    @Override
+    public Player getWinner() {
+        return null;
     }
-  }
 
-  @Override
-  public Status playCard(Player who, hotstone.framework.Card card, int atIndex) {
-    return null;
-  }
+    @Override
+    public int getTurnNumber() {
+        return turnNumber;
+    }
 
-  @Override
-  public Status attackCard(Player playerAttacking, hotstone.framework.Card attackingCard, hotstone.framework.Card defendingCard) {
-    return null;
-  }
+    public void setTurnNumber(int turnNumber) {
+        this.turnNumber = turnNumber;
+    }
 
-  @Override
-  public Status attackHero(Player playerAttacking, hotstone.framework.Card attackingCard) {
-    return null;
-  }
+    @Override
+    public int getDeckSize(Player who) {
+        return switch (who) {
+            case Player.FINDUS -> deckFindus.getSize();
+            case Player.PEDDERSEN -> deckPeddersen.getSize();
+        };
+    }
 
-  @Override
-  public Status usePower(Player who) {
-    return null;
-  }
+    @Override
+    public Card getCardInDeck(Player who, int indexInDeck) {
+        return switch (who) {
+            case Player.FINDUS -> deckFindus.getCard(indexInDeck);
+            case Player.PEDDERSEN -> deckPeddersen.getCard(indexInDeck);
+        };
+    }
 
-  public void setTurnNumber(int turnNumber) {
-    this.turnNumber = turnNumber;
-  }
+    @Override
+    public Card getCardInHand(Player who, int indexInHand) {
+        return switch (who) {
+            case Player.FINDUS -> handFindus.get(indexInHand);
+            case Player.PEDDERSEN -> handPeddersen.get(indexInHand);
+        };
+    }
+
+    @Override
+    public Iterable<? extends StandardCard> getHand(Player who) {
+        return null;
+    }
+
+    @Override
+    public int getHandSize(Player who) {
+        return switch (who) {
+            case Player.FINDUS -> handFindus.size();
+            case Player.PEDDERSEN -> handPeddersen.size();
+        };
+    }
+
+    @Override
+    public StandardCard getCardInField(Player who, int indexInField) {
+        return null;
+    }
+
+    @Override
+    public Iterable<? extends StandardCard> getField(Player who) {
+        return null;
+    }
+
+    @Override
+    public int getFieldSize(Player who) {
+        return 0;
+    }
+
+    @Override
+    public void endTurn() {
+        isPeddersenTurn = !isPeddersenTurn;
+        turnNumber++;
+    }
+
+    @Override
+    public void drawCard(Player who) {
+        switch (who) {
+            case Player.FINDUS:
+                handFindus.addFirst(getCardInDeck(Player.FINDUS, 0));
+                deckFindus.removeCard();
+            case Player.PEDDERSEN:
+                handPeddersen.addFirst(getCardInDeck(Player.PEDDERSEN, 0));
+                deckPeddersen.removeCard();
+        }
+    }
+
+    @Override
+    public Status playCard(Player who, hotstone.framework.Card card, int atIndex) {
+        return null;
+    }
+
+    @Override
+    public Status attackCard(Player playerAttacking, hotstone.framework.Card attackingCard, hotstone.framework.Card defendingCard) {
+        return null;
+    }
+
+    @Override
+    public Status attackHero(Player playerAttacking, hotstone.framework.Card attackingCard) {
+        return null;
+    }
+
+    @Override
+    public Status usePower(Player who) {
+        if (who == Player.PEDDERSEN) return peddersen.usePower();
+        return findus.usePower();
+    }
 }
+
