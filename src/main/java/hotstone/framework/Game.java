@@ -151,7 +151,7 @@ public interface Game {
    */
   void endTurn();
 
-  void drawCard();
+  void drawCard(Player who);
 
   /** Play a card from the hand to the field.
    *

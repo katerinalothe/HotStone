@@ -209,7 +209,7 @@ public class TestAlphaStone {
       Player who = game.getPlayerInTurn();
       // When a card is drawn (happens in turn 3)
       Card cardInDeck = game.getCardInDeck(who, 0);
-      game.drawCard();
+      game.drawCard(who);
       Card cardInHand = game.getCardInHand(who, 0);
       // Then it is added to the hand of the player
       assertThat(cardInDeck, is(cardInHand));
@@ -223,7 +223,7 @@ public class TestAlphaStone {
       Player who = game.getPlayerInTurn();
       // When a card is drawn from the deck (happens in turn 3)
       Card cardTopOfDeck = game.getCardInDeck(who, 0);
-      game.drawCard();
+      game.drawCard(who);
       // Then it is removed from the top of the deck
       assertThat(cardTopOfDeck, not(game.getCardInDeck(who,0)));
   }
