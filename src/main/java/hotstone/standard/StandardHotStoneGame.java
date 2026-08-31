@@ -96,10 +96,6 @@ public class StandardHotStoneGame implements Game {
         return turnNumber;
     }
 
-    public void setTurnNumber(int turnNumber) {
-        this.turnNumber = turnNumber;
-    }
-
     @Override
     public int getDeckSize(Player who) {
         return switch (who) {
@@ -196,6 +192,18 @@ public class StandardHotStoneGame implements Game {
     public Status usePower(Player who) {
         if (who == Player.PEDDERSEN) return peddersen.usePower();
         return findus.usePower();
+    }
+
+    @Override
+    public void playCard(Player who, int atIndex) {
+        List<Card> hand;
+        if(who == Player.PEDDERSEN)
+            hand = handPeddersen;
+        else 
+            hand = handFindus;
+        if(hand.isEmpty())
+            return;
+        hand.remove(atIndex);
     }
 }
 

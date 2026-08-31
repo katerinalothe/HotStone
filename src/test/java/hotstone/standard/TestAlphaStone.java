@@ -48,11 +48,13 @@ import hotstone.framework.Game;
  */
 public class TestAlphaStone {
   private Game game;
+  private Player playerInTurn;
 
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
     game = new StandardHotStoneGame();
+    playerInTurn = game.getPlayerInTurn();
   }
 
   @Test
@@ -96,9 +98,8 @@ public class TestAlphaStone {
   public void shouldHaveFindusAsFirstPlayer() {
     // Given a new game,
     // When I ask for which player's turn it is,
-    Player player = game.getPlayerInTurn();
     // Then it should be Findus.
-    assertThat(player, is(Player.FINDUS));
+    assertThat(playerInTurn, is(Player.FINDUS));
 
     // Later on, the 'printGameState' can be very handy during development
     // as you can inspect the state of the game (the Given in GWT) and
@@ -144,27 +145,25 @@ public class TestAlphaStone {
   @Test
   public void shouldBePeddersenTurnAfterFindusTurn() {
     // Given it's Findus' turn
-    Player player = game.getPlayerInTurn();
-    assertThat(player, is(Player.FINDUS));
+    assertThat(playerInTurn, is(Player.FINDUS));
     // When Findus' turn ends
     game.endTurn();
     // Then it should be Peddersen's turn
-    player = game.getPlayerInTurn();
-    assertThat(player, is(Player.PEDDERSEN));
+    playerInTurn = game.getPlayerInTurn();
+    assertThat(playerInTurn, is(Player.PEDDERSEN));
   }
 
   @Test
   public void shouldBeFindusTurnAfterPeddersenTurn() {
       // Given it's Peddersen's turn
-      Player player = game.getPlayerInTurn();
-      if (player == Player.FINDUS) {
+      if (playerInTurn == Player.FINDUS) {
           game.endTurn();
       }
       // When Peddersen's turn ends
       game.endTurn();
       // Then it should be Findus' turn
-      player = game.getPlayerInTurn();
-      assertThat(player, is(Player.FINDUS));
+      playerInTurn = game.getPlayerInTurn();
+      assertThat(playerInTurn, is(Player.FINDUS));
   }
 
   @Test
@@ -204,13 +203,10 @@ public class TestAlphaStone {
   @Test
   public void shouldAddToTopOfHandWhenDrawingFromDeck() {
       // Given a player's turn
-      game.endTurn();
-      game.endTurn();
-      Player who = game.getPlayerInTurn();
       // When a card is drawn (happens in turn 3)
-      Card cardInDeck = game.getCardInDeck(who, 0);
-      game.drawCard(who);
-      Card cardInHand = game.getCardInHand(who, 0);
+      Card cardInDeck = game.getCardInDeck(playerInTurn, 0);
+      game.drawCard(playerInTurn);
+      Card cardInHand = game.getCardInHand(playerInTurn, 0);
       // Then it is added to the hand of the player
       assertThat(cardInDeck, is(cardInHand));
   }
@@ -218,23 +214,21 @@ public class TestAlphaStone {
   @Test
   public void shouldRemoveCardFromTopOfDeckWhenDrawn() {
       // Given a player's turn
-      Player who = game.getPlayerInTurn();
       // When a card is drawn from the deck (happens in turn 3)
-      Card cardTopOfDeck = game.getCardInDeck(who, 0);
-      game.drawCard(who);
+      Card cardTopOfDeck = game.getCardInDeck(playerInTurn, 0);
+      game.drawCard(playerInTurn);
       // Then it is removed from the top of the deck
-      assertThat(cardTopOfDeck, not(sameInstance(game.getCardInDeck(who,0))));
+      assertThat(cardTopOfDeck, not(sameInstance(game.getCardInDeck(playerInTurn,0))));
   }
 
   @Test
   public void shouldNotBeAbleToDrawIfDeckEmpty() {
       // Given an empty deck,
-      Player player = game.getPlayerInTurn();
-      while (game.getDeckSize(player) > 0) {
-          game.drawCard(player);
+      while (game.getDeckSize(playerInTurn) > 0) {
+          game.drawCard(playerInTurn);
       }
       // When a player draws,
-      boolean isOK = game.drawCard(player);
+      boolean isOK = game.drawCard(playerInTurn);
       // Then they are denied the draw.
       assertThat(isOK, is(false));
   }
@@ -242,16 +236,26 @@ public class TestAlphaStone {
   @Test
   public void shouldTakeTwoHeroDamageIfCannotDraw() {
       // Given a player cannot draw
-      Player player = game.getPlayerInTurn();
-      while (game.getDeckSize(player) > 0) {
-          game.drawCard(player);
+      while (game.getDeckSize(playerInTurn) > 0) {
+          game.drawCard(playerInTurn);
       }
       // When a player tries to draw a card
-      int healthBefore = game.getHero(player).getHealth();
-      game.drawCard(player);
-      int healthAfter = game.getHero(player).getHealth();
+      int healthBefore = game.getHero(playerInTurn).getHealth();
+      game.drawCard(playerInTurn);
+      int healthAfter = game.getHero(playerInTurn).getHealth();
       // Then hero loses two health
       assertThat(healthAfter, is(healthBefore-2));
+  }
+
+  @Test
+  public void shouldRemoveCardFromHandWhenPlayed() {
+      // Given a player,
+      // When they play the first card in hand,
+      Card beforeCardInHand = game.getCardInHand(playerInTurn, 0);
+      game.playCard(playerInTurn, 0);
+      // Then the card is removed from the hand.
+      Card afterCardInHand = game.getCardInHand(playerInTurn, 0);
+      assertThat(afterCardInHand, not(sameInstance(beforeCardInHand)));
   }
 
 }

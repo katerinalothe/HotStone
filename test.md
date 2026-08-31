@@ -16,8 +16,7 @@ Tests for game functionality:
 [OK] A player cannot draw if their deck is empty.
 [OK] If a player cannot draw, their hero takes 2 damage.
 [] A player draws 3 cards on their first turn, and 1 card on the following turns.
-[] When a player plays a card, it is removed from their hand.
-[] Game starts with players Findus, Peddersen.
+[OK] When a player plays a card, it is removed from their hand.
 [] When two players join game, one is selected as Findus and the other as Peddersen.
 [OK] There is one hero type: Baby. Both players have type Baby -kate
 [OK] Each player has a hero.

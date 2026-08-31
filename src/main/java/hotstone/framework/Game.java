@@ -208,4 +208,11 @@ public interface Game {
    *    invalid.
    */
   Status usePower(Player who);
+
+  /** Plays a card from a hand
+   *
+   * @param who the player
+   * @param atIndex position of card in hand
+   */
+  void playCard(Player who, int atIndex);
 }
