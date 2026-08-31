@@ -56,7 +56,15 @@ public class StandardHero implements hotstone.framework.Hero {
         }
         return Status.NOT_ENOUGH_MANA;
     }
+
+    @Override
     public void hurt(int amount) {
         health -= amount;
     }
+
+    @Override
+    public boolean isDefeated() {
+        return getHealth() <= 0;
+    }
+
 }

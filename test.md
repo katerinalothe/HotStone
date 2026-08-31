@@ -20,10 +20,9 @@ Tests for game functionality:
 [] When two players join game, one is selected as Findus and the other as Peddersen.
 [OK] There is one hero type: Baby. Both players have type Baby -kate
 [OK] Each player has a hero.
-[] Hero health decreases every time its attacked by an opponent player.
-[] When hero health <= 0, the hero is defeated.
-[] When Findus' hero is defeated, Peddersen wins.
-[] When Peddersen's hero is defeated, Findus wins.
+[] Hero health decreases every time its attacked by an opponent minion.
+[OK] When hero health <= 0, the hero is defeated.
+[] When a player's hero is defeated, the other player wins.
 [] Findus wins at the start of turn 8.
 [OK] Peddersen and Findus take turns.
 [] A player can only perform allowed actions on their turn.
@@ -44,7 +43,7 @@ Tests for game functionality:
 [] A card can only attack opponent cards on the field.
 [] When a card is dealt X damage points, it loses X health points.
 [] When a card attacks another card, it takes X damage, where X is the attack value of the target card.
-[] When a card's health <= 0, the card is defeated and removed from the game.
+[] When a card's health <= 0, the card is defeated and removed from the field and from the game.
 
 Tests for hero type Baby:
 [OK] Hero health starts at 21.

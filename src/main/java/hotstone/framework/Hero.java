@@ -80,4 +80,17 @@ public interface Hero {
      * @return OK if it was used, NOT_ENOUGH_MANA if there wasn't enough mana to use the power.
      */
     Status usePower();
+
+    /**
+     * Subtracts some amount from the hero's health.
+     *
+     * @param amount
+     */
+    void hurt(int amount);
+
+    /**
+     * @return whether the hero is defeated.
+     */
+    boolean isDefeated();
+
 }

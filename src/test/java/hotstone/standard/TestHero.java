@@ -7,6 +7,8 @@ import hotstone.framework.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -96,4 +98,14 @@ public class TestHero {
         game.usePower(Player.FINDUS); // Findus should have 1 mana
         assertThat(game.usePower(Player.FINDUS), is(Status.NOT_ENOUGH_MANA));
     }
+
+    @Test
+    public void shouldBeDefeatedWhenHealthAtOrLessThanZero() {
+        // Given a hero with health at 0,
+        heroFindus.hurt(heroFindus.getHealth());
+        // When we check whether the hero's defeated,
+        // Then the check should say that the hero is defeated.
+        assertThat(heroFindus.isDefeated(), is(true));
+    }
+
 }
