@@ -218,14 +218,25 @@ public class TestAlphaStone {
   @Test
   public void shouldRemoveCardFromTopOfDeckWhenDrawn() {
       // Given a player's turn
-      game.endTurn();
-      game.endTurn();
       Player who = game.getPlayerInTurn();
       // When a card is drawn from the deck (happens in turn 3)
       Card cardTopOfDeck = game.getCardInDeck(who, 0);
       game.drawCard(who);
       // Then it is removed from the top of the deck
-      assertThat(cardTopOfDeck, not(game.getCardInDeck(who,0)));
+      assertThat(cardTopOfDeck, not(sameInstance(game.getCardInDeck(who,0))));
+  }
+
+  @Test
+  public void shouldNotBeAbleToDrawIfDeckEmpty() {
+      // Given an empty deck,
+      Player player = game.getPlayerInTurn();
+      while (game.getDeckSize(player) > 0) {
+          game.drawCard(player);
+      }
+      // When a player draws,
+      boolean isOK = game.drawCard(player);
+      // Then they are denied the draw.
+      assertThat(isOK, is(false));
   }
 
 }

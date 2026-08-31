@@ -151,7 +151,7 @@ public interface Game {
    */
   void endTurn();
 
-  void drawCard(Player who);
+  boolean drawCard(Player who);
 
   /** Play a card from the hand to the field.
    *
@@ -168,7 +168,7 @@ public interface Game {
    *                and second minion, etc.
    * @return Status of operation
    */
-  public Status playCard(Player who, Card card, int atIndex);
+   Status playCard(Player who, Card card, int atIndex);
 
   /** Attack one card with another on the fields.
    *

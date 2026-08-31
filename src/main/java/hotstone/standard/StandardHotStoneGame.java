@@ -159,15 +159,19 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
-    public void drawCard(Player who) {
+    public boolean drawCard(Player who) {
+        if (this.getDeckSize(who) <= 0) {return false;}
         switch (who) {
             case Player.FINDUS:
                 handFindus.addFirst(getCardInDeck(Player.FINDUS, 0));
                 deckFindus.removeCard();
+                break;
             case Player.PEDDERSEN:
                 handPeddersen.addFirst(getCardInDeck(Player.PEDDERSEN, 0));
                 deckPeddersen.removeCard();
+                break;
         }
+        return true;
     }
 
     @Override

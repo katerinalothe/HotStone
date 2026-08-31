@@ -4,13 +4,6 @@
 [OK] When Peddersen ends turn, its Findus turn
 [OK] When game starts Then Findus should have three cards in hand.
 [OK] When game starts Then Findus should have Tres at index 0, Dos at index 1, and Uno at index 2.
-[OK] Given Card Uno Then it has attributes (1,1,1)
-[OK] Given Card Dos Then it has attributes (2,2,2)
-[OK] Given Card Tres Then it has attributes (3,3,3)
-[OK] Given Card Cuatro Then it has attributes (2,3,1)
-[OK] Given Card Cinco Then it has attributes (3,5,1)
-[OK] Given Card Seis Then it has attributes (2,3,1)
-[OK] Given Card Siete Then it has attributes (3,2,4)
 
 Tests for game functionality:
 [OK] Turn counter initializes to 1.
@@ -21,7 +14,7 @@ Tests for game functionality:
 [OK] Each player starts with a deck.
 [OK] When a player draws a card, it is taken from the top of their deck and removed from the deck.
 [OK] When a player draws a card, it is added to the top of the hand stack.
-[] A player cannot draw if their deck is empty.
+[OK] A player cannot draw if their deck is empty.
 [] If a player cannot draw, their hero takes 2 damage.
 [] A player draws 3 cards on their first turn, and 1 card on the following turns.
 [] When a player plays a card, it is removed from their hand.
@@ -37,8 +30,7 @@ Tests for game functionality:
 [OK] Peddersen and Findus take turns.
 [] A player can only perform allowed actions on their turn.
 [] A player can end their turn at any time.
-[] At the start of each turn, players have 3 mana.
-[] At the beginning of the turn, the turn's player is given 1 mana.
+[] At the beginning of each turn, the turn's hero is set to 3 mana.
 [] A player can only play a card if they have enough mana for the card's mana cost.
 [] When a player plays a card, the mana cost of the card is deducted from their mana.
 [] When a player plays a card, it enters the field.
