@@ -47,6 +47,9 @@ public class StandardHotStoneGame implements Game {
   private boolean isPeddersenTurn = false;
   private int turnNumber = 0;
 
+  private Hero findus;
+  private Hero peddersen;
+
   private final SpanishDeck deckFindus = new SpanishDeck();
   private final SpanishDeck deckPeddersen = new SpanishDeck();
 
@@ -54,6 +57,10 @@ public class StandardHotStoneGame implements Game {
   private final List < Card > handPeddersen = new ArrayList <> ();
 
   public StandardHotStoneGame() {
+
+    findus = new StandardHero();
+    peddersen = new StandardHero();
+
     for (int i = 0; i < 3; i++) {
       handFindus.add(getCardInDeck(Player.FINDUS, 0));
       deckFindus.removeCard();
@@ -76,7 +83,10 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Hero getHero(Player who) {
-    return new BabyHero();
+    if(who == Player.PEDDERSEN)
+      return peddersen;
+    else
+      return findus;
   }
 
   @Override
@@ -181,7 +191,9 @@ public class StandardHotStoneGame implements Game {
 
   @Override
   public Status usePower(Player who) {
-    return null;
+    if(who == Player.PEDDERSEN)
+      return peddersen.usePower();
+    return findus.usePower();
   }
 
   public void setTurnNumber(int turnNumber) {
