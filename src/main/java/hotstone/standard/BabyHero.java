@@ -3,11 +3,12 @@ package hotstone.standard;
 import hotstone.framework.Player;
 import hotstone.framework.Status;
 
-public class StandardHero implements hotstone.framework.Hero {
+public class BabyHero implements hotstone.framework.Hero {
 
     private final int powerManaCost = 2;
     private int mana = 3; // initial mana
     private int health = 21;
+    private boolean usedPower = false;
 
     @Override
     public int getMana() {
@@ -50,21 +51,27 @@ public class StandardHero implements hotstone.framework.Hero {
 
     @Override
     public Status usePower() {
-        if (mana >= powerManaCost) {
-            mana -= powerManaCost;
-            return Status.OK;
+        if(!usedPower) {
+            if (mana >= powerManaCost) {
+                usedPower = true;
+                mana -= powerManaCost;
+                return Status.OK;
+            }
+            return Status.NOT_ENOUGH_MANA;
         }
-        return Status.NOT_ENOUGH_MANA;
+        return Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND;
     }
 
-    @Override
     public void hurt(int amount) {
         health -= amount;
     }
 
-    @Override
     public boolean isDefeated() {
         return getHealth() <= 0;
+    }
+
+    public void resetUsedPower() {
+        usedPower = false;
     }
 
 }

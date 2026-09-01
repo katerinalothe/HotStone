@@ -52,21 +52,17 @@ public class StandardHotStoneGame implements Game {
     private final List<Card> handPeddersen = new ArrayList<>();
     private boolean isPeddersenTurn = false;
     private int turnNumber = 0;
-    private final StandardHero findus;
-    private final StandardHero peddersen;
+    private final Hero findus;
+    private final Hero peddersen;
 
     public StandardHotStoneGame() {
 
-        findus = new StandardHero();
-        peddersen = new StandardHero();
+        findus = new BabyHero();
+        peddersen = new BabyHero();
 
         for (int i = 0; i < 3; i++) {
-            handFindus.add(getCardInDeck(Player.FINDUS, 0));
-            deckFindus.removeCard();
-        }
-        for (int i = 0; i < 3; i++) {
-            handPeddersen.add(getCardInDeck(Player.FINDUS, 0));
-            deckPeddersen.removeCard();
+            drawCard(Player.FINDUS);
+            drawCard(Player.PEDDERSEN);
         }
     }
 
@@ -81,13 +77,14 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
-    public StandardHero getHero(Player who) {
+    public Hero getHero(Player who) {
         if (who == Player.PEDDERSEN) return peddersen;
         else return findus;
     }
 
     @Override
     public Player getWinner() {
+        if (turnNumber == 8) return Player.FINDUS;
         return null;
     }
 
@@ -152,12 +149,17 @@ public class StandardHotStoneGame implements Game {
     public void endTurn() {
         isPeddersenTurn = !isPeddersenTurn;
         turnNumber++;
+
+        BabyHero currentHero = (BabyHero) getHero(getPlayerInTurn());
+        currentHero.setMana(3);
+        currentHero.resetUsedPower();
     }
 
     @Override
     public boolean drawCard(Player who) {
         if (this.getDeckSize(who) <= 0) {
-            getHero(who).hurt(2);
+            BabyHero hero = (BabyHero) getHero(who);
+            hero.hurt(2);
             return false;
         }
         switch (who) {
@@ -190,8 +192,8 @@ public class StandardHotStoneGame implements Game {
 
     @Override
     public Status usePower(Player who) {
-        if (who == Player.PEDDERSEN) return peddersen.usePower();
-        return findus.usePower();
+        BabyHero currentHero = (BabyHero) getHero(getPlayerInTurn());
+        return currentHero.usePower();
     }
 
     @Override
@@ -205,5 +207,7 @@ public class StandardHotStoneGame implements Game {
             return;
         hand.remove(atIndex);
     }
+
+
 }
 

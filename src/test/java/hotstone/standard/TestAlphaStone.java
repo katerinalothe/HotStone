@@ -31,11 +31,8 @@ package hotstone.standard;
 
 import hotstone.framework.Card;
 import hotstone.framework.Player;
-import hotstone.utility.TestHelper;
+import hotstone.framework.Status;
 import org.junit.jupiter.api.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -78,7 +75,7 @@ public class TestAlphaStone {
   public void shouldStartFindusWithBabyHero() {
       // Given a new game,
       // When we check Findus' hero type,
-      hotstone.framework.Hero hero = game.getHero(Player.FINDUS);
+      BabyHero hero = (BabyHero) game.getHero(Player.FINDUS);
       // Then we should get "Baby".
       assertThat(hero, notNullValue());
       assertThat(hero.getType(), is("Baby"));
@@ -88,7 +85,7 @@ public class TestAlphaStone {
   public void shouldStartPeddersenWithBabyHero() {
       // Given a new game,
       // When we check Peddersen's hero type,
-      hotstone.framework.Hero hero = game.getHero(Player.PEDDERSEN);
+      BabyHero hero = (BabyHero) game.getHero(Player.PEDDERSEN);
       // Then we should get "Baby".
       assertThat(hero, notNullValue());
       assertThat(hero.getType(), is("Baby"));
@@ -133,9 +130,9 @@ public class TestAlphaStone {
   public void shouldHaveUnoDosTresCardsInitially() {
     // Given a game, Findus has 3 cards in hand.
     // When I check the cards in hand,
-    Card cardUno = game.getCardInHand(Player.FINDUS, 0);
+    Card cardUno = game.getCardInHand(Player.FINDUS, 2);
     Card cardDos = game.getCardInHand(Player.FINDUS, 1);
-    Card cardTres = game.getCardInHand(Player.FINDUS, 2);
+    Card cardTres = game.getCardInHand(Player.FINDUS, 0);
     // Then it should be Uno, Dos, Tres
     assertThat(cardUno.getName(), is(GameConstants.UNO_CARD));
     assertThat(cardDos.getName(), is(GameConstants.DOS_CARD));
@@ -256,6 +253,30 @@ public class TestAlphaStone {
       // Then the card is removed from the hand.
       Card afterCardInHand = game.getCardInHand(playerInTurn, 0);
       assertThat(afterCardInHand, not(sameInstance(beforeCardInHand)));
+  }
+
+  @Test
+  public void shouldHaveFindusAsWinnerOnTurn8() {
+      // Given Findus,
+      // When its turn 8,
+      for(int i= 0; i < 8; i++)
+          game.endTurn();
+
+      // Then they win.
+      assertThat(game.getTurnNumber(), is(8));
+      assertThat(game.getWinner(), is(Player.FINDUS));
+  }
+
+  @Test
+  public void shouldHaveManaSetTo3AtStartOfEachTurn() {
+      // Given a player uses a power and loses mana,
+      game.usePower(playerInTurn); // has now 1 mana
+      // When it's their turn again,
+      game.endTurn();
+      game.endTurn();
+      // Then their hero's mana is reset to 3
+      BabyHero hero = (BabyHero) game.getHero(playerInTurn);
+      assertThat(hero.getMana(), is(3));
   }
 
 }
