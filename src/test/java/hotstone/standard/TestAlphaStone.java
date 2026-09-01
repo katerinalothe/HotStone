@@ -124,19 +124,21 @@ public class TestAlphaStone {
   // 'down'
   @Test
   public void shouldHaveThreeCardsInitially() {
-    // Given a game, Findus has 3 cards in hand
-    int count = game.getHandSize(Player.FINDUS);
+    // Given a game,
+    // When checking the hand size of a player,
+    int count = game.getHandSize(playerInTurn);
+    // Then it should be 3.
     assertThat(count, is(3));
   }
 
   @Test
   public void shouldHaveUnoDosTresCardsInitially() {
-    // Given a game, Findus has 3 cards in hand.
+    // Given a game, player has 3 cards in hand.
     // When I check the cards in hand,
-    Card cardUno = game.getCardInHand(Player.FINDUS, 0);
-    Card cardDos = game.getCardInHand(Player.FINDUS, 1);
-    Card cardTres = game.getCardInHand(Player.FINDUS, 2);
-    // Then it should be Uno, Dos, Tres
+    Card cardUno = game.getCardInHand(playerInTurn, 0);
+    Card cardDos = game.getCardInHand(playerInTurn, 1);
+    Card cardTres = game.getCardInHand(playerInTurn, 2);
+    // Then it should be Uno, Dos, Tres.
     assertThat(cardUno.getName(), is(GameConstants.UNO_CARD));
     assertThat(cardDos.getName(), is(GameConstants.DOS_CARD));
     assertThat(cardTres.getName(), is(GameConstants.TRES_CARD));
@@ -256,6 +258,16 @@ public class TestAlphaStone {
       // Then the card is removed from the hand.
       Card afterCardInHand = game.getCardInHand(playerInTurn, 0);
       assertThat(afterCardInHand, not(sameInstance(beforeCardInHand)));
+  }
+
+  @Test
+  public void shouldLoseWhenHeroDefeated() {
+      // Given a hero,
+      hotstone.framework.Hero hero = game.getHero(playerInTurn);
+      // When that hero is defeated,
+      if (!hero.isDefeated()) {hero.hurt(hero.getHealth());}
+      // Then the opponent wins.
+      assertThat(game.getWinner(), is(Player.computeOpponent(playerInTurn)));
   }
 
 }

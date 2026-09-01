@@ -60,13 +60,12 @@ public class StandardHotStoneGame implements Game {
         findus = new StandardHero();
         peddersen = new StandardHero();
 
+        // Draw starting hands.
         for (int i = 0; i < 3; i++) {
-            handFindus.add(getCardInDeck(Player.FINDUS, 0));
-            deckFindus.removeCard();
+            drawCard(Player.FINDUS);
         }
         for (int i = 0; i < 3; i++) {
-            handPeddersen.add(getCardInDeck(Player.FINDUS, 0));
-            deckPeddersen.removeCard();
+            drawCard(Player.PEDDERSEN);
         }
     }
 
@@ -88,7 +87,13 @@ public class StandardHotStoneGame implements Game {
 
     @Override
     public Player getWinner() {
-        return null;
+        if (peddersen.isDefeated()) {
+            return Player.FINDUS;
+        } else if (findus.isDefeated()) {
+            return Player.PEDDERSEN;
+        } else {
+            return null;
+        }
     }
 
     @Override

@@ -1,8 +1,8 @@
 [OK] Given an initialized game, Then Findus is player in turn
 [OK] When Findus ends its turn, Then it is Peddersen in turn
 [OK] When Peddersen ends turn, its Findus turn
-[OK] When game starts Then Findus should have three cards in hand.
-[OK] When game starts Then Findus should have Tres at index 0, Dos at index 1, and Uno at index 2.
+[OK] When game starts Then players should have drawn three cards in hand.
+[OK] When game starts Then players should have Tres at index 0, Dos at index 1, and Uno at index 2.
 
 Tests for game functionality:
 [OK] Turn counter initializes to 1.
@@ -15,14 +15,13 @@ Tests for game functionality:
 [OK] When a player draws a card, it is added to the top of the hand stack.
 [OK] A player cannot draw if their deck is empty.
 [OK] If a player cannot draw, their hero takes 2 damage.
-[] A player draws 3 cards on their first turn, and 1 card on the following turns.
+[] A player draws 1 card on every turn after their first.
 [OK] When a player plays a card, it is removed from their hand.
-[] When two players join game, one is selected as Findus and the other as Peddersen.
 [OK] There is one hero type: Baby. Both players have type Baby -kate
 [OK] Each player has a hero.
-[] Hero health decreases every time its attacked by an opponent minion.
+[] Hero health decreases every time its attacked by an opponent card.
 [OK] When hero health <= 0, the hero is defeated.
-[] When a player's hero is defeated, the other player wins.
+[OK] When a player's hero is defeated, the other player wins.
 [] Findus wins at the start of turn 8.
 [OK] Peddersen and Findus take turns.
 [] A player can only perform allowed actions on their turn.
