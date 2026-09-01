@@ -55,19 +55,16 @@ public class StandardHotStoneGame implements Game {
 
     private boolean isPeddersenTurn = false;
     private int turnNumber = 0;
-    private final StandardHero findus;
-    private final StandardHero peddersen;
+    private final Hero findus;
+    private final Hero peddersen;
 
     public StandardHotStoneGame() {
 
-        findus = new StandardHero();
-        peddersen = new StandardHero();
+        findus = new BabyHero();
+        peddersen = new BabyHero();
 
-        // Draw starting hands.
         for (int i = 0; i < 3; i++) {
             drawCard(Player.FINDUS);
-        }
-        for (int i = 0; i < 3; i++) {
             drawCard(Player.PEDDERSEN);
         }
     }
@@ -83,14 +80,14 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
-    public StandardHero getHero(Player who) {
+    public Hero getHero(Player who) {
         if (who == Player.PEDDERSEN) return peddersen;
         else return findus;
     }
 
     @Override
     public Player getWinner() {
-        if (peddersen.isDefeated()) {
+        if (peddersen.isDefeated() || turnNumber == 8) {
             return Player.FINDUS;
         } else if (findus.isDefeated()) {
             return Player.PEDDERSEN;
@@ -165,12 +162,17 @@ public class StandardHotStoneGame implements Game {
     public void endTurn() {
         isPeddersenTurn = !isPeddersenTurn;
         turnNumber++;
+
+        BabyHero currentHero = (BabyHero) getHero(getPlayerInTurn());
+        currentHero.setMana(3);
+        currentHero.resetUsedPower();
     }
 
     @Override
     public boolean drawCard(Player who) {
         if (this.getDeckSize(who) <= 0) {
-            getHero(who).hurt(2);
+            BabyHero hero = (BabyHero) getHero(who);
+            hero.hurt(2);
             return false;
         }
         switch (who) {
@@ -198,8 +200,8 @@ public class StandardHotStoneGame implements Game {
 
     @Override
     public Status usePower(Player who) {
-        if (who == Player.PEDDERSEN) return peddersen.usePower();
-        return findus.usePower();
+        BabyHero currentHero = (BabyHero) getHero(getPlayerInTurn());
+        return currentHero.usePower();
     }
 
     @Override

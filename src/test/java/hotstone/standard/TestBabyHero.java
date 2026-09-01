@@ -7,19 +7,17 @@ import hotstone.framework.Status;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class TestHero {
+public class TestBabyHero {
     private Game game;
-    private Hero heroFindus;
+    private BabyHero heroFindus;
 
     @BeforeEach
     public void setUp() {
         game = new StandardHotStoneGame();
-        heroFindus = game.getHero(Player.FINDUS); // Both players are type babyHero
+        heroFindus = (BabyHero) game.getHero(Player.FINDUS); // Both players are type babyHero
     }
 
     @Test
@@ -95,7 +93,7 @@ public class TestHero {
         // Given a Baby hero, with mana 1 (first we call usePower once to deduct the mana from 3 to 1),
         // When we use the power with cost 2,
         // Then Power should not work.
-        game.usePower(Player.FINDUS); // Findus should have 1 mana
+        heroFindus.setMana(1); // Findus should have 1 mana
         assertThat(game.usePower(Player.FINDUS), is(Status.NOT_ENOUGH_MANA));
     }
 
@@ -106,6 +104,26 @@ public class TestHero {
         // When we check whether the hero's defeated,
         // Then the check should say that the hero is defeated.
         assertThat(heroFindus.isDefeated(), is(true));
+    }
+
+    @Test
+    public void shouldNotBeAbleToUsePowerMoreThanOncePerTurn() {
+        // Given findus uses his hero's power,
+        game.usePower(Player.FINDUS);
+        // When he tries to use it again in the same round,
+        // Then he cant.
+        assertThat(game.usePower(Player.FINDUS), is(Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND));
+    }
+
+    @Test
+    public void shouldResetPowerEveryRound() {
+        // Given findus uses power in turn,
+        game.usePower(Player.FINDUS);
+        // When round is over and it's his turn again,
+        game.endTurn();
+        game.endTurn();
+        // Then he is allowed to use the power.
+        assertThat(game.usePower(Player.FINDUS), is(Status.OK));
     }
 
 }

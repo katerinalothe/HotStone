@@ -2,12 +2,23 @@
 package hotstone.standard;
 
 import hotstone.framework.Card;
+import hotstone.framework.Game;
+import hotstone.framework.Player;
 import org.junit.jupiter.api.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestCards {
+
+    private Game game;
+    private Player playerInTurn;
+
+    @BeforeEach
+    public void setUp() {
+        game = new StandardHotStoneGame();
+        playerInTurn = game.getPlayerInTurn();
+    }
 
     @Test
     public void shouldHaveUnoAs111() {
@@ -84,6 +95,15 @@ public class TestCards {
         assertThat(dos.getManaCost(),   is(3));
         assertThat(dos.getAttack(),     is(2));
         assertThat(dos.getHealth(),     is(4));
+    }
+
+    @Test
+    public void shouldBeInactiveIfInHand() {
+        // Given a card in hand,
+        Card card = game.getCardInHand(playerInTurn, 0);
+        // When we check its status,
+        // Then it should be inactive
+        assertThat(card.isActive(), is(false));
     }
 
 }
