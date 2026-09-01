@@ -26,10 +26,9 @@ Tests for game functionality:
 [] A player can only perform allowed actions on their turn.
 [] A player can end their turn at any time.
 [OK] At the beginning of each turn, the turn's hero is set to 3 mana.
-[] A player can only play a card if they have enough mana for the card's mana cost.
-[] When a player plays a card, the mana cost of the card is deducted from their mana.
+[OK] A player can only play a card if they have enough mana for the card's mana cost.
+[OK] When a player plays a card, the mana cost of the card is deducted from their mana.
 [OK] When a player plays a card, it enters the field.
-[] When a card enters the field, it occupies some position in the array of field positions.
 [] If a card tries to occupy an occupied position when entering the field, the existing cards are moved up.
 [] When a card enters the field, it invokes its Effect.
 [] A card can only attack when it is active.

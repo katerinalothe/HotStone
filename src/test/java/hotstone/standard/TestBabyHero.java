@@ -119,7 +119,7 @@ public class TestBabyHero {
     public void shouldResetPowerEveryRound() {
         // Given findus uses power in turn,
         game.usePower(Player.FINDUS);
-        // When round is over and it's his turn again,
+        // When the round is over and it's his turn again,
         game.endTurn();
         game.endTurn();
         // Then he is allowed to use the power.

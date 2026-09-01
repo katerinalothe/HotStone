@@ -29,15 +29,11 @@ package hotstone.standard;
  *      Aarhus University
  */
 
-import hotstone.framework.Card;
-import hotstone.framework.Player;
-import hotstone.framework.Status;
+import hotstone.framework.*;
 import org.junit.jupiter.api.*;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-
-import hotstone.framework.Game;
 
 /** Template for your own ongoing TDD process.
  * Fill it out until you have covered all
@@ -289,6 +285,31 @@ public class TestAlphaStone {
       // Then their hero's mana is reset to 3
       BabyHero hero = (BabyHero) game.getHero(playerInTurn);
       assertThat(hero.getMana(), is(3));
+  }
+
+  @Test
+  public void shouldRejectCardPlayIfManaInsufficient() {
+      // Given a player in turn without enough mana,
+      Hero hero = game.getHero(playerInTurn);
+      // (Play the Tres card, whose mana-cost is 3. It should drain all mana.)
+      game.playCard(playerInTurn,0,0);
+      // When they attempt to play a card,
+      Status result = game.playCard(playerInTurn,0,0);
+      // Then they receive an error code.
+      assertThat(result, is(Status.NOT_ENOUGH_MANA));
+  }
+
+  @Test
+  public void shouldDeductManaWhenCardPlayed() {
+      // Given a player in turn,
+      // When they play a card,
+      int cost = game.getCardInHand(playerInTurn,0).getManaCost();
+      Hero hero = game.getHero(playerInTurn);
+      int mana = hero.getMana();
+
+      game.playCard(playerInTurn,0,0);
+      // Then the mana cost is deducted from their hero's mana.
+      assertThat(hero.getMana(), is(mana - cost));
   }
 
 }

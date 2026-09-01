@@ -203,7 +203,7 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
-    public void playCard(Player who, int handIndex, int fieldIndex) {
+    public Status playCard(Player who, int handIndex, int fieldIndex) {
         List<Card> hand;
         List<Card> field;
 
@@ -215,10 +215,15 @@ public class StandardHotStoneGame implements Game {
             field = fieldFindus;
         }
 
-        if(hand.isEmpty())
-            return;
+        Card card = hand.get(handIndex);
+        BabyHero hero = (BabyHero) getHero(who);
 
+        if (hero.getMana() < card.getManaCost()) {
+            return Status.NOT_ENOUGH_MANA;
+        }
         field.add(fieldIndex, hand.remove(handIndex));
+        hero.setMana(hero.getMana() - card.getManaCost());
+        return Status.OK;
     }
 }
 

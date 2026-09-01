@@ -156,9 +156,8 @@ public interface Game {
   /** Play a card from the hand to the field.
    *
    * PRECONDITION: 'who' is never null.
-   * PRECONDITION: the card is a non-null card retrieved by the
-   * 'getCardInHand()' method.
-   * PRECONDITION: atIndex in range 0 .. getFieldSize(who)
+   * PRECONDITION: handIndex in range [0, getHandSize(who)]
+   * PRECONDITION: fieldIndex in range [0, getFieldSize(who)]
    *
    * @param who player to play card
    * @param handIndex where the card is in the hand
@@ -166,8 +165,10 @@ public interface Game {
    *                entered on the field. 0 = left of
    *                leftmost position, 1 = between first
    *                and second position, etc.
+   *
+   * @return the status of the play
    */
-   void playCard(Player who, int handIndex, int fieldIndex);
+   Status playCard(Player who, int handIndex, int fieldIndex);
 
   /** Attack one card with another on the fields.
    *
