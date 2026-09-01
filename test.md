@@ -1,10 +1,9 @@
+Tests for game functionality:
 [OK] Given an initialized game, Then Findus is player in turn
 [OK] When Findus ends its turn, Then it is Peddersen in turn
 [OK] When Peddersen ends turn, its Findus turn
 [OK] When game starts Then players should have drawn three cards in hand.
 [OK] When game starts Then players should have Tres at index 0, Dos at index 1, and Uno at index 2.
-
-Tests for game functionality:
 [OK] Turn counter initializes to 1.
 [OK] Every time the turn changes, the turn counter increments by 1.
 [OK] Findus has the first turn.
