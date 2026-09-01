@@ -20,7 +20,7 @@ Tests for game functionality:
 [OK] Each player has a hero.
 [] Hero health decreases every time its attacked by an opponent card.
 [OK] When hero health <= 0, the hero is defeated.
-[OK] When a player's hero is defeated, the other player wins. - Not alphastone.
+[] When a player's hero is defeated, the other player wins. - Not alphastone.
 [OK] Findus wins at the start of turn 8.
 [OK] Peddersen and Findus take turns.
 [] A player can only perform allowed actions on their turn.

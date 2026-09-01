@@ -258,16 +258,6 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void shouldLoseWhenHeroDefeated() {
-      // Given a hero,
-      hotstone.framework.Hero hero = game.getHero(playerInTurn);
-      // When that hero is defeated,
-      if (!hero.isDefeated()) {hero.hurt(hero.getHealth());}
-      // Then the opponent wins.
-      assertThat(game.getWinner(), is(Player.computeOpponent(playerInTurn)));
-  }
-
-  @Test
   public void shouldPutCardInFieldWhenPlayed() {
       // Given a card in a player's hand,
       // When that card is played onto a position in the field,

@@ -46,6 +46,8 @@ import java.util.List;
 
 public class StandardHotStoneGame implements Game {
 
+    private final BabyHero findus;
+    private final BabyHero peddersen;
     private final SpanishDeck deckFindus = new SpanishDeck();
     private final SpanishDeck deckPeddersen = new SpanishDeck();
     private final List<Card> handFindus = new ArrayList<>();
@@ -55,8 +57,6 @@ public class StandardHotStoneGame implements Game {
 
     private boolean isPeddersenTurn = false;
     private int turnNumber = 0;
-    private final Hero findus;
-    private final Hero peddersen;
 
     public StandardHotStoneGame() {
 
@@ -87,10 +87,8 @@ public class StandardHotStoneGame implements Game {
 
     @Override
     public Player getWinner() {
-        if (peddersen.isDefeated() || turnNumber == 8) {
+        if (turnNumber == 8) {
             return Player.FINDUS;
-        } else if (findus.isDefeated()) {
-            return Player.PEDDERSEN;
         } else {
             return null;
         }
