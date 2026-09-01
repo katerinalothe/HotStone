@@ -29,7 +29,7 @@ Tests for game functionality:
 [] At the beginning of each turn, the turn's hero is set to 3 mana.
 [] A player can only play a card if they have enough mana for the card's mana cost.
 [] When a player plays a card, the mana cost of the card is deducted from their mana.
-[] When a player plays a card, it enters the field.
+[OK] When a player plays a card, it enters the field. --THIS!
 [] When a card enters the field, it occupies some position in the array of field positions.
 [] If a card tries to occupy an occupied position when entering the field, the existing cards are moved up.
 [] When a card enters the field, it invokes its Effect.

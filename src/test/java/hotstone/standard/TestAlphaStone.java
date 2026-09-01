@@ -135,9 +135,12 @@ public class TestAlphaStone {
   public void shouldHaveUnoDosTresCardsInitially() {
     // Given a game, player has 3 cards in hand.
     // When I check the cards in hand,
-    Card cardUno = game.getCardInHand(playerInTurn, 0);
+
+    // Recall that the hand is a stack, therefore the last card (Tres) is on top.
+    Card cardTres = game.getCardInHand(playerInTurn, 0);
     Card cardDos = game.getCardInHand(playerInTurn, 1);
-    Card cardTres = game.getCardInHand(playerInTurn, 2);
+    Card cardUno = game.getCardInHand(playerInTurn, 2);
+
     // Then it should be Uno, Dos, Tres.
     assertThat(cardUno.getName(), is(GameConstants.UNO_CARD));
     assertThat(cardDos.getName(), is(GameConstants.DOS_CARD));
@@ -253,11 +256,11 @@ public class TestAlphaStone {
   public void shouldRemoveCardFromHandWhenPlayed() {
       // Given a player,
       // When they play the first card in hand,
-      Card beforeCardInHand = game.getCardInHand(playerInTurn, 0);
-      game.playCard(playerInTurn, 0);
+      Card firstCard = game.getCardInHand(playerInTurn, 0);
+      game.playCard(playerInTurn, 0, 0);
       // Then the card is removed from the hand.
-      Card afterCardInHand = game.getCardInHand(playerInTurn, 0);
-      assertThat(afterCardInHand, not(sameInstance(beforeCardInHand)));
+      Card newFirstCard = game.getCardInHand(playerInTurn, 0);
+      assertThat(firstCard, not(sameInstance(newFirstCard)));
   }
 
   @Test
@@ -268,6 +271,16 @@ public class TestAlphaStone {
       if (!hero.isDefeated()) {hero.hurt(hero.getHealth());}
       // Then the opponent wins.
       assertThat(game.getWinner(), is(Player.computeOpponent(playerInTurn)));
+  }
+
+  @Test
+  public void shouldPutCardInFieldWhenPlayed() {
+      // Given a card in a player's hand,
+      // When that card is played onto a position in the field,
+      Card card = game.getCardInHand(playerInTurn, 0);
+      game.playCard(playerInTurn, 0, 0);
+      // Then it should appear in the field at that position.
+      assertThat(game.getCardInField(playerInTurn, 0), is(card));
   }
 
 }

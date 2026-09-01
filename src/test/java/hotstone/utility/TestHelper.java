@@ -79,13 +79,11 @@ public class TestHelper {
 
   // Helper method to set a few cards into the field
   public static void fieldTresForFindusAndDosForPeddersen(Game game) {
-    Card card = game.getCardInHand(Player.FINDUS, 0);
-    game.playCard(Player.FINDUS, card, 0);
+    game.playCard(Player.FINDUS, 0, 0);
     game.endTurn();
     // Remember Peddersen gets a card draw, so Dos is now at
     // index 2
-    card = game.getCardInHand(Player.PEDDERSEN, 2);
-    game.playCard(Player.PEDDERSEN, card, 0);
+    game.playCard(Player.PEDDERSEN, 2, 0);
     game.endTurn(); // Back to Findus which draws a card
   }
 }

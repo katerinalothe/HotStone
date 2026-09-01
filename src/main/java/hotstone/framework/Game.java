@@ -161,14 +161,13 @@ public interface Game {
    * PRECONDITION: atIndex in range 0 .. getFieldSize(who)
    *
    * @param who player to play card
-   * @param card card to play
-   * @param atIndex index at which the card should be
+   * @param handIndex where the card is in the hand
+   * @param fieldIndex index at which the card should be
    *                entered on the field. 0 = left of
-   *                leftmost minion, 1 = between first
-   *                and second minion, etc.
-   * @return Status of operation
+   *                leftmost position, 1 = between first
+   *                and second position, etc.
    */
-   Status playCard(Player who, Card card, int atIndex);
+   void playCard(Player who, int handIndex, int fieldIndex);
 
   /** Attack one card with another on the fields.
    *
@@ -209,10 +208,4 @@ public interface Game {
    */
   Status usePower(Player who);
 
-  /** Plays a card from a hand
-   *
-   * @param who the player
-   * @param atIndex position of card in hand
-   */
-  void playCard(Player who, int atIndex);
 }

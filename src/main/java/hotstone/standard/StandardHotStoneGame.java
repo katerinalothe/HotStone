@@ -50,6 +50,9 @@ public class StandardHotStoneGame implements Game {
     private final SpanishDeck deckPeddersen = new SpanishDeck();
     private final List<Card> handFindus = new ArrayList<>();
     private final List<Card> handPeddersen = new ArrayList<>();
+    private final List<Card> fieldFindus = new ArrayList<>();
+    private final List<Card> fieldPeddersen = new ArrayList<>();
+
     private boolean isPeddersenTurn = false;
     private int turnNumber = 0;
     private final StandardHero findus;
@@ -126,6 +129,16 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
+    public Card getCardInField(Player who, int indexInField) {
+        List<Card> field =
+                who == Player.FINDUS ? fieldFindus : fieldPeddersen;
+        if (indexInField > field.size() - 1) {
+            return null;
+        }
+        return field.get(indexInField);
+    }
+
+    @Override
     public Iterable<? extends StandardCard> getHand(Player who) {
         return null;
     }
@@ -136,11 +149,6 @@ public class StandardHotStoneGame implements Game {
             case Player.FINDUS -> handFindus.size();
             case Player.PEDDERSEN -> handPeddersen.size();
         };
-    }
-
-    @Override
-    public StandardCard getCardInField(Player who, int indexInField) {
-        return null;
     }
 
     @Override
@@ -179,11 +187,6 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
-    public Status playCard(Player who, hotstone.framework.Card card, int atIndex) {
-        return null;
-    }
-
-    @Override
     public Status attackCard(Player playerAttacking, hotstone.framework.Card attackingCard, hotstone.framework.Card defendingCard) {
         return null;
     }
@@ -200,15 +203,22 @@ public class StandardHotStoneGame implements Game {
     }
 
     @Override
-    public void playCard(Player who, int atIndex) {
+    public void playCard(Player who, int handIndex, int fieldIndex) {
         List<Card> hand;
-        if(who == Player.PEDDERSEN)
+        List<Card> field;
+
+        if (who == Player.PEDDERSEN) {
             hand = handPeddersen;
-        else 
+            field = fieldPeddersen;
+        } else {
             hand = handFindus;
+            field = fieldFindus;
+        }
+
         if(hand.isEmpty())
             return;
-        hand.remove(atIndex);
+
+        field.add(fieldIndex, hand.remove(handIndex));
     }
 }
 
