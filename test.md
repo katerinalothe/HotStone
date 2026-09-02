@@ -4,6 +4,7 @@ Turn taking
 [OK] When Findus ends its turn, Then it is Peddersen in turn
 [OK] When Peddersen ends turn, its Findus turn
 [OK] At the beginning of each turn, the turn's hero is set to 3 mana.
+[] A player can end their turn at any time.
 
 Game-state at start of game
 [OK] When game starts Then players should have drawn three cards in hand.
@@ -14,7 +15,7 @@ Game-state at start of game
 [OK] The deck is ordered from top to bottom: Uno, Dos, Tres, Cuatro, Cinco, Seis, Siete.
 [OK] Each player starts with a deck.
 [OK] Each player has a hero.
-[OK] There is one hero type: Baby. Both players have type Baby -kate
+[OK] There is one hero type: Baby. Both players have type Baby
 
 Cards and deck
 [OK] When a player draws a card, it is taken from the top of their deck and removed from the deck.
@@ -50,18 +51,18 @@ Defeat and vicotry
 
 Other Functionalities
 [] A player can only perform allowed actions on their turn.
-[] A player can end their turn at any time.
+
 
 Tests for hero type Baby:
 [OK] Hero health starts at 21.
-[OK] Hero starts with 3 mana. -kate
-[OK] Power is called "Cute". -kate
-[OK] Power costs 2 mana -kate
-[OK] Power deducts 2 mana from Hero when used. -kate
-[OK] Power can be used if mana is more or equal to power cost -kate
-[OK] Power cant be used if there isn't enough mana -kate
-[OK] Power description is "Does nothing". -kate
-[OK] Power can only be used once per turn. - kate
+[OK] Hero starts with 3 mana. 
+[OK] Power is called "Cute". 
+[OK] Power costs 2 mana 
+[OK] Power deducts 2 mana from Hero when used. 
+[OK] Power can be used if mana is more or equal to power cost 
+[OK] Power cant be used if there isn't enough mana 
+[OK] Power description is "Does nothing". 
+[OK] Power can only be used once per turn. 
 [OK] Power is reset every round 
 
 attribute format: (mana cost, attack, health)
