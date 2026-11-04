@@ -17,8 +17,8 @@
 package hotstone.utility;
 
 import hotstone.framework.Card;
-import hotstone.framework.Game;
-import hotstone.framework.Hero;
+import hotstone.framework.UIGame;
+import hotstone.framework.SecureHero;
 import hotstone.framework.Player;
 
 /** Useful helper functions during TDD of the
@@ -35,13 +35,13 @@ public class TestHelper {
    *
    * @param game the game whose state should be printed.
    */
-  public static void printGameState(Game game) {
+  public static void printGameState(UIGame game) {
     System.out.println("=== Game State Print ===");
     System.out.println("  Player in turn: " + game.getPlayerInTurn()
       + ", Turn number: " + game.getTurnNumber());
     for (Player player: Player.values()) {
       System.out.println("--- Player: " + player.toString() + " ---");
-      Hero hero = game.getHero(player);
+      SecureHero hero = game.getHero(player);
       System.out.println("  Hero (" + hero.getType()
               + ") Mana: " + hero.getMana()
               + ", Health: " + hero.getHealth());
@@ -73,17 +73,17 @@ public class TestHelper {
   }
 
   // Helper method to advance the game some rounds
-  public static void advanceGameNRounds(Game game, int roundCount) {
+  public static void advanceGameNRounds(UIGame game, int roundCount) {
     for (int i = 0; i < roundCount; i++) { game.endTurn(); game.endTurn(); }
   }
 
   // Helper method to set a few cards into the field
-  public static void fieldTresForFindusAndDosForPeddersen(Game game) {
-    game.playCard(Player.FINDUS, 0, 0);
+  public static void fieldTresForFindusAndDosForPeddersen(UIGame game) {
+    game.playCard(0, 0);
     game.endTurn();
     // Remember Peddersen gets a card draw, so Dos is now at
     // index 2
-    game.playCard(Player.PEDDERSEN, 2, 0);
+    game.playCard(2, 0);
     game.endTurn(); // Back to Findus which draws a card
   }
 }

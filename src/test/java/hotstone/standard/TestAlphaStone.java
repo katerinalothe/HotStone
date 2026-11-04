@@ -30,9 +30,11 @@ package hotstone.standard;
  */
 
 import hotstone.framework.*;
+import hotstone.standard.VariantFactories.AlphaFactory;
 import org.junit.jupiter.api.*;
 
 import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /** Template for your own ongoing TDD process.
@@ -40,13 +42,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * requirements for the alpha stone game.
  */
 public class TestAlphaStone {
-  private Game game;
+  private UIGame game;
   private Player playerInTurn;
 
   /** Fixture for AlphaStone testing. */
   @BeforeEach
   public void setUp() {
-    game = new StandardHotStoneGame();
+
+    game = new StandardHotStoneGame(new AlphaFactory());
     playerInTurn = game.getPlayerInTurn();
   }
 
@@ -71,7 +74,7 @@ public class TestAlphaStone {
   public void shouldStartFindusWithBabyHero() {
       // Given a new game,
       // When we check Findus' hero type,
-      BabyHero hero = (BabyHero) game.getHero(Player.FINDUS);
+      SecureHero hero = game.getHero(Player.FINDUS);
       // Then we should get "Baby".
       assertThat(hero, notNullValue());
       assertThat(hero.getType(), is("Baby"));
@@ -81,7 +84,7 @@ public class TestAlphaStone {
   public void shouldStartPeddersenWithBabyHero() {
       // Given a new game,
       // When we check Peddersen's hero type,
-      BabyHero hero = (BabyHero) game.getHero(Player.PEDDERSEN);
+      SecureHero hero = game.getHero(Player.PEDDERSEN);
       // Then we should get "Baby".
       assertThat(hero, notNullValue());
       assertThat(hero.getType(), is("Baby"));
@@ -162,31 +165,6 @@ public class TestAlphaStone {
   }
 
   @Test
-  public void shouldHaveDeckSizeAs7() {
-      // Given Spanish Deck
-      SpanishDeck deck = new SpanishDeck();
-      // When we check how many cards are in the deck
-      // Then there should be 7 cards
-      assertThat(deck.getSize(), is(7));
-  }
-
-  @Test
-  public void shouldBeOrderedUnoDosTresCuatroCincoSeisSiete() {
-      // Given the Spanish Deck
-      SpanishDeck deck = new SpanishDeck();
-      // When we check the order of the cards
-      // Then the order, from top to bottom, should be:
-      // Uno, Dos, Tres...
-      assertThat(deck.getCard(0).getName(), is(GameConstants.UNO_CARD));
-      assertThat(deck.getCard(1).getName(), is(GameConstants.DOS_CARD));
-      assertThat(deck.getCard(2).getName(), is(GameConstants.TRES_CARD));
-      assertThat(deck.getCard(3).getName(), is(GameConstants.CUATRO_CARD));
-      assertThat(deck.getCard(4).getName(), is(GameConstants.CINCO_CARD));
-      assertThat(deck.getCard(5).getName(), is(GameConstants.SEIS_CARD));
-      assertThat(deck.getCard(6).getName(), is(GameConstants.SIETE_CARD));
-  }
-
-  @Test
   public void shouldStartWithADeckForEachPlayer() {
       // Given start of game
       // When we check the size of each player's deck
@@ -200,7 +178,8 @@ public class TestAlphaStone {
       // Given a player's turn
       // When a card is drawn (happens in turn 3)
       Card cardInDeck = game.getCardInDeck(playerInTurn, 0);
-      game.drawCard(playerInTurn);
+      game.endTurn();
+      game.endTurn();
       Card cardInHand = game.getCardInHand(playerInTurn, 0);
       // Then it is added to the hand of the player
       assertThat(cardInDeck, is(cardInHand));
@@ -211,32 +190,23 @@ public class TestAlphaStone {
       // Given a player's turn
       // When a card is drawn from the deck (happens in turn 3)
       Card cardTopOfDeck = game.getCardInDeck(playerInTurn, 0);
-      game.drawCard(playerInTurn);
+      game.endTurn();
+      game.endTurn();
       // Then it is removed from the top of the deck
       assertThat(cardTopOfDeck, not(sameInstance(game.getCardInDeck(playerInTurn,0))));
-  }
-
-  @Test
-  public void shouldNotBeAbleToDrawIfDeckEmpty() {
-      // Given an empty deck,
-      while (game.getDeckSize(playerInTurn) > 0) {
-          game.drawCard(playerInTurn);
-      }
-      // When a player draws,
-      boolean isOK = game.drawCard(playerInTurn);
-      // Then they are denied the draw.
-      assertThat(isOK, is(false));
   }
 
   @Test
   public void shouldTakeTwoHeroDamageIfCannotDraw() {
       // Given a player cannot draw
       while (game.getDeckSize(playerInTurn) > 0) {
-          game.drawCard(playerInTurn);
+          game.endTurn();
+          game.endTurn();
       }
       // When a player tries to draw a card
       int healthBefore = game.getHero(playerInTurn).getHealth();
-      game.drawCard(playerInTurn);
+      game.endTurn();
+      game.endTurn();
       int healthAfter = game.getHero(playerInTurn).getHealth();
       // Then hero loses two health
       assertThat(healthAfter, is(healthBefore-2));
@@ -247,7 +217,7 @@ public class TestAlphaStone {
       // Given a player,
       // When they play the first card in hand,
       Card firstCard = game.getCardInHand(playerInTurn, 0);
-      game.playCard(playerInTurn, 0, 0);
+      game.playCard(0, 0);
       // Then the card is removed from the hand.
       Card newFirstCard = game.getCardInHand(playerInTurn, 0);
       assertThat(firstCard, not(sameInstance(newFirstCard)));
@@ -258,7 +228,7 @@ public class TestAlphaStone {
       // Given a card in a player's hand,
       // When that card is played onto a position in the field,
       Card card = game.getCardInHand(playerInTurn, 0);
-      game.playCard(playerInTurn, 0, 0);
+      game.playCard(0, 0);
       // Then it should appear in the field at that position.
       assertThat(game.getCardInField(playerInTurn, 0), is(card));
   }
@@ -278,23 +248,23 @@ public class TestAlphaStone {
   @Test
   public void shouldHaveManaSetTo3AtStartOfEachTurn() {
       // Given a player uses a power and loses mana,
-      game.usePower(playerInTurn); // has now 1 mana
+      game.usePower(); // has now 1 mana
       // When it's their turn again,
       game.endTurn();
       game.endTurn();
       // Then their hero's mana is reset to 3
-      BabyHero hero = (BabyHero) game.getHero(playerInTurn);
+      SecureHero hero = game.getHero(playerInTurn);
       assertThat(hero.getMana(), is(3));
   }
 
   @Test
   public void shouldRejectCardPlayIfManaInsufficient() {
       // Given a player in turn without enough mana,
-      Hero hero = game.getHero(playerInTurn);
+      SecureHero hero = game.getHero(playerInTurn);
       // (Play the Tres card, whose mana-cost is 3. It should drain all mana.)
-      game.playCard(playerInTurn,0,0);
+      game.playCard(0,0);
       // When they attempt to play a card,
-      Status result = game.playCard(playerInTurn,0,0);
+      Status result = game.playCard(0,0);
       // Then they receive an error code.
       assertThat(result, is(Status.NOT_ENOUGH_MANA));
   }
@@ -304,12 +274,138 @@ public class TestAlphaStone {
       // Given a player in turn,
       // When they play a card,
       int cost = game.getCardInHand(playerInTurn,0).getManaCost();
-      Hero hero = game.getHero(playerInTurn);
+      SecureHero hero = game.getHero(playerInTurn);
       int mana = hero.getMana();
 
-      game.playCard(playerInTurn,0,0);
+      game.playCard(0,0);
       // Then the mana cost is deducted from their hero's mana.
       assertThat(hero.getMana(), is(mana - cost));
   }
+
+    @Test
+    public void shouldBecomeActiveAtNextTurn() {
+        // Given a card,
+        Card playedCard = game.getCardInHand(playerInTurn,0);
+        // When a new turn occurs,
+        game.playCard(0, 0);
+        game.endTurn();
+        game.endTurn();
+        // Then that card becomes active.
+        assertThat(playedCard.isActive(), is(true));
+    }
+
+    @Test
+  public void shouldNotBecomeActiveOnTurnPlayed() {
+      // Given a card,
+        Card playedCard = game.getCardInHand(playerInTurn,0);
+      // When played on turn,
+        game.playCard(0, 0);
+      // Then that card is inactive.
+        assertThat(playedCard.isActive(), is(false));
+  }
+
+  @Test
+  public void shouldOnlyAttackWhenActive() {
+      // Given a card is played on the field
+      game.playCard(0, 0);
+      // When a player tries to attack with the card
+      Status result = game.attackHero(0);
+      // Then they can't (if it's inactive)
+      assertThat(result, is(Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION));
+  }
+
+  @Test
+  public void shouldBecomeInactiveAfterAttacking() {
+      // Given a card on the field,
+      game.playCard(0, 0);
+      Card card = game.getCardInField(playerInTurn,0);
+      game.endTurn();
+      game.endTurn();
+      // When that card attacks,
+      game.attackHero(0);
+      // Then the card should become inactive.
+      assertThat(card.isActive(), is(false));
+  }
+    @Test
+    public void shouldHurtHeroOnAttack() {
+        // Given a card with x attack power
+        game.playCard(0, 0);
+        game.endTurn();
+        game.endTurn();
+        Card card = game.getCardInField(playerInTurn, 0);
+        SecureHero hero = game.getHero(Player.computeOpponent(playerInTurn));
+        int healthBefore = hero.getHealth();
+        // When the card attacks the opponent hero
+        game.attackHero(0);
+        // Then the opponent hero loses x health
+        assertThat(healthBefore - hero.getHealth(), is(card.getAttack()));
+    }
+
+    @Test
+    public void shouldHurtCardOnAttack() {
+      // Given a card with X attack power,
+      Player opponent = Player.computeOpponent(playerInTurn);
+
+      // (Play our card.)
+      game.playCard(0,0);
+      Card card = game.getCardInField(playerInTurn,0);
+      game.endTurn();
+
+      // (Opponent plays their card.)
+      game.playCard(0,0);
+      Card oppCard = game.getCardInField(opponent,0);
+      game.endTurn();
+      // (Our card is now active.)
+
+      // When the card attacks an opponent card,
+      int healthBefore = oppCard.getHealth();
+      game.attackCard(0,0);
+      // Then the opponent card loses X health.
+      assertThat(healthBefore - oppCard.getHealth(), is(card.getAttack()));
+    }
+
+    @Test
+    public void shouldHurtOwnCardOnAttack() {
+        // Given a card,
+        Player opponent = Player.computeOpponent(playerInTurn);
+
+        // (Play our card.)
+        game.playCard(0,0);
+        Card card = game.getCardInField(playerInTurn,0);
+        game.endTurn();
+
+        // (Opponent plays their card.)
+        game.playCard(0,0);
+        Card oppCard = game.getCardInField(opponent,0);
+        game.endTurn();
+        // (Our card is now active.)
+
+        // When our card attacks an opponent card who has X attack power,
+        int healthBefore = card.getHealth();
+        game.attackCard(0,0);
+        // Then our card is dealt X damage.
+        assertThat(healthBefore - card.getHealth(), is(oppCard.getAttack()));
+    }
+
+    @Test
+    public void shouldRemoveCardOnDefeat() {
+      // Given an attacking and defending card,
+      Player opp = Player.computeOpponent(playerInTurn);
+
+      game.playCard(0,0);
+      Card attacker = game.getCardInField(playerInTurn,0);
+      game.endTurn();
+
+      game.playCard(0,0);
+      Card defender = game.getCardInField(opp,0);
+      game.endTurn();
+      // When the defender is attacked and has <= 0 health,
+      assertThat(attacker.getAttack(), is(greaterThanOrEqualTo(defender.getHealth())));
+      game.attackCard(0,0);
+      // Then the defender is removed from the game.
+      for (Card c : game.getField(opp)) {
+          assertThat(c, not(defender));
+      }
+    }
 
 }

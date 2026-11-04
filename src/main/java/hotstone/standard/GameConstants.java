@@ -23,6 +23,7 @@ package hotstone.standard;
  */
 
 public class GameConstants {
+
   /** The maximum health of a hero initially. */
   public static final int HERO_MAX_HEALTH = 21;
   /** The cost of a hero using its power. */
@@ -31,6 +32,9 @@ public class GameConstants {
    * card from an empty deck.
    */
   public static final int HERO_HEALTH_PENALTY_ON_EMPTY_DECK = 2;
+  /** The initial default mana for hero.
+   */
+  public static final int HERO_INITIAL_MANA = 3;
 
   // The alpha variant's hero type
   public static final String BABY_HERO_TYPE = "Baby";
@@ -40,6 +44,21 @@ public class GameConstants {
   public static final String DANISH_CHEF_HERO_TYPE = "Meyer";
   public static final String FRENCH_CHEF_HERO_TYPE = "Bocuse";
   public static final String ITALIAN_CHEF_HERO_TYPE = "Bottura";
+
+  // Power attributes
+  public static final String BABY_HERO_POWER_NAME = "Cute";
+  public static final String BABY_HERO_POWER_DESCRIPTION = "Does nothing.";
+  public static final String DANISH_CHEF_HERO_POWER_DESCRIPTION = "Summon Sovs card.";
+  public static final String FRENCH_CHEF_HERO_POWER_NAME = "RedWine";
+  public static final String FRENCH_CHEF_HERO_POWER_DESCRIPTION = "Deals 2 damage to random opponent's minion.";
+  public static final int FRENCH_CHEF_HERO_POWER_CARD_ATTACK_OPPONENT_CARD = 2;
+  public static final String ITALIAN_CHEF_HERO_POWER_NAME = "Pasta";
+  public static final String ITALIAN_CHEF_HERO_POWER_DESCRIPTION = "Adds 2 attack to one's own random minion.";
+  public static final int ITALIAN_CHEF_HERO_POWER_CARD_ADD_TO_ATTACK_VALUE = 2;
+  public static final String THAI_CHEF_HERO_POWER_NAME = "Chili";
+  public static final String THAI_CHEF_HERO_POWER_DESCRIPTION = "Deals 2 damage to opponent hero.";
+  public static final int THAI_CHEF_HERO_POWER_ATTACK_OPPONENT_HERO_VALUE = 2;
+
 
   // Card names for Alpha
   public static final String DOS_CARD = "Dos";

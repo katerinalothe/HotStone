@@ -24,11 +24,11 @@ package hotstone.framework;
  * 'minion' in the comments and associated documentation, but it _is_
  * a card, and the interfaces only talks in terms of cards.
  */
-
 public interface Card  {
+
   /** Get the name of the card.
    *
-   * @return the name
+   * @return the name.
    */
   String getName();
 
