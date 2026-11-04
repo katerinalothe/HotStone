@@ -160,6 +160,7 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
     @Override
     public void endTurn() {
+        // check if winning condtition has happend
         turnNumber++;
 
         MutableHero currentHero = getHero(getPlayerInTurn());
@@ -177,6 +178,7 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
         } else drawCard();
 
         observerHandler.notifyChangeTurnTo(getPlayerInTurn());
+        getWinner();
     }
 
     @Override
