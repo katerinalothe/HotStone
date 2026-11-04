@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestEpsilonStone" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.301Z" hostname="HAL-3000" time="0.022">
+  <properties/>
+  <testcase name="shouldRedWinePowerRemove2HealthFromRandomOpponentMinion()" classname="hotstone.standard.TestEpsilonStone" time="0.01"/>
+  <testcase name="shouldPastaDoNothingIfNoFriendlyMinion()" classname="hotstone.standard.TestEpsilonStone" time="0.002"/>
+  <testcase name="shouldRedwineDoNothingIfNoOpponentMinion()" classname="hotstone.standard.TestEpsilonStone" time="0.003"/>
+  <testcase name="shouldPastaPowerAdd2AttackPowerToRandomFriendlyMinion()" classname="hotstone.standard.TestEpsilonStone" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

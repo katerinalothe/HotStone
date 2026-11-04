@@ -1,0 +1,16 @@
+Deal damage
+equal to your
+hero's attack
+to a minion
+WV
+WV"-- TRANSCRIPT OF EXAMPLE GAME --
+WVFINDUS played Uno at index 0.
+WVFINDUS ended turn.
+WV"PEDDERSEN played Tres at index 0.
+WVPEDDERSEN ended turn.
+WVFINDUS attacked Tres with Uno.
+WVFINDUS ended turn.
+WVPEDDERSEN used Hero power.
+WV#PEDDERSEN attacked Hero with Tres.
+WV-- END OF TRANSCRIPT --
+WV

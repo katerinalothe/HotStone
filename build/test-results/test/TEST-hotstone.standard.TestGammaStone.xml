@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestGammaStone" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.363Z" hostname="HAL-3000" time="0.017">
+  <properties/>
+  <testcase name="winnerIsFirstPersonThatClearsOpponentFieldAfter3rounds()" classname="hotstone.standard.TestGammaStone" time="0.008"/>
+  <testcase name="shouldAddMinionForSovsPower()" classname="hotstone.standard.TestGammaStone" time="0.001"/>
+  <testcase name="findusShouldHaveHeroTypeThaiChef()" classname="hotstone.standard.TestGammaStone" time="0.001"/>
+  <testcase name="peddersonShouldHaveHeroTypeDanishChef()" classname="hotstone.standard.TestGammaStone" time="0.001"/>
+  <testcase name="chiliPowerShouldHurtHero2Health()" classname="hotstone.standard.TestGammaStone" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

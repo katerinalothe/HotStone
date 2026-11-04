@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestCards" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.274Z" hostname="HAL-3000" time="0.004">
+  <properties/>
+  <testcase name="shouldBeInactiveIfInHand()" classname="hotstone.standard.TestCards" time="0.002"/>
+  <testcase name="shouldHaveUnoAs111()" classname="hotstone.standard.TestCards" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

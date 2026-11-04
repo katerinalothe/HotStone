@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.tool.TestMinionDropIndex" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.430Z" hostname="HAL-3000" time="0.019">
+  <properties/>
+  <testcase name="shouldIncreaseCoverage()" classname="hotstone.tool.TestMinionDropIndex" time="0.005"/>
+  <testcase name="shouldCompute0IndexForLeftDrop()" classname="hotstone.tool.TestMinionDropIndex" time="0.004"/>
+  <testcase name="shouldCompute5IndexForRightDrop()" classname="hotstone.tool.TestMinionDropIndex" time="0.001"/>
+  <testcase name="shouldCompute2IndexForDropBetweenSecondAndThird()" classname="hotstone.tool.TestMinionDropIndex" time="0.002"/>
+  <testcase name="shouldCompute0IfEmptyList()" classname="hotstone.tool.TestMinionDropIndex" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

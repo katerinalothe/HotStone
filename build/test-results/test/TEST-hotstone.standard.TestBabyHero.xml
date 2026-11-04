@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestBabyHero" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.225Z" hostname="HAL-3000" time="0.03">
+  <properties/>
+  <testcase name="bothPlayersHaveHeroTypeBaby()" classname="hotstone.standard.TestBabyHero" time="0.001"/>
+  <testcase name="shouldHavePowerEffectDescribedAsDoingNothing()" classname="hotstone.standard.TestBabyHero" time="0.002"/>
+  <testcase name="shouldResetPowerEveryRound()" classname="hotstone.standard.TestBabyHero" time="0.003"/>
+  <testcase name="shouldHaveHealth21()" classname="hotstone.standard.TestBabyHero" time="0.002"/>
+  <testcase name="shouldStartWith3Mana()" classname="hotstone.standard.TestBabyHero" time="0.002"/>
+  <testcase name="shouldNotBeAbleToUsePowerMoreThanOncePerTurn()" classname="hotstone.standard.TestBabyHero" time="0.001"/>
+  <testcase name="shouldNotUsePowerIfHeroDoesNotHaveEnoughMana()" classname="hotstone.standard.TestBabyHero" time="0.001"/>
+  <testcase name="shouldHavePowerThatIsCalledCute()" classname="hotstone.standard.TestBabyHero" time="0.001"/>
+  <testcase name="shouldBeAbleToUsePowerIfHeroHasEnoughMana()" classname="hotstone.standard.TestBabyHero" time="0.001"/>
+  <testcase name="shouldDeductHerosManaToUsePower()" classname="hotstone.standard.TestBabyHero" time="0.001"/>
+  <testcase name="shouldHavePowerThatCosts2Mana()" classname="hotstone.standard.TestBabyHero" time="0.002"/>
+  <testcase name="shouldBeDefeatedWhenHealthAtOrLessThanZero()" classname="hotstone.standard.TestBabyHero" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

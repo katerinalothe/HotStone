@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.figuretestcase.TestWordBreak" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:12.992Z" hostname="HAL-3000" time="0.084">
+  <properties/>
+  <testcase name="shouldBreakSentencesIntoNSizeLines()" classname="hotstone.figuretestcase.TestWordBreak" time="0.084"/>
+  <system-out><![CDATA[Deal damage
+equal to your
+hero's attack
+to a minion
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

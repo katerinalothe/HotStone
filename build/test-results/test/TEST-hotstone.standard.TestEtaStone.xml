@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestEtaStone" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.326Z" hostname="HAL-3000" time="0.033">
+  <properties/>
+  <testcase name="shouldExecuteCardEffectsWithEtaVariant()" classname="hotstone.standard.TestEtaStone" time="0.017"/>
+  <testcase name="shouldBrownRicePowerHurtHero()" classname="hotstone.standard.TestEtaStone" time="0.001"/>
+  <testcase name="shouldTomatoSaladAddAtkToRandomMinion()" classname="hotstone.standard.TestEtaStone" time="0.003"/>
+  <testcase name="shouldPokeBowlAdd2healthToHero()" classname="hotstone.standard.TestEtaStone" time="0.001"/>
+  <testcase name="shouldSpringRollsDestroyRandomMinion()" classname="hotstone.standard.TestEtaStone" time="0.001"/>
+  <testcase name="shouldNoodleSoupDrawCard()" classname="hotstone.standard.TestEtaStone" time="0.001"/>
+  <testcase name="shouldBakedSalmonAdd2AtkToRandOppMinion()" classname="hotstone.standard.TestEtaStone" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

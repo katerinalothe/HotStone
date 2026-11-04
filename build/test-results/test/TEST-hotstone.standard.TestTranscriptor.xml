@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestTranscriptor" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.408Z" hostname="HAL-3000" time="0.009">
+  <properties/>
+  <testcase name="shouldOutputForSuccessfulActions()" classname="hotstone.standard.TestTranscriptor" time="0.009"/>
+  <system-out><![CDATA[
+-- TRANSCRIPT OF EXAMPLE GAME --
+FINDUS played Uno at index 0.
+FINDUS ended turn.
+PEDDERSEN played Tres at index 0.
+PEDDERSEN ended turn.
+FINDUS attacked Tres with Uno.
+FINDUS ended turn.
+PEDDERSEN used Hero power.
+PEDDERSEN attacked Hero with Tres.
+-- END OF TRANSCRIPT --
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

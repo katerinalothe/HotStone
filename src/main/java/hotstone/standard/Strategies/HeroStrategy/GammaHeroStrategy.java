@@ -23,6 +23,7 @@ public class GammaHeroStrategy implements HeroStrategy {
         }
 
         return new StandardHero(
+                p,
                 GameConstants.HERO_INITIAL_MANA,
                 GameConstants.HERO_MAX_HEALTH,
                 heroType,

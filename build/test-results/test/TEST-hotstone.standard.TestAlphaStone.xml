@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestAlphaStone" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.086Z" hostname="HAL-3000" time="0.136">
+  <properties/>
+  <testcase name="shouldIncreaseTurnCounterWhenTurnEnds()" classname="hotstone.standard.TestAlphaStone" time="0.035"/>
+  <testcase name="shouldHaveFindusAsWinnerOnTurn8()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldNotBecomeActiveOnTurnPlayed()" classname="hotstone.standard.TestAlphaStone" time="0.004"/>
+  <testcase name="shouldHurtOwnCardOnAttack()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldStartPeddersenWithBabyHero()" classname="hotstone.standard.TestAlphaStone" time="0.005"/>
+  <testcase name="shouldOnlyAttackWhenActive()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldHaveFindusAsFirstPlayer()" classname="hotstone.standard.TestAlphaStone" time="0.001"/>
+  <testcase name="shouldStartFindusWithBabyHero()" classname="hotstone.standard.TestAlphaStone" time="0.001"/>
+  <testcase name="shouldHurtHeroOnAttack()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldTakeTwoHeroDamageIfCannotDraw()" classname="hotstone.standard.TestAlphaStone" time="0.003"/>
+  <testcase name="shouldBePeddersenTurnAfterFindusTurn()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldRemoveCardOnDefeat()" classname="hotstone.standard.TestAlphaStone" time="0.012"/>
+  <testcase name="shouldBecomeActiveAtNextTurn()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldHurtCardOnAttack()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldRemoveCardFromHandWhenPlayed()" classname="hotstone.standard.TestAlphaStone" time="0.004"/>
+  <testcase name="shouldStartWithADeckForEachPlayer()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldStartAtTurnOne()" classname="hotstone.standard.TestAlphaStone" time="0.001"/>
+  <testcase name="shouldRemoveCardFromTopOfDeckWhenDrawn()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldRejectCardPlayIfManaInsufficient()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldHaveManaSetTo3AtStartOfEachTurn()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldHaveUnoDosTresCardsInitially()" classname="hotstone.standard.TestAlphaStone" time="0.001"/>
+  <testcase name="shouldAddToTopOfHandWhenDrawingFromDeck()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldHaveThreeCardsInitially()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldBecomeInactiveAfterAttacking()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldDeductManaWhenCardPlayed()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldPutCardInFieldWhenPlayed()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <testcase name="shouldBeFindusTurnAfterPeddersenTurn()" classname="hotstone.standard.TestAlphaStone" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

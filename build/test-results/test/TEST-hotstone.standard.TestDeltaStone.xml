@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="hotstone.standard.TestDeltaStone" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-03T21:48:13.293Z" hostname="HAL-3000" time="0.005">
+  <properties/>
+  <testcase name="shouldStartTurnWith5Mana()" classname="hotstone.standard.TestDeltaStone" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
