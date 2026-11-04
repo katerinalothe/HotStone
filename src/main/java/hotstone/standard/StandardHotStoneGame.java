@@ -119,6 +119,11 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
     }
 
     @Override
+    public int getRoundCount() {
+        return (int) Math.floor((float) turnNumber / 2) + 1;
+    }
+
+    @Override
     public int getDeckSize(Player who) {
         return deck.get(who).getSize();
     }
@@ -164,7 +169,12 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
         turnNumber++;
 
         MutableHero currentHero = getHero(getPlayerInTurn());
-        currentHero.setMana(manaStrategy.calculate(getRoundCount()));
+        // Ensure Heroes start with initial mana.
+        if (getTurnNumber() < 2) {
+            currentHero.setMana(GameConstants.HERO_INITIAL_MANA);
+        } else {
+            currentHero.setMana(manaStrategy.calculate(getRoundCount()));
+        }
         currentHero.resetUsedPower();
         for(MutableCard c: getField(getPlayerInTurn())) {
             c.setActive(true);
@@ -274,11 +284,6 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
     public void addToField(Player who, MutableCard card, int index) {
         field.get(who).add(index, card);
         observerHandler.notifyPlayCard(who, card, index);
-    }
-
-    @Override
-    public int getRoundCount() {
-        return Math.round((float) turnNumber / 2);
     }
 
     @Override
