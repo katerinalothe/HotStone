@@ -372,7 +372,10 @@ public class HotStoneDrawing implements Drawing, GameObserver {
   @Override
   public void onPlayCard(Player who, Card card, int atIndex) {
     addMessage("" + who + " plays " + card.getName() + ".");
-    // TODO: Add another message if the card has an effect
+
+    if (card.getEffectDescription() != null && !card.getEffectDescription().isEmpty()) {
+      addMessage("Effect: " + card.getEffectDescription());
+    }
 
     // As this direct mutator call has known side effects which are
     // not represented by the indirect observer notifications, the
@@ -434,9 +437,10 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // refresh the hand; otherwise just update the summary
     // of the opponent player
     if (who == playerShown) {
-      // TODO: add card to hand, refresh the hand Gfx
+      createActorAndUpdateMapping(drawnCard, HotStoneFigureType.CARD_FIGURE);
+      refreshHand(playerShown);
     } else {
-      // TODO: update opponent's summary
+      opponentSummary.setText(computeHeroSummary(who));
     }
     addMessage(who + " draws a card.");
   }
@@ -448,19 +452,21 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // for instance if they are in the hand.
     if (actor != null) {
 
-      // TODO: update the stats of the card/minion
-      addMessage("TODO: update card stats");
+      actor.changed();
+      addMessage("Card stats updated for " + card.getName());
     }
   }
 
   @Override
   public void onCardRemove(Player who, Card card) {
-    // TODO: Remove the minion and refresh field
     // NOTE: be SURE to use the
     // right internal data structure manipulation method
     // so both the figure collection AND the actorMap
     // is updated
-    addMessage("TODO: " + who + "'s minion " + card.getName()
+    removeActorAndUpdateMapping(card);
+
+    refreshField(who);
+    addMessage(who + "'s minion " + card.getName()
             + " is killed.");
   }
 
