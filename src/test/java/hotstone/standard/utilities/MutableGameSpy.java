@@ -99,7 +99,7 @@ public class MutableGameSpy implements Spy, UIGame, MutableGame {
     }
 
     @Override
-    public Iterable<? extends Card> getHand(Player who) {
+    public List<? extends Card> getHand(Player who) {
         return null;
     }
 

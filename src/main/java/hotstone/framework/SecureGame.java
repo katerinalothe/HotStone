@@ -88,7 +88,7 @@ public interface SecureGame {
      * @param who the player owning the hand
      * @return an iterable over the cards in the hand
      */
-    Iterable<? extends Card> getHand(Player who);
+    List<? extends Card> getHand(Player who);
 
     /** Get the number of cards in the hand.
      *

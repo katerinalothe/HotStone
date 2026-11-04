@@ -20,6 +20,8 @@ import hotstone.doubles.FakeObjectGame;
 import hotstone.framework.Card;
 import hotstone.framework.UIGame;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.standard.VariantFactories.AlphaFactory;
 import hotstone.view.core.HotStoneDrawing;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
@@ -35,9 +37,8 @@ import java.awt.event.MouseEvent;
  */
 public class ShowUpdate {
   public static void main(String[] args) {
-    // TODO: Replace the below assignment into a stable and well
     // tested variant of HotStone
-    UIGame game = new FakeObjectGame();
+    UIGame game = new StandardHotStoneGame(new AlphaFactory());
 
     DrawingEditor editor =
       new MiniDrawApplication( "Click anywhere to progress in an update sequence...",

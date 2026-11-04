@@ -135,7 +135,7 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
     }
 
     @Override
-    public Iterable<MutableCard> getHand(Player who) {
+    public List<MutableCard> getHand(Player who) {
         return hand.get(who);
     }
 

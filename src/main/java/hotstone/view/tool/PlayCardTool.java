@@ -26,6 +26,7 @@ import minidraw.framework.*;
 import minidraw.standard.NullTool;
 
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 /** Almost complete implementation of PlayCardTool: a MiniDraw tool
  * to play a card.
@@ -70,32 +71,36 @@ public class PlayCardTool extends NullTool {
     lastX = x; lastY = y;
   }
 
-  @Override
   public void mouseUp(MouseEvent e, int x, int y) {
-    // Invoke related facade method, if figure is a card
-    boolean isDraggingAnActor = draggedActor != null;
-    // are we dropping the card on the battlefield
-    boolean isHittingField = y < GfxConstants.Y_LIMIT_OF_FIELD;
-    // moveCardBack is true in case our card drag failed
+    boolean isDraggingAnActor = this.draggedActor != null;
+    boolean isHittingField = y < 560;
     boolean moveCardBack = true;
-
     if (isDraggingAnActor && isHittingField) {
-      Card associatedCard = draggedActor.getAssociatedCard();
-      // TODO: Do the actual call instead of this fake code
-      System.out.println("TODO: Do the actual call to the domain code...");
-      Status status = Status.NOT_ENOUGH_MANA;
+      Card associatedCard = this.draggedActor.getAssociatedCard();
+      Status status = this.game.playCard(this.getIndex(associatedCard), 0);
       if (status == Status.OK) {
         moveCardBack = false;
       }
-      editor.showStatus("Draw card from hand. Result =" + status);
+
+      this.editor.showStatus("Draw card from hand. Result =" + String.valueOf(status));
     }
+
     if (moveCardBack) {
-      // move the dragged card back to original position; we have
-      // to do this in the UI because there is no event originating
-      // from the game via the observer that tell the GUI about
-      // a failed playCard.
-      draggedActor.moveBy(orgX - x, orgY - y);
+      this.draggedActor.moveBy(this.orgX - x, this.orgY - y);
     }
-    draggedActor = null;
+
+    this.draggedActor = null;
+  }
+
+  private int getIndex(Card card) {
+    List<? extends Card> hand = this.game.getHand(this.whoAmIPlaying);
+
+    for(int i = 0; i < hand.size(); ++i) {
+      if (hand.get(i) == card) {
+        return i;
+      }
+    }
+
+    throw new RuntimeException("Attempt to play card not found in hand.");
   }
 }
