@@ -57,6 +57,7 @@ public class EndTurnTool extends NullTool {
         // The HotStoneDrawing will receive a 'onTurnChangeTo' event
         // which will force the drawing into a 'swap player' mode,
         // showing the 'swap button'.
+
       } else if (hsf.getType() == HotStoneFigureType.SWAP_BUTTON) {
         // The 'swap player button' has been hit - as this is a pure
         // GUI state change, we will need to tell the HotStoneDrawing

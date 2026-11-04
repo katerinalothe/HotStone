@@ -143,7 +143,7 @@ public class TranscriptorHotStoneGame implements UIGame {
     }
 
     @Override
-    public Iterable<? extends Card> getHand(Player who) {
+    public List<? extends Card> getHand(Player who) {
         return game.getHand(who);
     }
 

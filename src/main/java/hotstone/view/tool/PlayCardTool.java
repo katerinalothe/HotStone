@@ -26,6 +26,7 @@ import minidraw.framework.*;
 import minidraw.standard.NullTool;
 
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 /** Almost complete implementation of PlayCardTool: a MiniDraw tool
  * to play a card.
@@ -81,9 +82,8 @@ public class PlayCardTool extends NullTool {
 
     if (isDraggingAnActor && isHittingField) {
       Card associatedCard = draggedActor.getAssociatedCard();
-      // TODO: Do the actual call instead of this fake code
-      System.out.println("TODO: Do the actual call to the domain code...");
-      Status status = Status.NOT_ENOUGH_MANA;
+      // Play card to field-index 0.
+      Status status = game.playCard(getIndex(associatedCard), 0);
       if (status == Status.OK) {
         moveCardBack = false;
       }
@@ -97,5 +97,14 @@ public class PlayCardTool extends NullTool {
       draggedActor.moveBy(orgX - x, orgY - y);
     }
     draggedActor = null;
+  }
+
+  private int getIndex(Card card) {
+      List<? extends Card> hand = game.getHand(whoAmIPlaying);
+      for (int i = 0; i < hand.size(); i++) {
+          if (hand.get(i) == card)
+              return i;
+      }
+      throw new RuntimeException("Attempt to play card not found in hand.");
   }
 }

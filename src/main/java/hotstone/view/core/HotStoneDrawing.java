@@ -313,7 +313,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
     SecureHero hero = game.getHero(playerShown);
 
-    String heroPowerText = "Power: " + hero.getPowerName() + ". " + hero.getEffectDescription();
+    String heroPowerText = hero.getPowerName();
     int effectLength = heroPowerText.length();
     Point effectPosition = new Point(GfxConstants.MY_HERO_POWER_DESCRIPTION_POSITION.x -
             effectLength * GfxConstants.HERO_APPROXIMATE_LETTER_WIDTH_PIXEL,
@@ -327,7 +327,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
     // Opponent power
     hero = game.getHero(Player.computeOpponent(playerShown));
-    TextFigure oppHeroPowerText = new TextFigure("Power: " + hero.getPowerName() + ". " + hero.getEffectDescription(),
+    TextFigure oppHeroPowerText = new TextFigure("(Other hero power text)",
             GfxConstants.OPPONENT_HERO_POWER_DESCRIPTION_POSITION,
             Color.YELLOW, GfxConstants.SMALL_FONT_SIZE);
     add(oppHeroPowerText);
@@ -466,8 +466,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onHeroUpdate(Player who) {
-    HeroFigure hero = heroMap.get(who);
-    hero.updateStats();
+    // TODO: Refresh the hero's stats
   }
 
   @Override

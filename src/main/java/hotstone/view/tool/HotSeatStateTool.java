@@ -58,23 +58,29 @@ public class HotSeatStateTool extends NullTool {
     // (All MiniDraw figures that handle HotStone graphics are
     // implementing this role interface).
     if (figureAtPosition instanceof HotStoneFigure) {
-      HotStoneFigure hsf = (HotStoneFigure) figureAtPosition;
-      // TODO: Complete this state selection
-      if (hsf.getType() == HotStoneFigureType.CARD_FIGURE) {
-        state = new PlayCardTool(editor, game, game.getPlayerInTurn());
-      } else if (hsf.getType() == HotStoneFigureType.TURN_BUTTON ||
-              hsf.getType() == HotStoneFigureType.SWAP_BUTTON) {
-        state = new EndTurnTool(editor, game);
-      } else if (hsf.getType() == HotStoneFigureType.MINION_FIGURE) {
-        // TODO: Handle moving minions -> attacks
-        state = theNullTool;
-      } else if (hsf.getType() == HotStoneFigureType.HERO_FIGURE) {
-        // TODO: Handle clicking heroes -> use power
-        state = new HeroPowerTool(editor, game);
-      } else if (hsf.getType() == HotStoneFigureType.WIN_BUTTON) {
-        // Clicking the 'won button' should do nothing!
-        state = theNullTool; // User have to close the window to restart.
-      }
+        // TODO: Complete this state selection
+        switch (((HotStoneFigure) figureAtPosition).getType()) {
+            case HotStoneFigureType.CARD_FIGURE ->
+                    state = new PlayCardTool(editor, game, game.getPlayerInTurn());
+
+            case HotStoneFigureType.TURN_BUTTON,
+                 HotStoneFigureType.SWAP_BUTTON ->
+                    state = new EndTurnTool(editor, game);
+
+            case HotStoneFigureType.MINION_FIGURE ->
+                    // TODO: Handle moving minions -> attacks
+                    state = theNullTool;
+
+            case HotStoneFigureType.HERO_FIGURE ->
+                    // TODO: Handle clicking heroes -> use power
+                    state = theNullTool;
+
+            case HotStoneFigureType.WIN_BUTTON ->
+                    state = theNullTool;
+
+            default ->
+                    state = theNullTool;
+        }
     }
     state.mouseDown(e, x, y);
   }

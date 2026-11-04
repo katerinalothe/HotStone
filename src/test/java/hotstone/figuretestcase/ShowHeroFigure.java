@@ -32,7 +32,7 @@ import minidraw.standard.NullTool;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-/** Visual test of the Figure that represents a Hero, as well as code
+/** Visual test of the Figure that represents a SecureHero, as well as code
  * (in the tool) for how to use the HotStoneFigureType to infer which
  * kind of figure you are interacting with and thus determine the
  * right cause of actions that user want.
@@ -40,7 +40,7 @@ import java.awt.event.MouseEvent;
 public class ShowHeroFigure {
   public static void main(String[] args) {
     DrawingEditor editor =
-      new MiniDrawApplication( "Showing HeroFigure, Click Hero (only!) to change stats...",
+      new MiniDrawApplication( "Showing HeroFigure, Click SecureHero (only!) to change stats...",
                                new SimpleViewFactory() );
     editor.open();
     StubHero myHero = new StubHero();
@@ -75,7 +75,7 @@ class ChangeHeroStatsTool extends NullTool {
     Figure figure = editor.drawing().findFigure(x,y);
     // Bail out fast, if there is none
     if (figure == null) {
-      System.out.println("No Hero below your (x,y) = ("
+      System.out.println("No SecureHero below your (x,y) = ("
               + x + ", " + y + ")");
       return;
     }
