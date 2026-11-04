@@ -447,6 +447,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     // Opponent cards may not have an associated actor
     // for instance if they are in the hand.
     if (actor != null) {
+
       // TODO: update the stats of the card/minion
       addMessage("TODO: update card stats");
     }

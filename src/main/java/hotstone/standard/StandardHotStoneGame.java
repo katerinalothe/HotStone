@@ -106,7 +106,11 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
     @Override
     public Player getWinner() {
-        return victoryStrategy.getWinner(this);
+        Player player = victoryStrategy.getWinner(this);
+        if (player != null) {
+            observerHandler.notifyGameWon(player);
+        }
+        return player;
     }
 
     @Override
