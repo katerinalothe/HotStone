@@ -43,12 +43,12 @@ public class TomatoSaladPowerStrategy implements PowerStrategy {
 
     @Override
     public String getName() {
-        return "";
+        return "Tomato Salad";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Adds +1 atk. to rand. minion";
     }
 
     @Override

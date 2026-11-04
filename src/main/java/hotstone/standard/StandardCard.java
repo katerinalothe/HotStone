@@ -81,7 +81,7 @@ public class StandardCard implements MutableCard {
 
     @Override
     public String getEffectDescription() {
-        return "";
+        return power.getDescription();
     }
 
     @Override

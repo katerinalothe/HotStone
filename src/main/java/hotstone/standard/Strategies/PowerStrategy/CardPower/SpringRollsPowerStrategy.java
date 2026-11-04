@@ -35,12 +35,12 @@ public class SpringRollsPowerStrategy implements PowerStrategy {
 
     @Override
     public String getName() {
-        return "";
+        return "Spring Rolls";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Destroys rand. opp. minion";
     }
 
     @Override
