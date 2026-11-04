@@ -1,9 +1,7 @@
 package hotstone.standard;
 
-import hotstone.framework.Game;
-import hotstone.framework.Hero;
-import hotstone.framework.Player;
-import hotstone.framework.Status;
+import hotstone.framework.*;
+import hotstone.standard.VariantFactories.AlphaFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,20 +9,20 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestBabyHero {
-    private Game game;
-    private BabyHero heroFindus;
+    private UIGame game;
+    private MutableHero heroFindus;
 
     @BeforeEach
     public void setUp() {
-        game = new StandardHotStoneGame();
-        heroFindus = (BabyHero) game.getHero(Player.FINDUS); // Both players are type babyHero
+        game = new StandardHotStoneGame(new AlphaFactory());
+        heroFindus = (MutableHero) game.getHero(Player.FINDUS); // Both players are type babyHero
     }
 
     @Test
     public void bothPlayersHaveHeroTypeBaby() {
         // Given both players,
         // When we check their hero types,
-        Hero heroPeddersen = game.getHero(Player.PEDDERSEN);
+        SecureHero heroPeddersen = game.getHero(Player.PEDDERSEN);
         // Then it will be type "Baby"
         assertThat(heroFindus.getType(), is("Baby"));
         assertThat(heroPeddersen.getType(), is("Baby"));
@@ -67,7 +65,7 @@ public class TestBabyHero {
         // Given a Baby hero,
         // When we check its power's effect description,
         // Then it should be "Does nothing".
-        assertThat(heroFindus.getEffectDescription(), is("Does nothing"));
+        assertThat(heroFindus.getEffectDescription(), is("Does nothing."));
     }
 
     @Test
@@ -75,7 +73,7 @@ public class TestBabyHero {
         // Given a Hero with mana 3,
         // When they use their power,
         // Then the action will execute
-        assertThat(game.usePower(Player.FINDUS), is(Status.OK));
+        assertThat(game.usePower(), is(Status.OK));
     }
 
     @Test
@@ -83,7 +81,7 @@ public class TestBabyHero {
         // Given a Baby hero, with initial mana 3,
         // When we use the power with cost 2,
         // Then Baby Hero should have 1 mana.
-        Status status = game.usePower(Player.FINDUS);
+        Status status = game.usePower();
         assertThat(heroFindus.getMana(), is(1));
         assertThat(status, is(Status.OK));
     }
@@ -94,7 +92,7 @@ public class TestBabyHero {
         // When we use the power with cost 2,
         // Then Power should not work.
         heroFindus.setMana(1); // Findus should have 1 mana
-        assertThat(game.usePower(Player.FINDUS), is(Status.NOT_ENOUGH_MANA));
+        assertThat(game.usePower(), is(Status.NOT_ENOUGH_MANA));
     }
 
     @Test
@@ -109,21 +107,21 @@ public class TestBabyHero {
     @Test
     public void shouldNotBeAbleToUsePowerMoreThanOncePerTurn() {
         // Given findus uses his hero's power,
-        game.usePower(Player.FINDUS);
+        game.usePower();
         // When he tries to use it again in the same round,
         // Then he cant.
-        assertThat(game.usePower(Player.FINDUS), is(Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND));
+        assertThat(game.usePower(), is(Status.POWER_USE_NOT_ALLOWED_TWICE_PR_ROUND));
     }
 
     @Test
     public void shouldResetPowerEveryRound() {
         // Given findus uses power in turn,
-        game.usePower(Player.FINDUS);
+        game.usePower();
         // When the round is over and it's his turn again,
         game.endTurn();
         game.endTurn();
         // Then he is allowed to use the power.
-        assertThat(game.usePower(Player.FINDUS), is(Status.OK));
+        assertThat(game.usePower(), is(Status.OK));
     }
 
 }
