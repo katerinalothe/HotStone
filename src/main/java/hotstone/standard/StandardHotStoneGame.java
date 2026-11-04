@@ -184,8 +184,10 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
             hero.hurt(GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
             return;
         }
-        hand.get(who).addFirst(getCardInDeck(who, 0));
+        MutableCard card = getCardInDeck(who, 0);
+        hand.get(who).addFirst(card);
         deck.get(who).removeCard();
+        observerHandler.notifyCardDraw(who, card);
     }
 
     @Override
@@ -195,16 +197,16 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
         if (!attackingCard.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
         attackingCard.setActive(false);
-
         hurtCard(attackingCard, defendingCard.getAttack());
         hurtCard(defendingCard, attackingCard.getAttack());
-
+        observerHandler.notifyAttackCard(getPlayerInTurn(), attackingCard, defendingCard);
         return Status.OK;
     }
 
     @Override
     public void hurtCard(MutableCard card, int amount) {
         card.setHealth(card.getHealth() - amount);
+        observerHandler.notifyCardUpdate(card);
         if (card.getHealth() <= 0) {
             removeFromField(card.getOwner(), card);
         }
@@ -212,6 +214,7 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
     private void removeFromField(Player who, MutableCard card) {
         field.get(who).remove(card);
+        observerHandler.notifyCardRemove(who, card);
     }
 
     @Override
@@ -253,9 +256,11 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
         if (hero.getMana() < card.getManaCost()) {
             return Status.NOT_ENOUGH_MANA;
         }
+        observerHandler.notifyPlayCard(getPlayerInTurn(), card, fieldIndex);
         card.usePower(this);
         addToField(who, hand.get(who).remove(handIndex), fieldIndex);
         hero.setMana(hero.getMana() - card.getManaCost());
+        observerHandler.notifyHeroUpdate(getPlayerInTurn());
         return Status.OK;
     }
 
