@@ -21,7 +21,8 @@ import hotstone.framework.UIGame;
 import hotstone.framework.Player;
 import hotstone.framework.VariantFactory;
 import hotstone.standard.StandardHotStoneGame;
-import hotstone.standard.VariantFactories.AlphaFactory;
+import hotstone.standard.Strategies.NumberGeneratorStrategy.RandomNumberGeneratorStrategy;
+import hotstone.standard.VariantFactories.*;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
 import hotstone.view.tool.HotSeatStateTool;
@@ -36,8 +37,8 @@ public class HotSeatStone {
   public static void main(String[] args) {
 
     System.out.println("=== Starting HotSeat on game variant: " + args[0] + " ===");
-    // TODO: Do some switching on args[0] to make the right game variant
-    UIGame game = new StandardHotStoneGame(new AlphaFactory());
+    VariantFactory variantFactory = getVariantFactory(args);
+    UIGame game = new StandardHotStoneGame(variantFactory);
 
     DrawingEditor editor =
             new MiniDrawApplication( "HotSeat: Variant " + args[0],
@@ -45,5 +46,44 @@ public class HotSeatStone {
                             HotStoneDrawingType.HOTSEAT_MODE) );
     editor.open();
     editor.setTool(new HotSeatStateTool(editor, game));
+  }
+
+  private static VariantFactory getVariantFactory(String[] args) {
+    if (args == null || args.length == 0) {
+      return new AlphaFactory();
+    }
+
+    VariantFactory variantFactory;
+
+    String stoneType = args[0].toLowerCase();
+
+    switch (stoneType) {
+      case "betastone":
+        variantFactory = new BetaFactory();
+        break;
+      case "deltastone":
+        variantFactory = new DeltaFactory();
+        break;
+      case "epsilonstone":
+        variantFactory = new EpsilonFactory(new RandomNumberGeneratorStrategy());
+        break;
+      case "etastone":
+        variantFactory = new EtaFactory();
+        break;
+      case "gammastone":
+        variantFactory = new GammaFactory();
+        break;
+      case "semistone":
+        variantFactory = new SemiFactory();
+        break;
+      case "zetastone":
+        variantFactory = new ZetaFactory();
+        break;
+      default:
+        variantFactory = new AlphaFactory();
+        break;
+    }
+
+    return variantFactory;
   }
 }
