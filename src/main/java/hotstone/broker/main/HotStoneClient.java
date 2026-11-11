@@ -21,8 +21,8 @@ import frds.broker.ipc.http.UriTunnelClientRequestHandler;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotstone.broker.client.GameClientProxy;
 import hotstone.broker.common.BrokerConstants;
-import hotstone.framework.Game;
 import hotstone.framework.Player;
+import hotstone.framework.UIGame;
 /* TODO: Uncomment these to get the MiniDraw library
 import minidraw.framework.DrawingEditor;
 import minidraw.framework.Factory;
@@ -48,7 +48,7 @@ public class HotStoneClient {
     Requestor requestor = new StandardJSONRequestor(clientRequestHandler);
 
     // Create the game client proxy
-    Game game = new GameClientProxy(requestor);
+    UIGame game = new GameClientProxy(requestor);
 
     // Next setup the MiniDraw HotStone UI for that game
 

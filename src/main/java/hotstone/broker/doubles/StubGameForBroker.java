@@ -28,7 +28,7 @@ import hotstone.observer.GameObserver;
  * and GameInvoker code.
  */
 
-public class StubGameForBroker implements Game {
+public class StubGameForBroker implements UIGame {
   @Override
   public int getTurnNumber() {
     return 312;

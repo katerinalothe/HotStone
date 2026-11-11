@@ -23,7 +23,7 @@ import hotstone.observer.GameObserver;
 
 /** TODO: Template/starter code for your ClientProxy of Game.
  */
-public class GameClientProxy implements Game, ClientProxy {
+public class GameClientProxy implements UIGame, ClientProxy {
   public GameClientProxy(Requestor requestor) {
   }
 

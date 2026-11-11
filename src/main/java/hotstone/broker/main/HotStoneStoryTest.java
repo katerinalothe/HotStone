@@ -21,7 +21,7 @@ import frds.broker.ipc.http.UriTunnelClientRequestHandler;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotstone.broker.client.GameClientProxy;
 import hotstone.broker.common.BrokerConstants;
-import hotstone.framework.Game;
+import hotstone.framework.UIGame;
 
 public class HotStoneStoryTest {
   public static void main(String[] args)  {
@@ -38,7 +38,7 @@ public class HotStoneStoryTest {
             false, BrokerConstants.HOTSTONE_TUNNEL_PATH);
     Requestor requestor = new StandardJSONRequestor(clientRequestHandler);
 
-    Game game = new GameClientProxy(requestor);
+    UIGame game = new GameClientProxy(requestor);
     testSimpleMethods(game);
   }
 

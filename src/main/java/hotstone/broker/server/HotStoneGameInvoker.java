@@ -17,11 +17,11 @@
 package hotstone.broker.server;
 
 import frds.broker.Invoker;
-import hotstone.framework.Game;
+import hotstone.framework.UIGame;
 
 /** TODO: Template code for solving the Broker exercises */
 public class HotStoneGameInvoker implements Invoker {
-  public HotStoneGameInvoker(Game servant) {
+  public HotStoneGameInvoker(UIGame servant) {
   }
 
   @Override
