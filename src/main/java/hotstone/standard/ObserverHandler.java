@@ -33,7 +33,7 @@ import java.util.List;
  */
 
 public class ObserverHandler {
-  private List<GameObserver> observerList = new ArrayList<>();
+  private final List<GameObserver> observerList = new ArrayList<>();
 
   public void addObserver(GameObserver observer) {
     observerList.add(observer);

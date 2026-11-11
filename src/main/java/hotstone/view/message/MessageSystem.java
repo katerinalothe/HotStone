@@ -108,7 +108,7 @@ public class MessageSystem {
   // A count down which waits a set time and then
   // removes the top message
   class CountDownTimerThread implements Runnable {
-    private int sleepInMilli;
+    private final int sleepInMilli;
 
     public CountDownTimerThread(int displayTimeMessagesMs) {
       sleepInMilli = displayTimeMessagesMs;

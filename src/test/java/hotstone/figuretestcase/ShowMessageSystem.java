@@ -38,7 +38,7 @@ public class ShowMessageSystem {
 
 class AddAMessageTool extends NullTool {
   private int count;
-  private MessageSystem messageSystem;
+  private final MessageSystem messageSystem;
 
   public AddAMessageTool(MessageSystem messageSystem) {
     this.messageSystem = messageSystem;

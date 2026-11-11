@@ -60,7 +60,7 @@ public class ShowMinionFigureUpdate {
   }
 
   private static class UpdateMinionTool extends NullTool {
-    private CardFigure aMinionFigure;
+    private final CardFigure aMinionFigure;
 
     public UpdateMinionTool(DrawingEditor editor, CardFigure aMinionFigure) {
       this.aMinionFigure = aMinionFigure;

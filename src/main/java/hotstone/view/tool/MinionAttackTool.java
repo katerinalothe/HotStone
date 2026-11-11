@@ -19,8 +19,8 @@ import java.awt.event.MouseEvent;
 
 public class MinionAttackTool extends NullTool {
 
-    private UIGame game;
-    private DrawingEditor editor;
+    private final UIGame game;
+    private final DrawingEditor editor;
     private CardFigure draggedActor;
 
     private int lastX;
@@ -137,7 +137,7 @@ public class MinionAttackTool extends NullTool {
         for (int i = 0; i < game.getFieldSize(p); i++) {
             if (game.getCardInField(p, i) == c) {
                 return i;
-            };
+            }
         }
         throw new RuntimeException("Could not find card in own field.");
     }

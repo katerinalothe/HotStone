@@ -33,13 +33,13 @@ import java.util.List;
  */
 
 public class FakeObjectGame implements UIGame {
-  private List<Card> findusHand = new ArrayList<>();
-  private MutableHero findus;
+  private final List<Card> findusHand = new ArrayList<>();
+  private final MutableHero findus;
 
-  private List<StubCard> findusField = new ArrayList<>();
-  private List<StubCard> peddersenField = new ArrayList<>();
+  private final List<StubCard> findusField = new ArrayList<>();
+  private final List<StubCard> peddersenField = new ArrayList<>();
 
-  private ObserverHandler observerHandler;
+  private final ObserverHandler observerHandler;
 
   public FakeObjectGame() {
     findusHand.add(0, new StubCard(GameConstants.UNO_CARD, Player.FINDUS, 4));

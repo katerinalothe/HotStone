@@ -63,7 +63,7 @@ public class ShowHeroFigure {
 // Stub hero has mutator methods available...
 class ChangeHeroStatsTool extends NullTool {
 
-  private DrawingEditor editor;
+  private final DrawingEditor editor;
 
   public ChangeHeroStatsTool(DrawingEditor editor) {
     this.editor = editor;

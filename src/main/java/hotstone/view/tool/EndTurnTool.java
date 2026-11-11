@@ -31,7 +31,7 @@ import java.awt.event.MouseEvent;
  * */
 public class EndTurnTool extends NullTool {
   protected final HotStoneDrawing hotStoneDrawing;
-  private UIGame game;
+  private final UIGame game;
 
   public EndTurnTool(DrawingEditor editor, UIGame game) {
     // Note - we need access to the specialized 'hotseat'
@@ -48,9 +48,8 @@ public class EndTurnTool extends NullTool {
   public void mouseUp(MouseEvent e, int x, int y) {
     // Find the button below
     Figure figureAtPosition = hotStoneDrawing.findFigure(e.getX(), e.getY());
-    if (figureAtPosition instanceof HotStoneFigure) {
-      HotStoneFigure hsf = (HotStoneFigure) figureAtPosition;
-      // Now, either 'end turn' is hit or 'swap player'
+    if (figureAtPosition instanceof HotStoneFigure hsf) {
+        // Now, either 'end turn' is hit or 'swap player'
       if (hsf.getType() == HotStoneFigureType.TURN_BUTTON) {
         // Tell the game to end the turn
         game.endTurn();

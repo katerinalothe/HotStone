@@ -45,8 +45,8 @@ public class ShowTextFigure {
 
 // A test stub tool.
 class ChangeTextTool extends NullTool {
-  private TextFigure textFigure;
-  private String[] theTexts = { "Uno", "Dos", "Tres", "Cuatro", "Cinco",
+  private final TextFigure textFigure;
+  private final String[] theTexts = { "Uno", "Dos", "Tres", "Cuatro", "Cinco",
           "Seis", "Siete"};
 
   public ChangeTextTool(TextFigure tf) {

@@ -29,9 +29,9 @@ import javax.swing.*;
  * the minidraw UI together with the domain roles.
  */
 public class HotStoneFactory implements Factory {
-  private UIGame game;
-  private Player operatingPlayer;
-  private HotStoneDrawingType uiType;
+  private final UIGame game;
+  private final Player operatingPlayer;
+  private final HotStoneDrawingType uiType;
   private HotStoneDrawing theHotStoneDrawing;
 
   /**

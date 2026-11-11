@@ -35,6 +35,7 @@ public class OperationNames {
   public static final String GAME_GET_PLAYER_IN_TURN = GAME_PREFIX + SEPARATOR + "get-player-in-turn";
   public static final String GAME_GET_DECK_SIZE = GAME_PREFIX + SEPARATOR + "get-deck-size";
   public static final String GAME_GET_TURN_NUMBER = GAME_PREFIX + SEPARATOR + "get-turn-number";
+  public static final String GAME_GET_ROUND_COUNT = GAME_PREFIX + SEPARATOR + "get-round-count";
   public static final String GAME_GET_CARD_IN_FIELD = GAME_PREFIX + SEPARATOR + "get-card-in-field";
   public static final String GAME_GET_FIELD_SIZE = GAME_PREFIX + SEPARATOR + "get-field-size";
   public static final String GAME_GET_WINNER = GAME_PREFIX + SEPARATOR + "get-winner";

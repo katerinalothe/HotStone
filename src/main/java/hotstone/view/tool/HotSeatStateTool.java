@@ -40,8 +40,8 @@ public class HotSeatStateTool extends NullTool {
   private final Tool theNullTool;
   private final Drawing model;
   private Tool state;
-  private DrawingEditor editor;
-  private UIGame game;
+  private final DrawingEditor editor;
+  private final UIGame game;
 
   public HotSeatStateTool(DrawingEditor editor, UIGame game) {
     this.editor = editor;

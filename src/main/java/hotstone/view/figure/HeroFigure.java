@@ -30,10 +30,10 @@ public class HeroFigure extends CompositeFigure implements HotStoneFigure {
   private final TextFigure manaText;
   private final TextFigure healthText;
   private final SecureHero hero;
-  private QuarterImageFigure zzzImage;
+  private final QuarterImageFigure zzzImage;
 
-  private Point Zpos;
-  private Rectangle displayBox;
+  private final Point Zpos;
+  private final Rectangle displayBox;
 
   public HeroFigure(SecureHero hero, Point position) {
     super();

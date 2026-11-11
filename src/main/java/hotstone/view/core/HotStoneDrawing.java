@@ -88,8 +88,8 @@ public class HotStoneDrawing implements Drawing, GameObserver {
   private final FigureCollection figureCollection;
 
   // Associations to game and editor
-  private UIGame game;
-  private DrawingEditor editor;
+  private final UIGame game;
+  private final DrawingEditor editor;
 
   // Internal mappings (card, cardfigure) and (hero, herofigure)
   // so any game event from the observer can be translated into
@@ -98,8 +98,8 @@ public class HotStoneDrawing implements Drawing, GameObserver {
   // (for instance in LibGDX), so it is called actorMap here.
   // DO NOT manipulate mappings directly, use the private mutator
   // methods instead!
-  private Map<Card, CardFigure> actorMap;
-  private Map<Player, HeroFigure> heroMap;
+  private final Map<Card, CardFigure> actorMap;
+  private final Map<Player, HeroFigure> heroMap;
 
   // Define which player is currently shown on the UI,
   // is it findus or peddersen that the UI represents?
@@ -114,7 +114,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
   private TextFigure opponentSummary;
 
   // The 'blue messages' system providing info about events
-  private MessageSystem messageSystem;
+  private final MessageSystem messageSystem;
 
   /** Construct a MiniDraw Drawing that manipulates its
    * internal FigureCollection in sync with the associated
@@ -254,7 +254,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
   // These are all void actions, as there is no use for
   // selecting multiple figures in a HotStone UI.
 
-  private List<Figure> theNullList = new ArrayList<>();
+  private final List<Figure> theNullList = new ArrayList<>();
   @Override
   public List<Figure> selection() { return theNullList;}
   @Override
@@ -359,7 +359,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
   }
 
   private String computeHeroSummary(Player who) {
-    String shortPlayername = who.toString().substring(0, 1)
+    String shortPlayername = who.toString().charAt(0)
             + who.toString().substring(1).toLowerCase();
     return shortPlayername + ": Hand (" + game.getHandSize(who)
             + "), Deck (" + game.getDeckSize(who) + ")";
@@ -371,7 +371,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onPlayCard(Player who, Card card, int atIndex) {
-    addMessage("" + who + " plays " + card.getName() + ".");
+    addMessage(who + " plays " + card.getName() + ".");
 
     if (card.getEffectDescription() != null && !card.getEffectDescription().isEmpty()) {
       addMessage("Effect: " + card.getEffectDescription());
@@ -415,7 +415,7 @@ public class HotStoneDrawing implements Drawing, GameObserver {
 
   @Override
   public void onAttackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
-    addMessage("" + playerAttacking
+    addMessage(playerAttacking
             + " attacks " + defendingCard.getName()
             + " with " + attackingCard.getName() + ".");
   }

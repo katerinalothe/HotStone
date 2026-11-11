@@ -24,7 +24,7 @@ import frds.broker.Invoker;
  */
 
 public class LocalMethodClientRequestHandler implements ClientRequestHandler {
-  private Invoker invoker;
+  private final Invoker invoker;
 
   public LocalMethodClientRequestHandler(Invoker invoker) {
     this.invoker = invoker;

@@ -8,9 +8,9 @@ public class StandardHero implements MutableHero {
     private int mana; // Initial mana.
     private int health;
     private boolean usedPower = false;
-    private String heroType;
-    private PowerStrategy powerStrategy;
-    private Player owner;
+    private final String heroType;
+    private final PowerStrategy powerStrategy;
+    private final Player owner;
 
     public StandardHero(
             Player owner,

@@ -9,8 +9,8 @@ public class CardSpy implements Spy, MutableCard {
     private GameAction lastAction;
     private int lastParams;
 
-    private String name;
-    private int mana;
+    private final String name;
+    private final int mana;
     private int attack;
     private int health;
 

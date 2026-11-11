@@ -4,7 +4,7 @@ import hotstone.framework.Strategies.*;
 import hotstone.standard.Strategies.HeroStrategy.EpsilonHeroStrategy;
 
 public class EpsilonFactory extends AlphaFactory {
-    private NumberGeneratorStrategy generatorStrategy;
+    private final NumberGeneratorStrategy generatorStrategy;
 
     public EpsilonFactory(NumberGeneratorStrategy generatorStrategy) {
         this.generatorStrategy = generatorStrategy;

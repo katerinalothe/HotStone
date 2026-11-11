@@ -53,8 +53,8 @@ public class ShowUpdate {
  * test case for each click that the user makes.
  */
 class TriggerGameUpdateTool extends NullTool {
-  private DrawingEditor editor;
-  private UIGame game;
+  private final DrawingEditor editor;
+  private final UIGame game;
   private int count;
 
   public TriggerGameUpdateTool(DrawingEditor editor, UIGame game) {

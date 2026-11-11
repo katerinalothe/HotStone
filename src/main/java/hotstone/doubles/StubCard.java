@@ -33,7 +33,7 @@ public class StubCard implements Card {
   private final String effDesc;
   private boolean isActive;
   private int health;
-  private Player owner;
+  private final Player owner;
   private int attack;
 
   public StubCard(String name, Player owner) {

@@ -49,7 +49,7 @@ public class ShowButtonFigure {
 
 class ChangeButtonTextTool extends NullTool {
   int count = 0;
-  private ButtonFigure buttonFigure;
+  private final ButtonFigure buttonFigure;
 
   public ChangeButtonTextTool(ButtonFigure buttonFigure) {
 

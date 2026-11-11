@@ -20,8 +20,8 @@ import java.awt.event.MouseEvent;
 public class HeroPowerTool extends NullTool{
 
     protected final HotStoneDrawing hotStoneDrawing;
-    private UIGame game;
-    private DrawingEditor editor;
+    private final UIGame game;
+    private final DrawingEditor editor;
     private HeroFigure draggedActor;
 
     public HeroPowerTool(DrawingEditor editor, UIGame game) {

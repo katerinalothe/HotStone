@@ -34,14 +34,14 @@ import java.util.List;
 
 // TODO: Finish the implementation of PlayCard tool
 public class PlayCardTool extends NullTool {
-  private DrawingEditor editor;
-  private UIGame game;
+  private final DrawingEditor editor;
+  private final UIGame game;
   private CardFigure draggedActor;
   private int lastX;
   private int lastY;
   private int orgX;
   private int orgY;
-  private Player whoAmIPlaying;
+  private final Player whoAmIPlaying;
 
   public PlayCardTool(DrawingEditor editor, UIGame game, Player whoAmIPlaying) {
     this.editor = editor;
@@ -82,7 +82,7 @@ public class PlayCardTool extends NullTool {
         moveCardBack = false;
       }
 
-      this.editor.showStatus("Draw card from hand. Result =" + String.valueOf(status));
+      this.editor.showStatus("Draw card from hand. Result =" + status);
     }
 
     if (moveCardBack) {

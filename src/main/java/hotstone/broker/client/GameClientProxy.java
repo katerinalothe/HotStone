@@ -17,26 +17,51 @@
 package hotstone.broker.client;
 
 import frds.broker.ClientProxy;
+import frds.broker.IPCException;
 import frds.broker.Requestor;
+import hotstone.broker.common.OperationNames;
 import hotstone.framework.*;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
-/** TODO: Template/starter code for your ClientProxy of Game.
- */
 public class GameClientProxy implements UIGame, ClientProxy {
-  public GameClientProxy(Requestor requestor) {
-  }
+  public static final String GAME_OBJECT_ID = "singleton";
+
+  private final Requestor requestor;
+
+  public GameClientProxy(Requestor requestor) { this.requestor = requestor;}
 
   @Override
   public int getRoundCount() {
-    return 0;
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_GET_ROUND_COUNT,
+              Integer.class);
+    } catch(IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+        throw e;
+      }
+    }
+    return -1;
   }
 
   @Override
   public Player getPlayerInTurn() {
+    try {
+    return requestor.sendRequestAndAwaitReply(
+            GAME_OBJECT_ID,
+            OperationNames.GAME_GET_PLAYER_IN_TURN,
+            String.class
+    );
+  } catch(IPCException e) {
+    if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+      throw e;
+    }
     return null;
   }
+}
 
   @Override
   public SecureHero getHero(Player who) {
@@ -45,18 +70,50 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Player getWinner() {
-    return null;
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_GET_WINNER,
+              String.class
+      );
+    } catch(IPCException e) {
+    if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+      throw e;
+    }
   }
+    return null;
+}
 
   @Override
   public int getTurnNumber() {
-    return 0;
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_GET_TURN_NUMBER,
+              Integer.class);
+    } catch(IPCException e) {
+    if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+      throw e;
+    }
   }
+    return -1;
+}
 
   @Override
   public int getDeckSize(Player who) {
-    return 0;
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_GET_DECK_SIZE,
+              Integer.class,
+              who);
+    } catch(IPCException e) {
+    if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+      throw e;
+    }
   }
+    return -1;
+}
 
   @Override
   public Card getCardInDeck(Player who, int indexInDeck) {
@@ -75,8 +132,19 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public int getHandSize(Player who) {
-    return 0;
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_GET_HAND_SIZE,
+              Integer.class,
+              who);
+    } catch(IPCException e) {
+    if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+      throw e;
+    }
   }
+    return -1;
+}
 
   @Override
   public Card getCardInField(Player who, int indexInField) {
@@ -90,36 +158,98 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public int getFieldSize(Player who) {
-    return 0;
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_GET_FIELD_SIZE,
+              Integer.class,
+              who);
+    } catch(IPCException e) {
+    if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+      throw e;
+    }
   }
+    return -1;
+}
 
   @Override
   public void endTurn() {
-
+    requestor.sendRequestAndAwaitReply(
+            GAME_OBJECT_ID,
+            OperationNames.GAME_END_OF_TURN,
+            Void.class
+    );
   }
 
   @Override
   public Status playCard(int handIndex, int fieldIndex) {
-    return null;
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_PLAY_CARD,
+              String.class,
+              handIndex,
+              fieldIndex
+      );
+    } catch(IPCException e) {
+    if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+      throw e;
+    }
   }
+    return null;
+}
 
   @Override
   public Status attackCard(int ownFieldIndex, int oppFieldIndex) {
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_ATTACK_CARD,
+              String.class,
+              ownFieldIndex,
+              oppFieldIndex
+      );
+    } catch(IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+        throw e;
+      }
+    }
     return null;
   }
 
   @Override
   public Status attackHero(int fieldIndex) {
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_ATTACK_HERO,
+              String.class,
+              fieldIndex
+      );
+    } catch(IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+        throw e;
+      }
+    }
     return null;
   }
 
   @Override
   public Status usePower() {
+    try {
+      return requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_USE_POWER,
+              String.class
+      );
+    } catch(IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+        throw e;
+      }
+    }
     return null;
   }
 
   @Override
-  public void addObserver(GameObserver observer) {
-
-  }
+  public void addObserver(GameObserver observer) {}
 }

@@ -57,7 +57,7 @@ public class CardFigure extends CompositeFigure
   // Sub figures that must be manipulated as associated
   // card changes state
   private Figure frame;
-  private Figure inactiveImage;
+  private final Figure inactiveImage;
 
   // The text labels on the card
   private TextFigure healthText;
@@ -73,7 +73,7 @@ public class CardFigure extends CompositeFigure
   // String constants are in GfxConstants ending with FRAME_IMAGE_NAME.
   // This is actually an 'inline' strategy pattern, but for simplicity
   // it is declared as an inline field that you may change-by-addition.
-  private BiFunction<HotStoneFigureType, Card, String>
+  private final BiFunction<HotStoneFigureType, Card, String>
           computeFrameImageNameStrategy =
           (type, card) -> {
             // First the card types - spell or default
@@ -299,8 +299,7 @@ public class CardFigure extends CompositeFigure
                 GfxConstants.DEFAULT_EMBLEM_TEXT_Y);
       }
       String cardName = associatedCard.getName();
-      nameText = new TextFigure(""
-              + cardName
+      nameText = new TextFigure(cardName
               .substring(0, cardName.length() > 10 ? 10 : cardName.length()),
               textPos, Color.YELLOW, GfxConstants.SMALL_FONT_SIZE);
       add(nameText);
@@ -381,7 +380,7 @@ public class CardFigure extends CompositeFigure
 
   // Definition of graphical offsets of all the graphical parts of a Card: where is
   // the mana text, the emblem, the health text, etc.
-  private static Map<CardFigurePartType, Point> cardFigurePartPositions = Map.ofEntries(
+  private static final Map<CardFigurePartType, Point> cardFigurePartPositions = Map.ofEntries(
           entry(CardFigurePartType.MANA_FIGURE, new Point(19, 18)),
           entry(CardFigurePartType.ATTACK_FIGURE, new Point(20, 188 + 22)),
           entry(CardFigurePartType.HEALTH_FIGURE, new Point(149, 190 + 22)),
@@ -389,7 +388,7 @@ public class CardFigure extends CompositeFigure
           entry(CardFigurePartType.ACTIVE_FIGURE, new Point(0, 0))); // Not used
 
   // Definition of offsets for the minion
-  private static Map<CardFigurePartType, Point> minionFigurePartPositions = Map.ofEntries(
+  private static final Map<CardFigurePartType, Point> minionFigurePartPositions = Map.ofEntries(
           entry(CardFigurePartType.MANA_FIGURE, new Point(0, 0)), // Not used
           entry(CardFigurePartType.ATTACK_FIGURE, new Point(20, 106)),
           entry(CardFigurePartType.HEALTH_FIGURE, new Point(90, 106)),
