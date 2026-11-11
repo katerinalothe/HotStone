@@ -24,7 +24,6 @@ import hotstone.broker.client.GameClientProxy;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.server.HotStoneGameInvoker;
-import hotstone.framework.Game;
 
 import hotstone.framework.UIGame;
 import org.junit.jupiter.api.BeforeEach;
