@@ -28,12 +28,12 @@ public class BakedSalmonPowerStrategy implements PowerStrategy {
 
     @Override
     public String getName() {
-        return "";
+        return "Baked Salmon";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Adds +2 atk. to rand. opp. minion";
     }
 
     @Override

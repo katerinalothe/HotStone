@@ -13,12 +13,12 @@ public class NoodleSoupPowerStrategy implements PowerStrategy {
 
     @Override
     public String getName() {
-        return "";
+        return "Noodle Soup";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Draws card";
     }
 
     @Override

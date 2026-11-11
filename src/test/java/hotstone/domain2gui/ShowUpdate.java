@@ -20,6 +20,8 @@ import hotstone.doubles.FakeObjectGame;
 import hotstone.framework.Card;
 import hotstone.framework.UIGame;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
+import hotstone.standard.VariantFactories.AlphaFactory;
 import hotstone.view.core.HotStoneDrawing;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
@@ -35,9 +37,8 @@ import java.awt.event.MouseEvent;
  */
 public class ShowUpdate {
   public static void main(String[] args) {
-    // TODO: Replace the below assignment into a stable and well
     // tested variant of HotStone
-    UIGame game = new FakeObjectGame();
+    UIGame game = new StandardHotStoneGame(new AlphaFactory());
 
     DrawingEditor editor =
       new MiniDrawApplication( "Click anywhere to progress in an update sequence...",
@@ -79,8 +80,8 @@ class TriggerGameUpdateTool extends NullTool {
         break;
       }
       case 1: {
-        editor.showStatus("Playing Findus Card # 0 in hand to field");
-        game.playCard(0, 0);
+        editor.showStatus("Playing Findus Card # 1 in hand to field");
+        game.playCard(1, 0);
         break;
       }
       case 2: {
@@ -99,12 +100,37 @@ class TriggerGameUpdateTool extends NullTool {
         // visual test program.
         break;
       }
-      case 4: {
-        // TODO: keep adding cases to this 'list' until all game mutator calls
-        // have been tested and verified that the UI responds correctly.
-        editor.showStatus("TODO: ADD SOME MORE game.doSomething(x,y,z) and develop GUI behaviour");
-        break;
-      }
+        case 4: {
+            editor.showStatus("Peddersen plays card #0 to index 0.");
+            game.playCard(0,0);
+            break;
+        }
+        case 5: {
+            editor.showStatus("Peddersen ends his turn.");
+            game.endTurn();
+            break;
+        }
+        case 6: {
+            editor.showStatus("Hack - switching UI state so Findus's UI becomes active");
+            HotStoneDrawing asHotStoneDrawing = (HotStoneDrawing) editor.drawing();
+            asHotStoneDrawing.endHotSeatState();
+            break;
+        }
+        case 7: {
+            editor.showStatus("Findus card #1 attacks Peddersen's hero.");
+            game.attackHero(0);
+            break;
+        }
+        case 8: {
+            editor.showStatus("Findus uses his power.");
+            game.usePower();
+            break;
+        }
+        case 9: {
+            editor.showStatus("Findus card #2 attacks Ped's card #0.");
+            game.attackCard(1,0);
+            break;
+        }
       default: {
         editor.showStatus("No more events in the list...");
       }

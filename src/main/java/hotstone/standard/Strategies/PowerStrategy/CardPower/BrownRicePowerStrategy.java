@@ -17,12 +17,12 @@ public class BrownRicePowerStrategy implements PowerStrategy {
 
     @Override
     public String getName() {
-        return "Brown Rice name.";
+        return "Brown Rice";
     }
 
     @Override
     public String getDescription() {
-        return "Brown Rice description.";
+        return "Deals 1 damage to opp. hero";
     }
 
     @Override

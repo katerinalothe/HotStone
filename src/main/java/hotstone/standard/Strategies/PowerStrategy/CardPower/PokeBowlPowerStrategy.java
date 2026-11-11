@@ -15,12 +15,12 @@ public class PokeBowlPowerStrategy implements PowerStrategy {
 
     @Override
     public String getName() {
-        return "";
+        return "PokeBowl";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Restore +2 health to hero";
     }
 
     @Override

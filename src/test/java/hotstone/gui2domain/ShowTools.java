@@ -19,6 +19,7 @@ package hotstone.gui2domain;
 import hotstone.doubles.FakeObjectGame;
 import hotstone.framework.UIGame;
 import hotstone.framework.Player;
+import hotstone.standard.StandardHotStoneGame;
 import hotstone.standard.VariantFactories.AlphaFactory;
 import hotstone.view.core.HotStoneDrawingType;
 import hotstone.view.core.HotStoneFactory;
@@ -36,10 +37,7 @@ import minidraw.standard.MiniDrawApplication;
  */
 public class ShowTools {
   public static void main(String[] args) {
-    // TODO: Replace the below assignment into a stable and well
-    // tested variant of HotStone, you probably want to start with
-    // a simple variant, like AlphaStone
-    UIGame game = new FakeObjectGame();
+    UIGame game = new StandardHotStoneGame(new AlphaFactory());
 
     DrawingEditor editor =
             new MiniDrawApplication( "Test-Driven Dev of Tools",

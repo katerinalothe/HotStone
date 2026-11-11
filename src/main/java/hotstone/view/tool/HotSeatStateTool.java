@@ -57,19 +57,15 @@ public class HotSeatStateTool extends NullTool {
     // Iff that figure is associated with our HotStone
     // (All MiniDraw figures that handle HotStone graphics are
     // implementing this role interface).
-    if (figureAtPosition instanceof HotStoneFigure) {
-      HotStoneFigure hsf = (HotStoneFigure) figureAtPosition;
-      // TODO: Complete this state selection
-      if (hsf.getType() == HotStoneFigureType.CARD_FIGURE) {
+    if (figureAtPosition instanceof HotStoneFigure hsf) {
+        if (hsf.getType() == HotStoneFigureType.CARD_FIGURE) {
         state = new PlayCardTool(editor, game, game.getPlayerInTurn());
       } else if (hsf.getType() == HotStoneFigureType.TURN_BUTTON ||
               hsf.getType() == HotStoneFigureType.SWAP_BUTTON) {
         state = new EndTurnTool(editor, game);
       } else if (hsf.getType() == HotStoneFigureType.MINION_FIGURE) {
-        // TODO: Handle moving minions -> attacks
-        state = theNullTool;
+        state = new MinionAttackTool(editor, game);
       } else if (hsf.getType() == HotStoneFigureType.HERO_FIGURE) {
-        // TODO: Handle clicking heroes -> use power
         state = new HeroPowerTool(editor, game);
       } else if (hsf.getType() == HotStoneFigureType.WIN_BUTTON) {
         // Clicking the 'won button' should do nothing!

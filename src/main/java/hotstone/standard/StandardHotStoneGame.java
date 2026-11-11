@@ -106,12 +106,21 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
     @Override
     public Player getWinner() {
-        return victoryStrategy.getWinner(this);
+        Player player = victoryStrategy.getWinner(this);
+        if (player != null) {
+            observerHandler.notifyGameWon(player);
+        }
+        return player;
     }
 
     @Override
     public int getTurnNumber() {
         return turnNumber;
+    }
+
+    @Override
+    public int getRoundCount() {
+        return (int) Math.floor((float) turnNumber / 2) + 1;
     }
 
     @Override
@@ -156,10 +165,16 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
     @Override
     public void endTurn() {
+        // check if winning condtition has happend
         turnNumber++;
 
         MutableHero currentHero = getHero(getPlayerInTurn());
-        currentHero.setMana(manaStrategy.calculate(getRoundCount()));
+        // Ensure Heroes start with initial mana.
+        if (getTurnNumber() < 2) {
+            currentHero.setMana(GameConstants.HERO_INITIAL_MANA);
+        } else {
+            currentHero.setMana(manaStrategy.calculate(getRoundCount()));
+        }
         currentHero.resetUsedPower();
         for(MutableCard c: getField(getPlayerInTurn())) {
             c.setActive(true);
@@ -173,6 +188,7 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
         } else drawCard();
 
         observerHandler.notifyChangeTurnTo(getPlayerInTurn());
+        getWinner();
     }
 
     @Override
@@ -184,8 +200,10 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
             hero.hurt(GameConstants.HERO_HEALTH_PENALTY_ON_EMPTY_DECK);
             return;
         }
-        hand.get(who).addFirst(getCardInDeck(who, 0));
+        MutableCard card = getCardInDeck(who, 0);
+        hand.get(who).addFirst(card);
         deck.get(who).removeCard();
+        observerHandler.notifyCardDraw(who, card);
     }
 
     @Override
@@ -195,16 +213,16 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
         if (!attackingCard.isActive()) { return Status.ATTACK_NOT_ALLOWED_FOR_NON_ACTIVE_MINION; }
         attackingCard.setActive(false);
-
         hurtCard(attackingCard, defendingCard.getAttack());
         hurtCard(defendingCard, attackingCard.getAttack());
-
+        observerHandler.notifyAttackCard(getPlayerInTurn(), attackingCard, defendingCard);
         return Status.OK;
     }
 
     @Override
     public void hurtCard(MutableCard card, int amount) {
         card.setHealth(card.getHealth() - amount);
+        observerHandler.notifyCardUpdate(card);
         if (card.getHealth() <= 0) {
             removeFromField(card.getOwner(), card);
         }
@@ -212,6 +230,7 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
 
     private void removeFromField(Player who, MutableCard card) {
         field.get(who).remove(card);
+        observerHandler.notifyCardRemove(who, card);
     }
 
     @Override
@@ -253,9 +272,11 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
         if (hero.getMana() < card.getManaCost()) {
             return Status.NOT_ENOUGH_MANA;
         }
+        observerHandler.notifyPlayCard(getPlayerInTurn(), card, fieldIndex);
         card.usePower(this);
         addToField(who, hand.get(who).remove(handIndex), fieldIndex);
         hero.setMana(hero.getMana() - card.getManaCost());
+        observerHandler.notifyHeroUpdate(getPlayerInTurn());
         return Status.OK;
     }
 
@@ -263,11 +284,6 @@ public class StandardHotStoneGame implements UIGame,MutableGame {
     public void addToField(Player who, MutableCard card, int index) {
         field.get(who).add(index, card);
         observerHandler.notifyPlayCard(who, card, index);
-    }
-
-    @Override
-    public int getRoundCount() {
-        return Math.round((float) turnNumber / 2);
     }
 
     @Override
