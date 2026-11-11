@@ -42,7 +42,7 @@ public class HotStoneStoryTest {
     testSimpleMethods(game);
   }
 
-  private void testSimpleMethods(Game game) {
+  private void testSimpleMethods(UIGame game) {
     System.out.println("=== Testing pass-by-value methods of Game ===");
     System.out.println(" --> Game turnNumber     " + game.getTurnNumber());
     System.out.println(" --> Game winner         " + game.getWinner());

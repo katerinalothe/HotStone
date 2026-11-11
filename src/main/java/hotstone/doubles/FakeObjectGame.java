@@ -61,7 +61,7 @@ public class FakeObjectGame implements UIGame {
   }
 
   @Override
-  public Iterable<? extends Card> getHand(Player who) {
+  public List<? extends Card> getHand(Player who) {
     assert who == Player.FINDUS;
     return findusHand;
   }

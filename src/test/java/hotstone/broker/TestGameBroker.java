@@ -26,6 +26,7 @@ import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.server.HotStoneGameInvoker;
 import hotstone.framework.Game;
 
+import hotstone.framework.UIGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ import static org.hamcrest.CoreMatchers.*;
  */
 public class TestGameBroker {
   // The client side's game client proxy
-  private Game gameClientProxy;
+  private UIGame gameClientProxy;
 
   @BeforeEach
   public void setup() {
@@ -50,7 +51,7 @@ public class TestGameBroker {
     // define the servant, next the invoker
 
     // Given a Servant game, here a test stub with canned output
-    Game servant = new StubGameForBroker();
+    UIGame servant = new StubGameForBroker();
     // Which is injected into the dedicated Invoker which you must
     // develop
     Invoker invoker = new HotStoneGameInvoker(servant);

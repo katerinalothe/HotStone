@@ -17,7 +17,8 @@
 package hotstone.broker.doubles;
 
 import hotstone.framework.*;
-import hotstone.observer.GameObserver;
+
+import java.util.List;
 
 /** A Test Stub for game, to make easily recognizable output
  * to assert on in the Broker test cases. Some methods have
@@ -33,23 +34,15 @@ public class StubGameForBroker implements UIGame {
   public int getTurnNumber() {
     return 312;
   }
-  @Override
-  public Player getPlayerInTurn() {
-    return Player.FINDUS;
-  }
-  @Override
-  public Player getWinner() {
-    return Player.PEDDERSEN;
-  }
-
-  @Override
-  public Hero getHero(Player who) {
-    return null;
-  }
 
   @Override
   public int getDeckSize(Player who) {
     return 0;
+  }
+
+  @Override
+  public Card getCardInDeck(Player who, int indexInDeck) {
+    return null;
   }
 
   @Override
@@ -58,8 +51,8 @@ public class StubGameForBroker implements UIGame {
   }
 
   @Override
-  public Iterable<? extends Card> getHand(Player who) {
-    return null;
+  public List<? extends Card> getHand(Player who) {
+    return List.of();
   }
 
   @Override
@@ -73,8 +66,8 @@ public class StubGameForBroker implements UIGame {
   }
 
   @Override
-  public Iterable<? extends Card> getField(Player who) {
-    return null;
+  public List<? extends Card> getField(Player who) {
+    return List.of();
   }
 
   @Override
@@ -83,31 +76,53 @@ public class StubGameForBroker implements UIGame {
   }
 
   @Override
+  public int getRoundCount() {
+    return 0;
+  }
+
+  @Override
+  public Player getPlayerInTurn() {
+    return Player.FINDUS;
+  }
+
+  @Override
+  public SecureHero getHero(Player who) {
+    return null;
+  }
+
+  @Override
+  public Player getWinner() {
+    return Player.PEDDERSEN;
+  }
+
+
+  @Override
   public void endTurn() {
+
   }
 
   @Override
-  public Status playCard(Player who, Card card, int atIndex) {
+  public Status playCard(int handIndex, int fieldIndex) {
     return null;
   }
 
   @Override
-  public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
+  public Status attackCard(int ownFieldIndex, int oppFieldIndex) {
     return null;
   }
 
   @Override
-  public Status attackHero(Player playerAttacking, Card attackingCard) {
+  public Status attackHero(int fieldIndex) {
     return null;
   }
 
   @Override
-  public Status usePower(Player who) {
+  public Status usePower() {
     return null;
   }
 
   @Override
   public void addObserver(GameObserver observer) {
-    // NOT RELEVANT FOR BROKER EXERCISES
+
   }
 }

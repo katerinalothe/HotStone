@@ -19,7 +19,8 @@ package hotstone.broker.client;
 import frds.broker.ClientProxy;
 import frds.broker.Requestor;
 import hotstone.framework.*;
-import hotstone.observer.GameObserver;
+
+import java.util.List;
 
 /** TODO: Template/starter code for your ClientProxy of Game.
  */
@@ -28,12 +29,17 @@ public class GameClientProxy implements UIGame, ClientProxy {
   }
 
   @Override
+  public int getRoundCount() {
+    return 0;
+  }
+
+  @Override
   public Player getPlayerInTurn() {
     return null;
   }
 
   @Override
-  public Hero getHero(Player who) {
+  public SecureHero getHero(Player who) {
     return null;
   }
 
@@ -53,12 +59,17 @@ public class GameClientProxy implements UIGame, ClientProxy {
   }
 
   @Override
+  public Card getCardInDeck(Player who, int indexInDeck) {
+    return null;
+  }
+
+  @Override
   public Card getCardInHand(Player who, int indexInHand) {
     return null;
   }
 
   @Override
-  public Iterable<? extends Card> getHand(Player who) {
+  public List<? extends Card> getHand(Player who) {
     return null;
   }
 
@@ -73,7 +84,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
   }
 
   @Override
-  public Iterable<? extends Card> getField(Player who) {
+  public List<? extends Card> getField(Player who) {
     return null;
   }
 
@@ -88,22 +99,22 @@ public class GameClientProxy implements UIGame, ClientProxy {
   }
 
   @Override
-  public Status playCard(Player who, Card card, int atIndex) {
+  public Status playCard(int handIndex, int fieldIndex) {
     return null;
   }
 
   @Override
-  public Status attackCard(Player playerAttacking, Card attackingCard, Card defendingCard) {
+  public Status attackCard(int ownFieldIndex, int oppFieldIndex) {
     return null;
   }
 
   @Override
-  public Status attackHero(Player playerAttacking, Card attackingCard) {
+  public Status attackHero(int fieldIndex) {
     return null;
   }
 
   @Override
-  public Status usePower(Player who) {
+  public Status usePower() {
     return null;
   }
 
