@@ -174,11 +174,17 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public void endTurn() {
-    requestor.sendRequestAndAwaitReply(
-            GAME_OBJECT_ID,
-            OperationNames.GAME_END_OF_TURN,
-            Void.class
-    );
+      try {
+          requestor.sendRequestAndAwaitReply(
+                  GAME_OBJECT_ID,
+                  OperationNames.GAME_END_OF_TURN,
+                  Void.class
+          );
+      } catch(IPCException e) {
+          if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+              throw e;
+          }
+      }
   }
 
   @Override

@@ -76,7 +76,6 @@ public class TestGameBroker {
   // TODO: TDD the 'clientproxy' and 'invoker' implementation
   // to support remote method call of getTurnNumber()
   @Test
-  @Disabled
   public void shouldHaveTurnNumber312() {
     // Given a stub game which is hard coded to
     // return 312 as turn number
