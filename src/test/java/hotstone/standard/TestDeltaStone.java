@@ -19,9 +19,9 @@ public class TestDeltaStone {
     }
 
     @Test
-    public void shouldStartTurnWith5Mana() {
+    public void shouldStartTurnWith3Mana() {
         game.endTurn();
-        assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(5));
+        assertThat(game.getHero(Player.PEDDERSEN).getMana(), is(3));
     }
 
 }

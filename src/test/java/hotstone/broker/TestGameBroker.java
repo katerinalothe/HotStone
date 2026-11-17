@@ -20,7 +20,9 @@ import frds.broker.ClientRequestHandler;
 import frds.broker.Invoker;
 import frds.broker.Requestor;
 import frds.broker.marshall.json.StandardJSONRequestor;
+import hotstone.broker.client.CardClientProxy;
 import hotstone.broker.client.GameClientProxy;
+import hotstone.broker.client.HeroClientProxy;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.server.HotStoneGameInvoker;
@@ -45,6 +47,8 @@ import static org.hamcrest.CoreMatchers.*;
 public class TestGameBroker {
   // The client side's game client proxy
   private UIGame gameClientProxy;
+  private SecureHero heroClientProxy;
+  private Card cardClientProxy;
 
   @BeforeEach
   public void setup() {
@@ -75,6 +79,11 @@ public class TestGameBroker {
     // Which is finally injected into the GameClientProxy that
     // you must develop...
     gameClientProxy = new GameClientProxy(requestor);
+
+    // Card and Hero proxies currently have a hard-coded object-ID.
+    cardClientProxy = new CardClientProxy(requestor);
+    heroClientProxy = new HeroClientProxy(requestor);
+
   }
 
   // TODO: TDD the 'clientproxy' and 'invoker' implementation
@@ -200,4 +209,27 @@ public class TestGameBroker {
             is(Status.OK)
     );
   }
+
+  @Test
+    public void shouldReturnCardManaCost1() {
+      // Given a stub card,
+      // When I request the mana cost,
+      // Then it should be 1.
+      assertThat(
+              cardClientProxy.getManaCost(),
+              is(1)
+      );
+  }
+
+  @Test
+    public void shouldReturnHeroHealth7() {
+      // Given a stub hero,
+      // When I request their health,
+      // Then it should be 7.
+      assertThat(
+              heroClientProxy.getHealth(),
+              is(7)
+      );
+  }
+
 }
