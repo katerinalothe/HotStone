@@ -66,4 +66,7 @@ public class OperationNames {
   public static final String HERO_CAN_USE_POWER = HERO_PREFIX + SEPARATOR + "can-use-power";
   public static final String HERO_GET_OWNER = HERO_PREFIX + SEPARATOR + "get-owner";
   public static final String HERO_GET_EFFECT_DESCRIPTION = HERO_PREFIX + SEPARATOR + "get-effect-description";
+  public static final String HERO_GET_POWER_NAME = HERO_PREFIX + SEPARATOR + "get-power-name";
+  public static final String HERO_GET_POWER_COST = HERO_PREFIX + SEPARATOR + "get-power-cost";
+  public static final String HERO_IS_DEFEATED = HERO_PREFIX + SEPARATOR + "is-defeated";
 }

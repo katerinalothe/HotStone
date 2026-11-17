@@ -26,7 +26,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class GameClientProxy implements UIGame, ClientProxy {
-  public static final String GAME_OBJECT_ID = "singleton";
+
+    public static final String GAME_OBJECT_ID = "singleton";
 
   private final Requestor requestor;
 
