@@ -97,29 +97,25 @@ public class StubGameForBroker implements UIGame {
 
 
   @Override
-  public void endTurn() {
-
-  }
+  public void endTurn() {}
 
   @Override
   public Status playCard(int handIndex, int fieldIndex) {
-    return null;
+    return Status.OK;
   }
 
   @Override
   public Status attackCard(int ownFieldIndex, int oppFieldIndex) {
-    return null;
+    return Status.OK;
   }
 
   @Override
   public Status attackHero(int fieldIndex) {
-    return null;
+    return Status.OK;
   }
 
   @Override
-  public Status usePower() {
-    return null;
-  }
+  public Status usePower() { return Status.OK; }
 
   @Override
   public void addObserver(GameObserver observer) {

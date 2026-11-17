@@ -26,6 +26,7 @@ import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.server.HotStoneGameInvoker;
 
 import hotstone.framework.Player;
+import hotstone.framework.Status;
 import hotstone.framework.UIGame;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -90,24 +91,111 @@ public class TestGameBroker {
     assertThat(turnNumber, is(111));
   }
 
-    @Test
-    public void shouldHaveDeckSize222() {
-        // Given a stub game,
-        // When I request the deck size of some player,
-        // Then I should receive 222.
-        assertThat(
-                gameClientProxy.getDeckSize(Player.FINDUS),
-                is(222)
-        );
-    }
+  @Test
+  public void shouldHaveDeckSize222() {
+      // Given a stub game,
+      // When I request the deck size of some player,
+      // Then I should receive 222.
+      assertThat(
+              gameClientProxy.getDeckSize(Player.FINDUS),
+              is(222)
+      );
+  }
 
-    @Test
-    public void shouldHaveHandSize333() {
-      // Hand size should be 333.
-        assertThat(
-                gameClientProxy.getHandSize(Player.FINDUS),
-                is(333)
-        );
-    }
+  @Test
+  public void shouldHaveHandSize333() {
+    // Hand size should be 333.
+      assertThat(
+              gameClientProxy.getHandSize(Player.FINDUS),
+              is(333)
+      );
+  }
 
+  @Test
+  public void shouldHaveFieldSize444() {
+    // Given a stub game hardcoded to return a field size of 444,
+    // When I request the field size for a player,
+    // Then I should receive 444
+    assertThat(
+            gameClientProxy.getFieldSize(Player.FINDUS),
+            is(444)
+    );
+  }
+
+  @Test
+  public void shouldHaveRoundCount555() {
+    // Given a stub game hardcoded to return a round count of 555,
+    // When I request the current round count,
+    // Then I should receive 555
+    assertThat(
+            gameClientProxy.getRoundCount(),
+            is(555)
+    );
+  }
+
+  @Test
+  public void shouldHavePlayerInTurnFindus() {
+    // Given a stub game hardcoded to set FINDUS as the player in turn,
+    // When I request the player in turn,
+    // Then I should receive FINDUS
+    assertThat(
+            gameClientProxy.getPlayerInTurn(),
+            is(Player.FINDUS)
+    );
+  }
+
+  @Test
+  public void shouldHaveWinnerPeddersen() {
+    // Given a stub game hardcoded for PEDDERSEN as the winner,
+    // When I request the winner,
+    // Then I should receive PEDDERSEN
+    assertThat(
+            gameClientProxy.getWinner(),
+            is(Player.PEDDERSEN)
+    );
+  }
+
+  @Test
+  public void shouldReturnOkWhenPlayingCard() {
+    // Given a stub game where playCard executions return Status.OK,
+    // When I invoke playCard,
+    // Then I should receive Status.OK
+    assertThat(
+            gameClientProxy.playCard(0, 0),
+            is(Status.OK)
+    );
+  }
+
+  @Test
+  public void shouldReturnOkWhenAttackingCard() {
+    // Given a stub game where attackCard return Status.OK,
+    // When I invoke attackCard,
+    // Then I should receive Status.OK
+    assertThat(
+            gameClientProxy.attackCard(0, 0),
+            is(Status.OK)
+    );
+  }
+
+  @Test
+  public void shouldReturnOkWhenAttackingHero() {
+    // Given a stub game where attackHero returns Status.OK,
+    // When I invoke attackHero,
+    // Then I should receive Status.OK
+    assertThat(
+            gameClientProxy.attackHero(0),
+            is(Status.OK)
+    );
+  }
+
+  @Test
+  public void shouldReturnOkWhenUsingPower() {
+    // Given a stub game where UsePower returns Status.OK,
+    // When I invoke usePower,
+    // Then I should receive Status.OK
+    assertThat(
+            gameClientProxy.usePower(),
+            is(Status.OK)
+    );
+  }
 }

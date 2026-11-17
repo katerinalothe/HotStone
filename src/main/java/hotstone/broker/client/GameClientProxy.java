@@ -53,7 +53,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
     return requestor.sendRequestAndAwaitReply(
             GAME_OBJECT_ID,
             OperationNames.GAME_GET_PLAYER_IN_TURN,
-            String.class
+            Player.class
     );
   } catch(IPCException e) {
     if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
@@ -74,7 +74,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
       return requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_GET_WINNER,
-              String.class
+              Player.class
       );
     } catch(IPCException e) {
     if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
@@ -193,7 +193,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
       return requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_PLAY_CARD,
-              String.class,
+              Status.class,
               handIndex,
               fieldIndex
       );
@@ -211,7 +211,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
       return requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_ATTACK_CARD,
-              String.class,
+              Status.class,
               ownFieldIndex,
               oppFieldIndex
       );
@@ -229,7 +229,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
       return requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_ATTACK_HERO,
-              String.class,
+              Status.class,
               fieldIndex
       );
     } catch(IPCException e) {
@@ -246,7 +246,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
       return requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_USE_POWER,
-              String.class
+              Status.class
       );
     } catch(IPCException e) {
       if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
