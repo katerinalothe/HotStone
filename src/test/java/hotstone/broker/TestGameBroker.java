@@ -86,7 +86,7 @@ public class TestGameBroker {
 
   }
 
-  // TODO: TDD the 'clientproxy' and 'invoker' implementation
+  // TODO: TDD the 'clientproxies' (game, card, hero) and 'invoker' implementation
   // to support remote method call of getTurnNumber()
   @Test
   public void shouldHaveTurnNumber111() {
