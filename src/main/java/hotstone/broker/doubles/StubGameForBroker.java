@@ -32,12 +32,12 @@ import java.util.List;
 public class StubGameForBroker implements UIGame {
   @Override
   public int getTurnNumber() {
-    return 312;
+    return 111;
   }
 
   @Override
   public int getDeckSize(Player who) {
-    return 0;
+    return 222;
   }
 
   @Override
@@ -57,7 +57,7 @@ public class StubGameForBroker implements UIGame {
 
   @Override
   public int getHandSize(Player who) {
-    return 0;
+    return 333;
   }
 
   @Override
@@ -72,12 +72,12 @@ public class StubGameForBroker implements UIGame {
 
   @Override
   public int getFieldSize(Player who) {
-    return 0;
+    return 444;
   }
 
   @Override
   public int getRoundCount() {
-    return 0;
+    return 555;
   }
 
   @Override
