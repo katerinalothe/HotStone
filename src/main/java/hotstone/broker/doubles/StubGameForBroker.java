@@ -25,10 +25,6 @@ import java.util.List;
  * already been defined.
  */
 
-/* TODO: Fill more stub behaviour for testing your GameClientProxy
- * and GameInvoker code.
- */
-
 public class StubGameForBroker implements UIGame {
   @Override
   public int getTurnNumber() {

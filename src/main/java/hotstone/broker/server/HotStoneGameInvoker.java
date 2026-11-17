@@ -23,18 +23,20 @@ import frds.broker.Invoker;
 import frds.broker.ReplyObject;
 import frds.broker.RequestObject;
 import hotstone.broker.common.OperationNames;
-import hotstone.framework.Player;
-import hotstone.framework.Status;
-import hotstone.framework.UIGame;
+import hotstone.framework.*;
 import jakarta.servlet.http.HttpServletResponse;
 
-/** TODO: Template code for solving the Broker exercises */
 public class HotStoneGameInvoker implements Invoker {
-  private final UIGame servant;
+  // blob invoker.
+  private final UIGame servantGame;
+  private final Card servantCard;
+  private final SecureHero servantHero;
   private final Gson gson;
 
-  public HotStoneGameInvoker(UIGame servant) {
-    this.servant = servant;
+  public HotStoneGameInvoker(UIGame servantGame, Card servantCard, SecureHero servantHero) {
+    this.servantGame = servantGame;
+    this.servantCard = servantCard;
+    this.servantHero = servantHero;
     gson = new Gson();
   }
 
@@ -50,7 +52,6 @@ public class HotStoneGameInvoker implements Invoker {
 
     /* As there is only one Game instance (a singleton)
        the objectId is not used for anything in our case.
-       Rewritten Nov 2024 to use Java 13 switch+yield.
      */
       // Dispatching on all known operations
       // Each dispatch follows the same algorithm
@@ -60,72 +61,156 @@ public class HotStoneGameInvoker implements Invoker {
 
     reply = switch (requestObject.getOperationName()) {
 
+      // ----------------- GAME METHODS --------------------
       case OperationNames.GAME_GET_ROUND_COUNT -> {
-        int roundCount = servant.getRoundCount();
+        int roundCount = servantGame.getRoundCount();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(roundCount));
       }
 
       case OperationNames.GAME_GET_PLAYER_IN_TURN -> {
-        Player player = servant.getPlayerInTurn();
+        Player player = servantGame.getPlayerInTurn();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(player));
       }
 
       case OperationNames.GAME_GET_WINNER -> {
-        Player winner = servant.getWinner();
+        Player winner = servantGame.getWinner();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(winner));
       }
 
       case OperationNames.GAME_GET_TURN_NUMBER -> {
-        int turnNumber = servant.getTurnNumber();
+        int turnNumber = servantGame.getTurnNumber();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(turnNumber));
       }
 
       case OperationNames.GAME_GET_DECK_SIZE -> {
         Player who = gson.fromJson(array.get(0), Player.class);
-        int deckSize = servant.getDeckSize(who);
+        int deckSize = servantGame.getDeckSize(who);
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(deckSize));
       }
 
       case OperationNames.GAME_GET_HAND_SIZE -> {
         Player who = gson.fromJson(array.get(0), Player.class);
-        int handSize = servant.getHandSize(who);
+        int handSize = servantGame.getHandSize(who);
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(handSize));
       }
 
       case OperationNames.GAME_GET_FIELD_SIZE -> {
         Player who = gson.fromJson(array.get(0), Player.class);
-        int fieldSize = servant.getFieldSize(who);
+        int fieldSize = servantGame.getFieldSize(who);
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(fieldSize));
       }
 
       case OperationNames.GAME_END_OF_TURN -> {
-        servant.endTurn();
+        servantGame.endTurn();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(null));
       }
 
       case OperationNames.GAME_PLAY_CARD -> {
         int handIndex = array.get(0).getAsInt();
         int fieldIndex = array.get(1).getAsInt();
-        Status status = servant.playCard(handIndex, fieldIndex);
+        Status status = servantGame.playCard(handIndex, fieldIndex);
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(status));
       }
 
       case OperationNames.GAME_ATTACK_CARD -> {
         int ownFieldIndex = array.get(0).getAsInt();
         int oppFieldIndex = array.get(1).getAsInt();
-        Status status = servant.attackCard(ownFieldIndex, oppFieldIndex);
+        Status status = servantGame.attackCard(ownFieldIndex, oppFieldIndex);
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(status));
       }
 
       case OperationNames.GAME_ATTACK_HERO -> {
         int fieldIndex = array.get(0).getAsInt();
-        Status status = servant.attackHero(fieldIndex);
+        Status status = servantGame.attackHero(fieldIndex);
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(status));
       }
 
       case OperationNames.GAME_USE_POWER -> {
-        Status status = servant.usePower();
+        Status status = servantGame.usePower();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(status));
+      }
+
+      // ----------------- CARD METHODS ----------------------------
+      case OperationNames.CARD_GET_NAME -> {
+        String name = servantCard.getName();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(name));
+      }
+
+      case OperationNames.CARD_GET_MANA_COST -> {
+        int manaCost = servantCard.getManaCost();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(manaCost));
+      }
+
+      case OperationNames.CARD_GET_ATTACK -> {
+        int attack = servantCard.getAttack();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(attack));
+      }
+
+      case OperationNames.CARD_GET_HEALTH -> {
+        int health = servantCard.getHealth();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(health));
+      }
+
+      case OperationNames.CARD_IS_ACTIVE -> {
+        boolean active = servantCard.isActive();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(active));
+      }
+
+      case OperationNames.CARD_GET_OWNER -> {
+        Player owner = servantCard.getOwner();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(owner));
+      }
+
+      case OperationNames.CARD_GET_EFFECT_DESCRIPTION -> {
+        String effectDescription = servantCard.getEffectDescription();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(effectDescription));
+      }
+
+      // --------------------- HERO METHODS --------------------------------------
+
+      case OperationNames.HERO_GET_MANA -> {
+        int mana = servantHero.getMana();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(mana));
+      }
+
+      case OperationNames.HERO_GET_POWER_NAME -> {
+        String powerName = servantHero.getPowerName();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(powerName));
+      }
+
+      case OperationNames.HERO_GET_POWER_COST -> {
+        int powerCost = servantHero.getPowerManaCost();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(powerCost));
+      }
+
+      case OperationNames.HERO_GET_HEALTH -> {
+        int health = servantHero.getHealth();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(health));
+      }
+
+      case OperationNames.HERO_GET_TYPE -> {
+        String type = servantHero.getType();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(type));
+      }
+
+      case OperationNames.HERO_GET_OWNER -> {
+        Player owner = servantHero.getOwner();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(owner));
+      }
+
+      case OperationNames.HERO_GET_EFFECT_DESCRIPTION -> {
+        String effectDescription = servantHero.getEffectDescription();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(effectDescription));
+      }
+
+      case OperationNames.HERO_IS_DEFEATED -> {
+        boolean isDefeated = servantHero.isDefeated();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(isDefeated));
+      }
+
+      case OperationNames.HERO_CAN_USE_POWER -> {
+        boolean canUsePower = servantHero.canUsePower();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(canUsePower));
       }
 
       default -> {

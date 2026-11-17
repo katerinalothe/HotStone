@@ -27,7 +27,6 @@ import hotstone.framework.Player;
  *
  */
 
-// TODO: This is more or less a full implementation!
 public class StubCard implements Card {
   private final String name;
   private final String effDesc;
@@ -69,9 +68,7 @@ public class StubCard implements Card {
   }
 
   @Override
-  public int getHealth() {
-    return health;
-  }
+  public int getHealth() { return health; }
 
   @Override
   public boolean isActive() {
@@ -95,7 +92,6 @@ public class StubCard implements Card {
   public void setActiveTo(boolean newValue) {
     isActive = newValue;
   }
-
 
   public void deltaHealth(int delta) {
     health += delta;

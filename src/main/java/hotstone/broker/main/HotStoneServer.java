@@ -21,6 +21,11 @@ import frds.broker.ipc.http.UriTunnelServerRequestHandler;
 import hotstone.broker.common.BrokerConstants;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
+import hotstone.doubles.StubCard;
+import hotstone.doubles.StubHero;
+import hotstone.framework.Card;
+import hotstone.framework.Player;
+import hotstone.framework.SecureHero;
 import hotstone.framework.UIGame;
 
 /** The main program running the HotStone Server,
@@ -35,10 +40,12 @@ public class HotStoneServer {
   public HotStoneServer() {
     int port = BrokerConstants.HOTSTONE_PORT;
     // Define the server side root servant
-    UIGame servant = new StubGameForBroker();
+    UIGame servantGame = new StubGameForBroker();
+    Card servantCard = new StubCard("StubCard", Player.FINDUS);
+    SecureHero servantHero = new StubHero();
 
     // Create server side implementation of Broker roles
-    Invoker invoker = new HotStoneGameInvoker(servant);
+    Invoker invoker = new HotStoneGameInvoker(servantGame,servantCard, servantHero);
     UriTunnelServerRequestHandler srh =
             new UriTunnelServerRequestHandler(invoker, port,
                     BrokerConstants.HOTSTONE_TUNNEL_PATH);

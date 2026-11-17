@@ -25,9 +25,9 @@ import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.server.HotStoneGameInvoker;
 
-import hotstone.framework.Player;
-import hotstone.framework.Status;
-import hotstone.framework.UIGame;
+import hotstone.doubles.StubCard;
+import hotstone.doubles.StubHero;
+import hotstone.framework.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -52,10 +52,12 @@ public class TestGameBroker {
     // define the servant, next the invoker
 
     // Given a Servant game, here a test stub with canned output
-    UIGame servant = new StubGameForBroker();
+    UIGame servantGame = new StubGameForBroker();
+    Card servantCard = new StubCard("StubCard", Player.FINDUS);
+    SecureHero servantHero = new StubHero();
     // Which is injected into the dedicated Invoker which you must
     // develop
-    Invoker invoker = new HotStoneGameInvoker(servant);
+    Invoker invoker = new HotStoneGameInvoker(servantGame, servantCard, servantHero);
 
     // === Next define the client side of the pattern:
     // the client request handler, the requestor, and the client proxy
