@@ -44,8 +44,8 @@ public class HotStoneStoryTest {
 
   private void testSimpleMethods(UIGame game) {
     System.out.println("=== Testing pass-by-value methods of Game ===");
+    System.out.println(" --> Game winner         " + game.getPlayerInTurn());
     System.out.println(" --> Game turnNumber     " + game.getTurnNumber());
-    System.out.println(" --> Game winner         " + game.getWinner());
     // TODO - add calls to the rest of the implemented methods
     System.out.println("=== End ===");
   }
