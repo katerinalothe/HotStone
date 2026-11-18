@@ -21,6 +21,7 @@ import frds.broker.ipc.http.UriTunnelClientRequestHandler;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotstone.broker.client.GameClientProxy;
 import hotstone.broker.common.BrokerConstants;
+import hotstone.framework.Player;
 import hotstone.framework.UIGame;
 
 public class HotStoneStoryTest {
@@ -42,11 +43,20 @@ public class HotStoneStoryTest {
     testSimpleMethods(game);
   }
 
-  private void testSimpleMethods(UIGame game) {
-    System.out.println("=== Testing pass-by-value methods of Game ===");
-    System.out.println(" --> Game turnNumber     " + game.getTurnNumber());
-    System.out.println(" --> Game winner         " + game.getWinner());
-    // TODO - add calls to the rest of the implemented methods
-    System.out.println("=== End ===");
-  }
+
+    private void testSimpleMethods(UIGame game) {
+        System.out.println("=== Testing pass-by-value methods of Game ===");
+
+        System.out.println(" --> Game turnNumber     " + game.getTurnNumber());
+        System.out.println(" --> Game roundCount     " + game.getRoundCount());
+        System.out.println(" --> Game winner         " + game.getWinner());
+        System.out.println(" --> Player in turn      " + game.getPlayerInTurn());
+
+        Player who = Player.FINDUS;
+        System.out.println(" --> " + who + " deckSize       " + game.getDeckSize(who));
+        System.out.println(" --> " + who + " handSize       " + game.getHandSize(who));
+        System.out.println(" --> " + who + " fieldSize      " + game.getFieldSize(who));
+
+        System.out.println("=== End ===");
+    }
 }
