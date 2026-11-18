@@ -21,6 +21,7 @@ import frds.broker.ipc.http.UriTunnelClientRequestHandler;
 import frds.broker.marshall.json.StandardJSONRequestor;
 import hotstone.broker.client.GameClientProxy;
 import hotstone.broker.common.BrokerConstants;
+import hotstone.framework.Player;
 import hotstone.framework.UIGame;
 
 public class HotStoneStoryTest {
@@ -44,9 +45,12 @@ public class HotStoneStoryTest {
 
   private void testSimpleMethods(UIGame game) {
     System.out.println("=== Testing pass-by-value methods of Game ===");
-    System.out.println(" --> Game winner         " + game.getPlayerInTurn());
-    System.out.println(" --> Game turnNumber     " + game.getTurnNumber());
-    // TODO - add calls to the rest of the implemented methods
+    System.out.println(" --> Player in turn:      " + game.getPlayerInTurn());
+    System.out.println(" --> Turn number:         " + game.getTurnNumber());
+    System.out.println(" --> Findus's deck size:  " + game.getDeckSize(Player.FINDUS));
+    System.out.println(" --> Findus's field size: " + game.getFieldSize(Player.FINDUS));
+    System.out.println(" --> Round count:         " + game.getRoundCount());
+    System.out.println(" --> Winner:              " + game.getWinner());
     System.out.println("=== End ===");
   }
 }
