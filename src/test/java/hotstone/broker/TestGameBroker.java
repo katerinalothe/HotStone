@@ -86,7 +86,8 @@ public class TestGameBroker {
 
   }
 
-  // TODO: TDD the 'clientproxies' (game, card, hero) and 'invoker' implementation
+  // GAME PROXY TESTS ----------------------------------------------------------
+
   // to support remote method call of getTurnNumber()
   @Test
   public void shouldHaveTurnNumber111() {
@@ -210,6 +211,8 @@ public class TestGameBroker {
     );
   }
 
+  // CARD PROXY TESTS ----------------------------------------------------------
+
   @Test
     public void shouldReturnCardManaCost1() {
       // Given a stub card,
@@ -220,6 +223,8 @@ public class TestGameBroker {
               is(1)
       );
   }
+
+  // HERO PROXY TESTS ----------------------------------------------------------
 
   @Test
     public void shouldReturnHeroHealth7() {
