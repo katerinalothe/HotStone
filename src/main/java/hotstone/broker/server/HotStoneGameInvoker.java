@@ -29,14 +29,14 @@ import jakarta.servlet.http.HttpServletResponse;
 public class HotStoneGameInvoker implements Invoker {
   // blob invoker.
   private final UIGame servantGame;
-  private final Card servantCard;
   private final SecureHero servantHero;
+  private final HotStoneNameService nameService;
   private final Gson gson;
 
-  public HotStoneGameInvoker(UIGame servantGame, Card servantCard, SecureHero servantHero) {
+  public HotStoneGameInvoker(UIGame servantGame, SecureHero servantHero, HotStoneNameService nameService) {
     this.servantGame = servantGame;
-    this.servantCard = servantCard;
     this.servantHero = servantHero;
+    this.nameService = nameService;
     gson = new Gson();
   }
 
@@ -130,38 +130,52 @@ public class HotStoneGameInvoker implements Invoker {
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(status));
       }
 
+      case OperationNames.GAME_GET_CARD_IN_DECK -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int index = gson.fromJson(array.get(1), Integer.class);
+        Card card = servantGame.getCardInDeck(who, index);
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(nameService.idFor(card)));
+      }
+
       // ----------------- CARD METHODS ----------------------------
       case OperationNames.CARD_GET_NAME -> {
+        Card servantCard = nameService.getCard(requestObject.getObjectId());
         String name = servantCard.getName();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(name));
       }
 
       case OperationNames.CARD_GET_MANA_COST -> {
+        Card servantCard = nameService.getCard(requestObject.getObjectId());
         int manaCost = servantCard.getManaCost();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(manaCost));
       }
 
       case OperationNames.CARD_GET_ATTACK -> {
+        Card servantCard = nameService.getCard(requestObject.getObjectId());
         int attack = servantCard.getAttack();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(attack));
       }
 
       case OperationNames.CARD_GET_HEALTH -> {
+        Card servantCard = nameService.getCard(requestObject.getObjectId());
         int health = servantCard.getHealth();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(health));
       }
 
       case OperationNames.CARD_IS_ACTIVE -> {
+        Card servantCard = nameService.getCard(requestObject.getObjectId());
         boolean active = servantCard.isActive();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(active));
       }
 
       case OperationNames.CARD_GET_OWNER -> {
+        Card servantCard = nameService.getCard(requestObject.getObjectId());
         Player owner = servantCard.getOwner();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(owner));
       }
 
       case OperationNames.CARD_GET_EFFECT_DESCRIPTION -> {
+        Card servantCard = nameService.getCard(requestObject.getObjectId());
         String effectDescription = servantCard.getEffectDescription();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(effectDescription));
       }

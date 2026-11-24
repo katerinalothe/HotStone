@@ -118,7 +118,21 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Card getCardInDeck(Player who, int indexInDeck) {
-    return null;
+    String objectId;
+    Card card = null;
+    try {
+      objectId = requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID,
+              OperationNames.GAME_GET_CARD_IN_DECK,
+              String.class,
+              who, indexInDeck);
+      card = new CardClientProxy(objectId, requestor);
+    } catch(IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
+        throw e;
+      }
+    }
+    return card;
   }
 
   @Override

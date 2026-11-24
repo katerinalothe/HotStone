@@ -16,6 +16,7 @@
 
 package hotstone.broker.doubles;
 
+import hotstone.doubles.StubCard;
 import hotstone.framework.*;
 
 import java.util.List;
@@ -26,6 +27,16 @@ import java.util.List;
  */
 
 public class StubGameForBroker implements UIGame {
+  private final Card deckCard;
+
+  public StubGameForBroker() {
+    this(new StubCard("StubCard", Player.FINDUS));
+  }
+
+  public StubGameForBroker(Card deckCard) {
+    this.deckCard = deckCard;
+  }
+
   @Override
   public int getTurnNumber() {
     return 111;
@@ -38,7 +49,7 @@ public class StubGameForBroker implements UIGame {
 
   @Override
   public Card getCardInDeck(Player who, int indexInDeck) {
-    return null;
+    return deckCard;
   }
 
   @Override

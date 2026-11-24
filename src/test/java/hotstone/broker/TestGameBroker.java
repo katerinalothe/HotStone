@@ -26,6 +26,7 @@ import hotstone.broker.client.HeroClientProxy;
 import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.doubles.LocalMethodClientRequestHandler;
 import hotstone.broker.server.HotStoneGameInvoker;
+import hotstone.broker.server.HotStoneNameService;
 
 import hotstone.doubles.StubCard;
 import hotstone.doubles.StubHero;
@@ -56,12 +57,14 @@ public class TestGameBroker {
     // define the servant, next the invoker
 
     // Given a Servant game, here a test stub with canned output
-    UIGame servantGame = new StubGameForBroker();
     Card servantCard = new StubCard("StubCard", Player.FINDUS);
+    UIGame servantGame = new StubGameForBroker(servantCard);
     SecureHero servantHero = new StubHero();
+    HotStoneNameService nameService = new HotStoneNameService();
+    nameService.addCard("fakeid", servantCard);
     // Which is injected into the dedicated Invoker which you must
     // develop
-    Invoker invoker = new HotStoneGameInvoker(servantGame, servantCard, servantHero);
+    Invoker invoker = new HotStoneGameInvoker(servantGame, servantHero, nameService);
 
     // === Next define the client side of the pattern:
     // the client request handler, the requestor, and the client proxy
@@ -81,8 +84,8 @@ public class TestGameBroker {
     gameClientProxy = new GameClientProxy(requestor);
 
     // Card and Hero proxies currently have a hard-coded object-ID.
-    cardClientProxy = new CardClientProxy(requestor);
-    heroClientProxy = new HeroClientProxy(requestor);
+    cardClientProxy = new CardClientProxy("fakeid", requestor);
+    heroClientProxy = new HeroClientProxy( requestor);
 
   }
 
@@ -112,6 +115,18 @@ public class TestGameBroker {
               gameClientProxy.getDeckSize(Player.FINDUS),
               is(222)
       );
+  }
+
+  @Test
+  public void shouldGetCardInDeck() {
+    // Given a stub game with stub card
+    // When we get the card in the deck
+    // Then we should receive it.
+    Card card = gameClientProxy.getCardInDeck(Player.FINDUS, 0);
+
+    assertThat(card, is(notNullValue()));
+    assertThat(card.getName(), is("StubCard"));
+    assertThat(card.getAttack(), is(1));
   }
 
   @Test
@@ -222,6 +237,11 @@ public class TestGameBroker {
               cardClientProxy.getManaCost(),
               is(1)
       );
+  }
+
+  @Test
+  public void shouldReturnStubCardName() {
+    assertThat(cardClientProxy.getName(), is("StubCard"));
   }
 
   // HERO PROXY TESTS ----------------------------------------------------------

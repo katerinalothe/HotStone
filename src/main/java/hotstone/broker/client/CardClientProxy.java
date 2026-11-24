@@ -10,11 +10,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class CardClientProxy implements Card, ClientProxy {
 
-    public static final String CARD_OBJECT_ID = "singleton";
+    public final String CARD_OBJECT_ID;
 
     private final Requestor requestor;
 
-    public CardClientProxy(Requestor requestor) { this.requestor = requestor;}
+    public CardClientProxy(String cardObjectId, Requestor requestor) {
+        CARD_OBJECT_ID = cardObjectId;
+        this.requestor = requestor;
+    }
 
     @Override
     public String getName() {
@@ -101,7 +104,7 @@ public class CardClientProxy implements Card, ClientProxy {
         try {
             return requestor.sendRequestAndAwaitReply(
                     CARD_OBJECT_ID,
-                    OperationNames.HERO_GET_OWNER,
+                    OperationNames.CARD_GET_OWNER,
                     Player.class
             );
         } catch(IPCException e) {

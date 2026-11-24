@@ -41,6 +41,7 @@ public class OperationNames {
   public static final String GAME_GET_WINNER = GAME_PREFIX + SEPARATOR + "get-winner";
   public static final String GAME_GET_FIELD = GAME_PREFIX + SEPARATOR + "get-field";
   public static final String GAME_GET_HERO = GAME_PREFIX + SEPARATOR + "get-hero";
+  public static final String GAME_GET_CARD_IN_DECK = GAME_PREFIX + SEPARATOR + "get-card-in-deck";
 
   // Game methods - mutators
   public static final String GAME_END_OF_TURN = GAME_PREFIX + SEPARATOR + "end-of-turn";
