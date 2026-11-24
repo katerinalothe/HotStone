@@ -58,13 +58,14 @@ public class TestGameBroker {
 
     // Given a Servant game, here a test stub with canned output
     Card servantCard = new StubCard("StubCard", Player.FINDUS);
-    UIGame servantGame = new StubGameForBroker(servantCard);
     SecureHero servantHero = new StubHero();
+    UIGame servantGame = new StubGameForBroker(servantCard, servantHero);
     HotStoneNameService nameService = new HotStoneNameService();
     nameService.addCard("fakeid", servantCard);
+    nameService.addHero("fakehero", servantHero);
     // Which is injected into the dedicated Invoker which you must
     // develop
-    Invoker invoker = new HotStoneGameInvoker(servantGame, servantHero, nameService);
+    Invoker invoker = new HotStoneGameInvoker(servantGame, nameService);
 
     // === Next define the client side of the pattern:
     // the client request handler, the requestor, and the client proxy
@@ -85,7 +86,7 @@ public class TestGameBroker {
 
     // Card and Hero proxies currently have a hard-coded object-ID.
     cardClientProxy = new CardClientProxy("fakeid", requestor);
-    heroClientProxy = new HeroClientProxy( requestor);
+    heroClientProxy = new HeroClientProxy("fakehero", requestor);
 
   }
 
@@ -127,6 +128,31 @@ public class TestGameBroker {
     assertThat(card, is(notNullValue()));
     assertThat(card.getName(), is("StubCard"));
     assertThat(card.getAttack(), is(1));
+  }
+
+  @Test
+  public void shouldGetCardInHand() {
+    assertThat(gameClientProxy.getCardInHand(Player.FINDUS, 0).getName(), is("StubCard"));
+  }
+
+  @Test
+  public void shouldGetHandCards() {
+    assertThat(gameClientProxy.getHand(Player.FINDUS).get(0).getName(), is("StubCard"));
+  }
+
+  @Test
+  public void shouldGetCardInField() {
+    assertThat(gameClientProxy.getCardInField(Player.FINDUS, 0).getName(), is("StubCard"));
+  }
+
+  @Test
+  public void shouldGetFieldCards() {
+    assertThat(gameClientProxy.getField(Player.FINDUS).get(0).getName(), is("StubCard"));
+  }
+
+  @Test
+  public void shouldGetHero() {
+    assertThat(gameClientProxy.getHero(Player.FINDUS).getHealth(), is(7));
   }
 
   @Test

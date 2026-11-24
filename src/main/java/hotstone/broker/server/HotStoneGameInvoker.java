@@ -29,13 +29,11 @@ import jakarta.servlet.http.HttpServletResponse;
 public class HotStoneGameInvoker implements Invoker {
   // blob invoker.
   private final UIGame servantGame;
-  private final SecureHero servantHero;
   private final HotStoneNameService nameService;
   private final Gson gson;
 
-  public HotStoneGameInvoker(UIGame servantGame, SecureHero servantHero, HotStoneNameService nameService) {
+  public HotStoneGameInvoker(UIGame servantGame, HotStoneNameService nameService) {
     this.servantGame = servantGame;
-    this.servantHero = servantHero;
     this.nameService = nameService;
     gson = new Gson();
   }
@@ -137,6 +135,38 @@ public class HotStoneGameInvoker implements Invoker {
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(nameService.idFor(card)));
       }
 
+      case OperationNames.GAME_GET_HERO -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        SecureHero hero = servantGame.getHero(who);
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(nameService.idFor(hero)));
+      }
+
+      case OperationNames.GAME_GET_CARD_IN_HAND -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int index = array.get(1).getAsInt();
+        Card card = servantGame.getCardInHand(who, index);
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(nameService.idFor(card)));
+      }
+
+      case OperationNames.GAME_GET_HAND -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        var ids = servantGame.getHand(who).stream().map(nameService::idFor).toList();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(ids));
+      }
+
+      case OperationNames.GAME_GET_CARD_IN_FIELD -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        int index = array.get(1).getAsInt();
+        Card card = servantGame.getCardInField(who, index);
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(nameService.idFor(card)));
+      }
+
+      case OperationNames.GAME_GET_FIELD -> {
+        Player who = gson.fromJson(array.get(0), Player.class);
+        var ids = servantGame.getField(who).stream().map(nameService::idFor).toList();
+        yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(ids));
+      }
+
       // ----------------- CARD METHODS ----------------------------
       case OperationNames.CARD_GET_NAME -> {
         Card servantCard = nameService.getCard(requestObject.getObjectId());
@@ -183,46 +213,55 @@ public class HotStoneGameInvoker implements Invoker {
       // --------------------- HERO METHODS --------------------------------------
 
       case OperationNames.HERO_GET_MANA -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         int mana = servantHero.getMana();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(mana));
       }
 
       case OperationNames.HERO_GET_POWER_NAME -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         String powerName = servantHero.getPowerName();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(powerName));
       }
 
       case OperationNames.HERO_GET_POWER_COST -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         int powerCost = servantHero.getPowerManaCost();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(powerCost));
       }
 
       case OperationNames.HERO_GET_HEALTH -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         int health = servantHero.getHealth();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(health));
       }
 
       case OperationNames.HERO_GET_TYPE -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         String type = servantHero.getType();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(type));
       }
 
       case OperationNames.HERO_GET_OWNER -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         Player owner = servantHero.getOwner();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(owner));
       }
 
       case OperationNames.HERO_GET_EFFECT_DESCRIPTION -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         String effectDescription = servantHero.getEffectDescription();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(effectDescription));
       }
 
       case OperationNames.HERO_IS_DEFEATED -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         boolean isDefeated = servantHero.isDefeated();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(isDefeated));
       }
 
       case OperationNames.HERO_CAN_USE_POWER -> {
+        SecureHero servantHero = nameService.getHero(requestObject.getObjectId());
         boolean canUsePower = servantHero.canUsePower();
         yield new ReplyObject(HttpServletResponse.SC_OK, gson.toJson(canUsePower));
       }

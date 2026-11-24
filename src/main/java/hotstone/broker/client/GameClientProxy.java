@@ -66,7 +66,14 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public SecureHero getHero(Player who) {
-    return null;
+    try {
+      String objectId = requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID, OperationNames.GAME_GET_HERO, String.class, who);
+      return new HeroClientProxy(objectId, requestor);
+    } catch (IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) throw e;
+      return null;
+    }
   }
 
   @Override
@@ -137,12 +144,12 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) {
-    return null;
+    return getCardReference(OperationNames.GAME_GET_CARD_IN_HAND, who, indexInHand);
   }
 
   @Override
   public List<? extends Card> getHand(Player who) {
-    return null;
+    return getCardReferences(OperationNames.GAME_GET_HAND, who);
   }
 
   @Override
@@ -163,12 +170,36 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Card getCardInField(Player who, int indexInField) {
-    return null;
+    return getCardReference(OperationNames.GAME_GET_CARD_IN_FIELD, who, indexInField);
   }
 
   @Override
   public List<? extends Card> getField(Player who) {
-    return null;
+    return getCardReferences(OperationNames.GAME_GET_FIELD, who);
+  }
+
+  private Card getCardReference(String operation, Player who, int index) {
+    try {
+      String objectId = requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID, operation, String.class, who, index);
+      return new CardClientProxy(objectId, requestor);
+    } catch (IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) throw e;
+      return null;
+    }
+  }
+
+  private List<? extends Card> getCardReferences(String operation, Player who) {
+    try {
+      List<String> objectIds = requestor.sendRequestAndAwaitReply(
+              GAME_OBJECT_ID, operation, List.class, who);
+      return objectIds.stream()
+              .map(id -> (Card) new CardClientProxy(id, requestor))
+              .toList();
+    } catch (IPCException e) {
+      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) throw e;
+      return null;
+    }
   }
 
   @Override

@@ -17,6 +17,7 @@
 package hotstone.broker.doubles;
 
 import hotstone.doubles.StubCard;
+import hotstone.doubles.StubHero;
 import hotstone.framework.*;
 
 import java.util.List;
@@ -28,13 +29,19 @@ import java.util.List;
 
 public class StubGameForBroker implements UIGame {
   private final Card deckCard;
+  private final SecureHero hero;
 
   public StubGameForBroker() {
-    this(new StubCard("StubCard", Player.FINDUS));
+    this(new StubCard("StubCard", Player.FINDUS), new StubHero());
   }
 
   public StubGameForBroker(Card deckCard) {
+    this(deckCard, new hotstone.doubles.StubHero());
+  }
+
+  public StubGameForBroker(Card deckCard, SecureHero hero) {
     this.deckCard = deckCard;
+    this.hero = hero;
   }
 
   @Override
@@ -54,12 +61,12 @@ public class StubGameForBroker implements UIGame {
 
   @Override
   public Card getCardInHand(Player who, int indexInHand) {
-    return null;
+    return deckCard;
   }
 
   @Override
   public List<? extends Card> getHand(Player who) {
-    return List.of();
+    return List.of(deckCard);
   }
 
   @Override
@@ -69,12 +76,12 @@ public class StubGameForBroker implements UIGame {
 
   @Override
   public Card getCardInField(Player who, int indexInField) {
-    return null;
+    return deckCard;
   }
 
   @Override
   public List<? extends Card> getField(Player who) {
-    return List.of();
+    return List.of(deckCard);
   }
 
   @Override
@@ -94,7 +101,7 @@ public class StubGameForBroker implements UIGame {
 
   @Override
   public SecureHero getHero(Player who) {
-    return null;
+    return hero;
   }
 
   @Override

@@ -10,11 +10,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class HeroClientProxy implements SecureHero, ClientProxy {
 
-    public static final String HERO_OBJECT_ID = "singleton";
+    public final String HERO_OBJECT_ID;
 
     private final Requestor requestor;
 
-    public HeroClientProxy(Requestor requestor) { this.requestor = requestor;}
+    public HeroClientProxy(String heroObjectId, Requestor requestor) {
+        this.HERO_OBJECT_ID = heroObjectId;
+        this.requestor = requestor;
+    }
 
     @Override
     public int getMana() {

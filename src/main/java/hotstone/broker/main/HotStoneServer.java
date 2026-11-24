@@ -41,14 +41,15 @@ public class HotStoneServer {
   public HotStoneServer() {
     int port = BrokerConstants.HOTSTONE_PORT;
     // Define the server side root servant
-    UIGame servantGame = new StubGameForBroker();
     Card servantCard = new StubCard("StubCard", Player.FINDUS);
     SecureHero servantHero = new StubHero();
+    UIGame servantGame = new StubGameForBroker(servantCard, servantHero);
 
     // Create server side implementation of Broker roles
     HotStoneNameService nameService = new HotStoneNameService();
     nameService.addCard("fakeid", servantCard);
-    Invoker invoker = new HotStoneGameInvoker(servantGame, servantHero, nameService);
+    nameService.addHero("fakehero", servantHero);
+    Invoker invoker = new HotStoneGameInvoker(servantGame, nameService);
     UriTunnelServerRequestHandler srh =
             new UriTunnelServerRequestHandler(invoker, port,
                     BrokerConstants.HOTSTONE_TUNNEL_PATH);
