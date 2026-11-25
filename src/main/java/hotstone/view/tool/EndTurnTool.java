@@ -56,6 +56,10 @@ public class EndTurnTool extends NullTool {
         // The HotStoneDrawing will receive a 'onTurnChangeTo' event
         // which will force the drawing into a 'swap player' mode,
         // showing the 'swap button'.
+        // after the request completes refresh the state, for broker.
+        hotStoneDrawing.refreshRemoteState();
+      } else if (hsf.getType() == HotStoneFigureType.OPPONENT_ACTION_BUTTON) {
+        hotStoneDrawing.refreshRemoteState();
       } else if (hsf.getType() == HotStoneFigureType.SWAP_BUTTON) {
         // The 'swap player button' has been hit - as this is a pure
         // GUI state change, we will need to tell the HotStoneDrawing

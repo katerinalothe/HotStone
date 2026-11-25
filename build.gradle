@@ -165,6 +165,7 @@ task hotstoneServer(type: JavaExec) {
 
     mainClass = 'hotstone.broker.main.HotStoneServer'
     classpath = sourceSets.main.runtimeClasspath
+    args variant
 }
 
 // The hotstone story test, manual integrationtest in Broker I delivery
@@ -178,11 +179,21 @@ task hotstoneStorytest(type: JavaExec) {
 }
 
 // The hotstone client, in Broker II delivery
-task hotstoneClient(type: JavaExec) {
+task hotstoneClient1(type: JavaExec) {
     group = 'HotStone Mandatory Exercise Distribution'
     description = 'Run HotStone client'
 
     mainClass = 'hotstone.broker.main.HotStoneClient'
     classpath = sourceSets.main.runtimeClasspath
-    args host, who
+    args host, who1
+}
+
+// The hotstone client, in Broker II delivery
+task hotstoneClient2(type: JavaExec) {
+    group = 'HotStone Mandatory Exercise Distribution'
+    description = 'Run HotStone client'
+
+    mainClass = 'hotstone.broker.main.HotStoneClient'
+    classpath = sourceSets.main.runtimeClasspath
+    args host, who2
 }

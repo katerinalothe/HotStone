@@ -61,7 +61,8 @@ public class HotSeatStateTool extends NullTool {
         if (hsf.getType() == HotStoneFigureType.CARD_FIGURE) {
         state = new PlayCardTool(editor, game, game.getPlayerInTurn());
       } else if (hsf.getType() == HotStoneFigureType.TURN_BUTTON ||
-              hsf.getType() == HotStoneFigureType.SWAP_BUTTON) {
+              hsf.getType() == HotStoneFigureType.SWAP_BUTTON ||
+              hsf.getType() == HotStoneFigureType.OPPONENT_ACTION_BUTTON) {
         state = new EndTurnTool(editor, game);
       } else if (hsf.getType() == HotStoneFigureType.MINION_FIGURE) {
         state = new MinionAttackTool(editor, game);

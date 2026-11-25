@@ -648,6 +648,12 @@ public class HotStoneDrawing implements Drawing, GameObserver {
     createAndAddFiguresForGameState();
   }
 
+  // Refresh the drawing for remote
+  public void refreshRemoteState() {
+    removeAllFigures();
+    createAndAddFiguresForGameState();
+  }
+
   /** In Opponent mode (one UI per remote player) we need
    * to remove the 'end turn' button and replace it with
    * a 'poll for remote player actions' button, when this

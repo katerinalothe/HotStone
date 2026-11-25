@@ -19,15 +19,11 @@ package hotstone.broker.main;
 import frds.broker.Invoker;
 import frds.broker.ipc.http.UriTunnelServerRequestHandler;
 import hotstone.broker.common.BrokerConstants;
-import hotstone.broker.doubles.StubGameForBroker;
 import hotstone.broker.server.HotStoneGameInvoker;
 import hotstone.broker.server.HotStoneNameService;
-import hotstone.doubles.StubCard;
-import hotstone.doubles.StubHero;
-import hotstone.framework.Card;
-import hotstone.framework.Player;
-import hotstone.framework.SecureHero;
 import hotstone.framework.UIGame;
+import hotstone.main.HotSeatStone;
+import hotstone.standard.StandardHotStoneGame;
 
 /** The main program running the HotStone Server,
  * using the FRDS.Broker library's ServerRequestHandler
@@ -35,20 +31,16 @@ import hotstone.framework.UIGame;
  */
 public class HotStoneServer {
   public static void main(String[] args) throws Exception {
-    new HotStoneServer();
+    new HotStoneServer(args);
   }
 
-  public HotStoneServer() {
+  public HotStoneServer(String[] args) {
     int port = BrokerConstants.HOTSTONE_PORT;
     // Define the server side root servant
-    Card servantCard = new StubCard("StubCard", Player.FINDUS);
-    SecureHero servantHero = new StubHero();
-    UIGame servantGame = new StubGameForBroker(servantCard, servantHero);
+    UIGame servantGame = new StandardHotStoneGame(HotSeatStone.getVariantFactory(args));
 
     // Create server side implementation of Broker roles
     HotStoneNameService nameService = new HotStoneNameService();
-    nameService.addCard("fakeid", servantCard);
-    nameService.addHero("fakehero", servantHero);
     Invoker invoker = new HotStoneGameInvoker(servantGame, nameService);
     UriTunnelServerRequestHandler srh =
             new UriTunnelServerRequestHandler(invoker, port,
@@ -60,5 +52,4 @@ public class HotStoneServer {
             + port + ") ===");
     System.out.println(" Use ctrl-c to terminate!");
   }
-
 }

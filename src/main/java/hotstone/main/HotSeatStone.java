@@ -48,7 +48,7 @@ public class HotSeatStone {
     editor.setTool(new HotSeatStateTool(editor, game));
   }
 
-  private static VariantFactory getVariantFactory(String[] args) {
+  public static VariantFactory getVariantFactory(String[] args) {
     if (args == null || args.length == 0) {
       return new AlphaFactory();
     }

@@ -23,6 +23,7 @@ import hotstone.broker.common.OperationNames;
 import hotstone.framework.*;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameClientProxy implements UIGame, ClientProxy {
@@ -30,8 +31,44 @@ public class GameClientProxy implements UIGame, ClientProxy {
   public static final String GAME_OBJECT_ID = "singleton";
 
   private final Requestor requestor;
+  private final List<GameObserver> observers = new ArrayList<>();
 
   public GameClientProxy(Requestor requestor) { this.requestor = requestor;}
+
+  private class CardProxies {
+    private List<CardClientProxy> proxies = new ArrayList<>();
+
+    public CardClientProxy getProxyFor(String objectId) {
+      for (CardClientProxy p : proxies) {
+        if (p.CARD_OBJECT_ID.equals(objectId)) {
+          return p;
+        }
+      }
+      CardClientProxy newProxy = new CardClientProxy(objectId, requestor);
+      proxies.add(newProxy);
+      return newProxy;
+    }
+
+  }
+
+  private class HeroProxies {
+    private List<HeroClientProxy> proxies = new ArrayList<>();
+
+    public HeroClientProxy getProxyFor(String objectId) {
+      for (HeroClientProxy p : proxies) {
+        if (p.HERO_OBJECT_ID.equals(objectId)) {
+          return p;
+        }
+      }
+      HeroClientProxy newProxy = new HeroClientProxy(objectId, requestor);
+      proxies.add(newProxy);
+      return newProxy;
+    }
+
+  }
+
+  private CardProxies cardProxies = new CardProxies();
+  private HeroProxies heroProxies = new HeroProxies();
 
   @Override
   public int getRoundCount() {
@@ -69,7 +106,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
     try {
       String objectId = requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID, OperationNames.GAME_GET_HERO, String.class, who);
-      return new HeroClientProxy(objectId, requestor);
+      return heroProxies.getProxyFor(objectId);
     } catch (IPCException e) {
       if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) throw e;
       return null;
@@ -125,21 +162,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Card getCardInDeck(Player who, int indexInDeck) {
-    String objectId;
-    Card card = null;
-    try {
-      objectId = requestor.sendRequestAndAwaitReply(
-              GAME_OBJECT_ID,
-              OperationNames.GAME_GET_CARD_IN_DECK,
-              String.class,
-              who, indexInDeck);
-      card = new CardClientProxy(objectId, requestor);
-    } catch(IPCException e) {
-      if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
-        throw e;
-      }
-    }
-    return card;
+    return getCardReference(OperationNames.GAME_GET_CARD_IN_DECK, who, indexInDeck);
   }
 
   @Override
@@ -182,7 +205,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
     try {
       String objectId = requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID, operation, String.class, who, index);
-      return new CardClientProxy(objectId, requestor);
+      return cardProxies.getProxyFor(objectId);
     } catch (IPCException e) {
       if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) throw e;
       return null;
@@ -194,7 +217,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
       List<String> objectIds = requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID, operation, List.class, who);
       return objectIds.stream()
-              .map(id -> (Card) new CardClientProxy(id, requestor))
+              .map(id -> cardProxies.getProxyFor(id))
               .toList();
     } catch (IPCException e) {
       if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) throw e;
@@ -226,6 +249,8 @@ public class GameClientProxy implements UIGame, ClientProxy {
                   OperationNames.GAME_END_OF_TURN,
                   Void.class
           );
+          Player nextPlayer = getPlayerInTurn();
+          observers.forEach(observer -> observer.onChangeTurnTo(nextPlayer));
       } catch(IPCException e) {
           if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
               throw e;
@@ -235,14 +260,20 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Status playCard(int handIndex, int fieldIndex) {
+    Player player = getPlayerInTurn();
+    Card card = getCardInHand(player, handIndex);
     try {
-      return requestor.sendRequestAndAwaitReply(
+      Status status = requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_PLAY_CARD,
               Status.class,
               handIndex,
               fieldIndex
       );
+      if (status == Status.OK) {
+        observers.forEach(observer -> observer.onPlayCard(player, card, fieldIndex));
+      }
+      return status;
     } catch(IPCException e) {
     if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
       throw e;
@@ -253,14 +284,21 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Status attackCard(int ownFieldIndex, int oppFieldIndex) {
+    Player player = getPlayerInTurn();
+    Card attackingCard = getCardInField(player, ownFieldIndex);
+    Card defendingCard = getCardInField(Player.computeOpponent(player), oppFieldIndex);
     try {
-      return requestor.sendRequestAndAwaitReply(
+      Status status = requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_ATTACK_CARD,
               Status.class,
               ownFieldIndex,
               oppFieldIndex
       );
+      if (status == Status.OK) {
+        observers.forEach(observer -> observer.onAttackCard(player, attackingCard, defendingCard));
+      }
+      return status;
     } catch(IPCException e) {
       if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
         throw e;
@@ -271,13 +309,19 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Status attackHero(int fieldIndex) {
+    Player player = getPlayerInTurn();
+    Card attackingCard = getCardInField(player, fieldIndex);
     try {
-      return requestor.sendRequestAndAwaitReply(
+      Status status = requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_ATTACK_HERO,
               Status.class,
               fieldIndex
       );
+      if (status == Status.OK) {
+        observers.forEach(observer -> observer.onAttackHero(player, attackingCard));
+      }
+      return status;
     } catch(IPCException e) {
       if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
         throw e;
@@ -288,12 +332,17 @@ public class GameClientProxy implements UIGame, ClientProxy {
 
   @Override
   public Status usePower() {
+    Player player = getPlayerInTurn();
     try {
-      return requestor.sendRequestAndAwaitReply(
+      Status status = requestor.sendRequestAndAwaitReply(
               GAME_OBJECT_ID,
               OperationNames.GAME_USE_POWER,
               Status.class
       );
+      if (status == Status.OK) {
+        observers.forEach(observer -> observer.onUsePower(player));
+      }
+      return status;
     } catch(IPCException e) {
       if (e.getStatusCode() != HttpServletResponse.SC_NOT_FOUND) {
         throw e;
@@ -303,5 +352,7 @@ public class GameClientProxy implements UIGame, ClientProxy {
   }
 
   @Override
-  public void addObserver(GameObserver observer) {}
+  public void addObserver(GameObserver observer) {
+    observers.add(observer);
+  }
 }

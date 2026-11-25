@@ -28,11 +28,6 @@ import hotstone.view.core.HotStoneFactory;
 import hotstone.view.tool.HotSeatStateTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
-/* TODO: Uncomment these to get the MiniDraw library
-import minidraw.framework.DrawingEditor;
-import minidraw.framework.Factory;
-import minidraw.standard.MiniDrawApplication;
-*/
 
 public class HotStoneClient {
   public static void main(String[] args) {
